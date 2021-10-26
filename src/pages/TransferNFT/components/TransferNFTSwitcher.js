@@ -28,9 +28,6 @@ import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import closeBl from '../../../assets/img/icons/closeBl.svg';
 import wroSeImg from '../../../assets/img/logos/wroSeImg.png';
 import FromToArrow from '../../../assets/img/icons/FromToArrow.svg';
-
-
-import CardWrap from "../../../UIElemnts/CardWrap";
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import {Link, NavLink} from "react-router-dom";
