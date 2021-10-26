@@ -27,6 +27,8 @@ import checkmarkicon from "../../../assets/images/checkmark.svg";
 import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import closeBl from '../../../assets/img/icons/closeBl.svg';
 import wroSeImg from '../../../assets/img/logos/wroSeImg.png';
+import FromToArrow from '../../../assets/img/icons/FromToArrow.svg';
+
 
 import CardWrap from "../../../UIElemnts/CardWrap";
 import SelectItem from "../../../UIElemnts/SelectItem";
@@ -204,145 +206,55 @@ const toggleCheckMark = (index) => {
 
     return (
         <Fragment>
+
             <div className="crossChainTab">
+
                 <div className="tabTitle">
                   <h3>Select Chain and NFT</h3>
                 </div>
-                <div className="crosChainSelect">
-                  <div className="chainFrom">Form</div>
-                  <div className="chainSelect">
-                    <SelectItem >
+                <div className="crosChainSelectBox">
+                  <div className="crosChainSelect">
+                    <div className="chainFrom">Form</div>
+                    <div className="chainSelect">
+                      <SelectItem >
                         <Dropdown
-                            placeholder='Select option'
-                            fluid
-                            selection
-                            options={fromTranBridge}
+                          placeholder='Select Chain'
+                          fluid
+                          selection
+                          options={fromTranBridge}
                         />
-                    </SelectItem>
-                  </div>
-                </div>
-
-                <div className="storeNtfs">
-                  <h5>Stored NFTs</h5>
-                    <p><Image src={fing} fluid/> Connect the wallet to display your NFTs</p>
-                  <ul className="nftsStoreList">
-                    <li>
-                      <span className="ftsStoreimg"><Image src={ftsStoreimg} fluid/></span>
-                      <span className="ftsStoreLine"></span>
-                    </li>
-                    <li>
-                      <span className="ftsStoreimg"><Image src={ftsStoreimg} fluid/></span>
-                      <span className="ftsStoreLine"></span>
-                    </li>
-                    <li>
-                      <span className="ftsStoreimg"><Image src={ftsStoreimg} fluid/></span>
-                      <span className="ftsStoreLine"></span>
-                    </li>
-                    <li>
-                      <span className="ftsStoreimg"><Image src={ftsStoreimg} fluid/></span>
-                      <span className="ftsStoreLine"></span>
-                    </li>
-                    <li>
-                      <span className="ftsStoreimg"><Image src={ftsStoreimg} fluid/></span>
-                      <span className="ftsStoreLine"></span>
-                    </li>
-                  </ul>
-                  
-                </div>
-
-                  <div className="steepBtn">
-                    <Link to="#link" className="bBlueBtn">
-                        Connect Wallet
-                    </Link>
-                  </div>
-                  <ul className="steepLines">
-                    <li className="stpLi stpLi1 active"> </li>
-                    <li className="stpLi stpLi2"> </li>
-                    <li className="stpLi stpLi3"> </li>
-                  </ul>
-            </div>
-
-            <div className="crossChainTab ">
-                <div className="tabTitle">
-                  <h3>Select Chain and NFT</h3>
-                  <span class="backSteep" id=""><Image src={arrow_back} fluid/></span>
-                </div>
-                <div className="crosChainSelect">
-                  <div className="chainFrom">Form</div>
-                  <div className="chainSelect">
-                    <SelectItem >
-                        <Dropdown
-                            placeholder='Select option'
-                            fluid
-                            selection
-                            options={fromTranBridge}
-                        />
-                    </SelectItem>
-                  </div>
-                </div>
-                <div className="storeNtfs">
-                  <h5>Stored NFTs</h5>
-                    <p><Image src={fing} fluid/> Connect the wallet to display your NFTs</p>
-                  
-                      <ul class="nftsStoreList loaded">
-                        <li>
-                          <span class="ftsStoreimg"><Image src={selectnft_1} fluid/></span>
-                          <span class="ftsStoreName">Treasure...</span>
-                        </li>
-                        <li class="active">
-                          <span class="ftsStoreimg"><Image src={selectnft_2} fluid/></span>
-                          <span class="ftsStoreName">Treasure...</span>
-                        </li>
-                        <li>
-                          <span class="ftsStoreimg"><Image src={selectnft_3} fluid/></span>
-                          <span class="ftsStoreName">DyingFlo...</span>
-                        </li>
-                        <li>
-                          <span class="ftsStoreimg"><Image src={selectnft_4} fluid/></span>
-                          <span class="ftsStoreName">NY</span>
-                        </li>
-                        <li>
-                          <span class="ftsStoreimg"><Image src={selectnft_5} fluid/></span>
-                          <span class="ftsStoreName">Valentin...</span>
-                        </li>
-                      </ul>
-
-                    <div className="user_list_items">
-                {users.allUsers.map((user, index) => (
-                    <div key={index} onClick={() => toggleCheck(index)}>
-                        <div
-                            className={`nftsStoreList loaded`}
-                        >
-                          <li>
-                          <span class="ftsStoreimg"><Image src={user.userAvatar} fluid/></span>
-                          <button className="infoBtn"> i</button>
-                          <span class="ftsStoreName">{user.userText}...</span>
-                          {toggleCheckMark(index) && (
-                                <div >
-                                    <Image src={checkmarkicon} fluid/>
-                                </div>
-                            )}
-                        </li>
-                            
-                        </div>
-                        
+                      </SelectItem>
                     </div>
-                ))}
-            </div>
-
+                  </div>
+            <span className="fromToArrow"> <Image src={FromToArrow}/></span>
+                  <div className="crosChainSelect">
+                    <div className="chainFrom">To</div>
+                    <div className="chainSelect">
+                      <SelectItem >
+                        <Dropdown
+                          placeholder='Select Chain'
+                          fluid
+                          selection
+                          options={fromTranBridge}
+                        />
+                      </SelectItem>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="storeNtfs">
+                  <h5>Stored NFTs</h5>
+                  <p><Image src={fing} fluid/> Connect the wallet to display your NFTs</p>
                   <div className="steepBtn">
                     <Link to="#link" className="bBlueBtn">
                         Connect Wallet
                     </Link>
                   </div>
-                  <ul className="steepLines">
-                    <li className="stpLi stpLi1 active"> </li>
-                    <li className="stpLi stpLi2"> </li>
-                    <li className="stpLi stpLi3"> </li>
-                  </ul>
+                </div>
+
             </div>
-            
+
+
         </Fragment>
 
     );
