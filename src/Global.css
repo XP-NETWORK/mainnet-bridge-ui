@@ -268,6 +268,10 @@ body{
     font-size: 14px;
     background: #F1F4F8;
     color: #040D27;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 126%;
+
 }
 
 h1, h2, h3, h4, h5 {
@@ -1237,6 +1241,145 @@ li.sinStoreNtf.active .storeText {
 .storeNtfs.selecNftsBox {
     padding-bottom: 0;
     margin-bottom: 6px;
+}
+
+.tabTitle.arrowTitle {
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.arrowTitle h3 {
+    margin: 0;
+}
+
+.backBtn {
+    position: absolute;
+    left: 35px;
+}
+
+.nftSelected img {
+    display: block;
+    max-width: 120px;
+    margin: 0 auto;
+}
+
+.nftSelected {
+    margin-bottom: 8px;
+}
+
+.nftDetail ul li {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+}
+
+.nftDetail ul {
+    margin-bottom: 10px;
+}
+
+.viewNft {
+    font-size: 12px;
+    line-height: 126%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #F3F5FF;
+    border-radius: 6px;
+    padding: 6px 8px;
+}
+
+.nftDetail {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EEEFF6;
+    margin-bottom: 8px;
+}
+
+.destiTitle {
+    display: flex;
+    justify-content: space-between;
+    contain: content;
+    margin-bottom: 8px;
+}
+
+.destiAddress {
+    background: #F7F8FD;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 8px;
+}
+
+.nftSelect {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 9px rgba(55, 63, 92, 0.12);
+    border-radius: 46px;
+    padding: 4px 13px 4px 4px;
+    display: flex;
+    align-items: center;
+}
+
+.nftSelect img {
+    display: block;
+    margin-right: 6px;
+}
+
+.inpDestiAdd input {
+    background: #FFFFFF;
+    border: 1px solid #E3E5EE;
+    box-sizing: border-box;
+    border-radius: 6px;
+    display: block;
+    width: 100%;
+    color: #6C6F7B;
+    padding: 12px;
+    height: 56px;
+}
+
+.feesArea {
+    padding-top: 8px;
+    border-top: 1px solid #EEEFF6;
+    text-align: center;
+}
+
+.feesTitle {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.approveRequ {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+.approveRequ a {
+    position: absolute;
+    margin-left: 20px;
+}
+
+.sendNFTBox .steepBtn {
+    margin-top: 11px;
+}
+
+.grayBtn {
+    background: #F9F9FB;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 126%;
+    letter-spacing: 0.03em;
+    color: rgba(4, 13, 39, 0.5);
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.sendNFTBox .grayBtn {
+    margin-top: 6px;
 }
 
 @media (max-width: 576px) {

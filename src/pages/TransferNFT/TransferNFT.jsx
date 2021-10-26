@@ -5,7 +5,7 @@ import CardWrap from "../../UIElemnts/CardWrap";
 import AccUser from "../../assets/images/users/accuser.png";
 import Styles from "./TransferNFT.module.css";
 import TransferNFTStorage from './components/TransferNFTStorage';
-
+import TransferNFTSend from './components/TransferNFTSend';
 const TransferNFT = () => {
     const [show, setShow] = useState(false);
 
@@ -17,6 +17,7 @@ const TransferNFT = () => {
         <Container>
             <TransferNFTSwitcher/>
             <TransferNFTStorage/>
+            <TransferNFTSend/>
         </Container>
     );
 };
