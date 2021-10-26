@@ -1,15 +1,15 @@
 /*Fonts*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:ital,wght@0,700;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /*font-family: 'Inter', sans-serif;*/
 /*font-family: 'Work Sans', sans-serif;*/
 
 html, body {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Work Sans', sans-serif !important;
+   font-family: 'Inter', sans-serif;
 }
 
 .navbarBorder {
@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5 {
     background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     color: #062077;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     opacity: 0;
     visibility: hidden;
@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5 {
 
 .title {
     text-align: center;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 700;
     color: #040D27;
 }
@@ -150,7 +150,7 @@ h1, h2, h3, h4, h5 {
     border: 2px solid transparent;
     outline: none;
     transition: 300ms ease-in-out background-color, border, color;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', sans-serif;
 }
 
 .btnBrand--primary {
@@ -415,7 +415,7 @@ section.crossChainSec {
     display: flex;
     justify-content: space-between;
     position: relative;
-    z-index: 1;
+    z-index: 11;
 }
 
 .ui.dropdown>.text, .visible.menu .item {
@@ -453,10 +453,9 @@ section.crossChainSec {
 .storeNtfs {
     margin-top: 16px;
     background: #F9F9FB;
-    border: 1px solid #DEE1EA;
-    box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 15px;
+    background: linear-gradient(0deg, #F7F8FD, #F7F8FD), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%), #FCFCFE;
 }
 
 .storeNtfs h5 {
@@ -469,12 +468,20 @@ section.crossChainSec {
     line-height: 126%;
 }
 
+.viewSto {
+    margin-left: auto;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 126%;
+    display: flex;
+    align-items: center;
+    color: #3D63F3;
+}
+
 .storeNtfs> p {
     font-size: 12px;
     line-height: 160%;
-    display: flex;
-    align-items: center;
-    color: rgb(4 13 39 / 70%);
+    color: #040D27;
     margin-bottom: 11px;
     display: flex;
     align-items: center;
@@ -545,6 +552,10 @@ ul.nftsStoreList li.active .ftsStoreName {
     color: #FFFFFF;
     padding: 14px 10px;
     text-align: center;
+}
+
+.bBlueBtn:hover {
+    color: #000;
 }
 
 .steepLines {
@@ -656,26 +667,6 @@ ul.ms-options {
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
     border-radius: 5px;
     border: 0 !important;
-}
-
-/* width */
-ul.ms-options::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-ul.ms-options::-webkit-scrollbar-track {
-  background: #3e64ed4d; 
-}
- 
-/* Handle */
-ul.ms-options::-webkit-scrollbar-thumb {
-  background: #3E64ED; 
-}
-
-/* Handle on hover */
-ul.ms-options::-webkit-scrollbar-thumb:hover {
-  background: #3E64ED; 
 }
 
 .ms-dd .ms-list-option {
@@ -810,7 +801,7 @@ ul.ms-options::-webkit-scrollbar-thumb:hover {
     background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     color: #062077;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     opacity: 0;
     visibility: hidden;
@@ -1108,7 +1099,7 @@ ul.ms-options::-webkit-scrollbar-thumb:hover {
     background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     color: #062077;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     opacity: 0;
     visibility: hidden;
@@ -1149,6 +1140,103 @@ ul.ms-options::-webkit-scrollbar-thumb:hover {
 
 .headerright {
     display: flex;
+}
+
+.sinStoreNtf {
+    position: relative;
+    width: 33.333%;
+    z-index: 1;
+    border-radius: 5px;
+    padding: 5px 5px 9px 5px;
+    margin-bottom: 8px;
+}
+
+.storeNtfList {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 240px;
+    overflow: auto;
+    margin: 0 -15px;
+    padding: 0 8px 0 10px;
+}
+
+.storeNtfList::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+.ui.selection.active.dropdown .menu::-webkit-scrollbar{
+  width: 5px !important;
+}
+
+/* Track */
+.ui.selection.active.dropdown .menu::-webkit-scrollbar-track,
+.storeNtfList::-webkit-scrollbar-track {
+  background: transparent !important; 
+}
+ 
+/* Handle */
+.ui.selection.active.dropdown .menu::-webkit-scrollbar-thumb,
+.storeNtfList::-webkit-scrollbar-thumb {
+  background: #DADEEE !important; 
+}
+
+/* Handle on hover */
+.ui.selection.active.dropdown .menu::-webkit-scrollbar-thumb:hover,
+.storeNtfList::-webkit-scrollbar-thumb:hover {
+  background: #DADEEE !important; 
+}
+
+.storeImg img {
+    display: block;
+    width: 100%;
+}
+
+span.checkNft {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    display: none;
+}
+
+.storeTop {
+    position: relative;
+}
+
+.storeText {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 147%;
+    margin-top: 5px;
+    color: #000;
+    opacity: 0.7;
+}
+
+li.sinStoreNtf.active {
+    background: #E7E9F2;
+}
+
+li.sinStoreNtf.active span.checkNft {
+    display: block;
+}
+
+.inf {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: none;
+}
+
+li.sinStoreNtf.active .inf {
+    /* display: flex; */
+}
+
+li.sinStoreNtf.active .storeText {
+    opacity: 1;
+}
+
+.storeNtfs.selecNftsBox {
+    padding-bottom: 0;
+    margin-bottom: 6px;
 }
 
 @media (max-width: 576px) {

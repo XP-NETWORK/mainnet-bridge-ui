@@ -28,6 +28,13 @@ import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import closeBl from '../../../assets/img/icons/closeBl.svg';
 import wroSeImg from '../../../assets/img/logos/wroSeImg.png';
 import FromToArrow from '../../../assets/img/icons/FromToArrow.svg';
+import CheckCircle from '../../../assets/img/icons/check-circle-filled.svg';
+import Inf from '../../../assets/img/icons/inf.svg';
+
+import NtfList_1 from '../../../assets/img/NtfList/NtfList_1.png';
+import NtfList_2 from '../../../assets/img/NtfList/NtfList_2.png';
+import NtfList_3 from '../../../assets/img/NtfList/NtfList_3.png';
+
 
 
 
@@ -35,7 +42,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import {Link, NavLink} from "react-router-dom";
 
-const TransferNFTSwitcher = () => {
+const TransferNFTStorage = () => {
     const switchHandler = (e) => {
         e.preventDefault();
         console.log("It Works!!");
@@ -226,7 +233,7 @@ const toggleCheckMark = (index) => {
                       </SelectItem>
                     </div>
                   </div>
-            <span className="fromToArrow"> <Image src={FromToArrow}/></span>
+                     <span className="fromToArrow"> <Image src={FromToArrow}/></span>
                   <div className="crosChainSelect">
                     <div className="chainFrom">To</div>
                     <div className="chainSelect">
@@ -242,14 +249,105 @@ const toggleCheckMark = (index) => {
                   </div>
                 </div>
 
-                <div className="storeNtfs">
-                  <h5>Stored NFTs</h5>
-                  <p><Image src={fing} fluid/> Connect the wallet to display your NFTs</p>
-                  <div className="steepBtn">
+                <div className="storeNtfs selecNftsBox">
+                    <h5>Stored NFTs <Link to="#link" className="viewSto">View All </Link></h5>
+                    <ul className="storeNtfList">
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_1} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf active">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_2} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_3} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_1} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_2} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_3} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_1} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_2} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                        <li className="sinStoreNtf">
+                            <div className="storeTop">
+                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <div className="storeImg">
+                                    <Image src={NtfList_3} />
+                                </div>
+                                <span className="checkNft"><Image src={CheckCircle} /></span>
+                            </div>
+                            <p className="storeText">Treasur.dpsl91</p>
+                        </li>
+                    </ul>
+                </div>
+                <div className="steepBtn">
                     <Link to="#link" className="bBlueBtn">
                         Connect Wallet
                     </Link>
-                  </div>
                 </div>
 
             </div>
@@ -260,4 +358,4 @@ const toggleCheckMark = (index) => {
     );
 };
 
-export default TransferNFTSwitcher;
+export default TransferNFTStorage;
