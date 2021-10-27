@@ -2,15 +2,11 @@ import React, {Fragment,useState} from 'react';
 import {Image} from "react-bootstrap";
 import selectnft_5 from '../../../assets/img/selectnft/selectnft_5.png';
 
-
 import InfG from '../../../assets/img/icons/InfG.svg';
 import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import RightBlue from '../../../assets/img/icons/tri_ang_right_blue.svg';
 import NftSelec from '../../../assets/img/NtfList/NtfList_4.png';
 import BSC from '../../../assets/img/nftIcons/bsc.svg';
-
-
-
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
@@ -50,8 +46,7 @@ const TransferNFTSend = () => {
                         <span>Fees</span>
                         <span>0 XPNET</span>
                     </div>
-                
-                <p className="approveRequ">
+                    <p className="approveRequ">
                     XP.network requires approval 
                     <Link to="#link" className="infMark">
                         <span className="infBox">

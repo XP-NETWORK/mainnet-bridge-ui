@@ -365,7 +365,7 @@ section.crossChainSec {
     min-height: 338px;
     display: flex;
     flex-direction: column;
-    margin-top: 65px;
+    margin-bottom: 60px;
 }
 
 .crosChainSelectBox .crosChainSelect .ui.active.selection.dropdown {
@@ -1163,7 +1163,7 @@ ul.ms-options {
     margin: 0 -15px;
     padding: 0 8px 0 10px;
 }
-
+.nftDetCont::-webkit-scrollbar,
 .storeNtfList::-webkit-scrollbar {
   width: 3px !important;
 }
@@ -1173,18 +1173,21 @@ ul.ms-options {
 }
 
 /* Track */
+.nftDetCont::-webkit-scrollbar-track,
 .ui.selection.active.dropdown .menu::-webkit-scrollbar-track,
 .storeNtfList::-webkit-scrollbar-track {
   background: transparent !important; 
 }
  
 /* Handle */
+.nftDetCont::-webkit-scrollbar-thumb,
 .ui.selection.active.dropdown .menu::-webkit-scrollbar-thumb,
 .storeNtfList::-webkit-scrollbar-thumb {
   background: #DADEEE !important; 
 }
 
 /* Handle on hover */
+.nftDetCont::-webkit-scrollbar-thumb:hover,
 .ui.selection.active.dropdown .menu::-webkit-scrollbar-thumb:hover,
 .storeNtfList::-webkit-scrollbar-thumb:hover {
   background: #DADEEE !important; 
@@ -1213,6 +1216,12 @@ span.checkNft {
     margin-top: 5px;
     color: #000;
     opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 li.sinStoreNtf.active {
@@ -1231,7 +1240,11 @@ li.sinStoreNtf.active span.checkNft {
 }
 
 li.sinStoreNtf.active .inf {
-    /* display: flex; */
+    display: flex;
+}
+
+.inf img {
+    width: 16px;
 }
 
 li.sinStoreNtf.active .storeText {
@@ -1398,6 +1411,7 @@ span.CloseModal {
     right: 35px;
     top: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .selsectBridge {
@@ -1416,6 +1430,10 @@ span.CloseModal {
     padding: 17px 16px;
     cursor: pointer;
     margin-bottom: 8px;
+}
+
+.selsectBridge li a {
+    display: contents;
 }
 
 .imgw {
@@ -1535,6 +1553,159 @@ span.CloseModal {
     margin: 0 0 0 5px !important;
 }
 
+.switchModeBtn {
+    margin: 0 35px;
+    flex: 0 0 56px;
+    max-width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 14px rgba(34, 23, 79, 0.15);
+}
+
+.connectBridge .modal-dialog {
+    max-width: 463px !important;
+}
+
+.connectBridge .modal-content {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.nftDetModal .modal-dialog {
+    max-width: 712px !important;
+}
+
+.nftDetModal .modal-content {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.nftDetModal .crossChainTab.sendNFTBox {
+    max-width: 684px;
+}
+
+.nftDetContBox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nftDetImg {
+    width: 55%;
+}
+
+.nftDetImg img {
+    display: block;
+    max-width: 100%;
+}
+
+.nftDetCont {
+    width: 45%;
+    padding: 0 20px;
+    max-height: 332px;
+    overflow: auto;
+}
+
+.label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #040D27;
+    margin-bottom: 9px;
+}
+
+.details {
+    background: #F7F8FD;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 126%;
+    color: #040D27;
+    padding: 12px;
+}
+
+.nftDetContList {
+    margin-bottom: 12px;
+}
+
+.nftName .details {
+    line-height: 20px;
+}
+
+.warningModal .tabTitle.arrowTitle {
+    margin-top: -6px;
+    margin-right: -39px;
+    margin-left: -39px;
+    border-bottom: 1px solid #E0E8F4;
+}
+
+.warModaCont {
+    text-align: center;
+    margin-bottom: 19px;
+}
+
+.warModaCont img {
+    display: block;
+    margin: 22px auto 20px auto;
+    width: 87px;
+}
+
+.warModaCont h3 {
+    margin: 0 0 12px 0;
+}
+
+.warModaCont p {
+    font-size: 16px;
+    line-height: 160%;
+    color: rgba(4, 13, 39, 0.7);
+}
+
+.nftSelectCont {
+    max-width: 282px;
+    margin: 0 auto;
+}
+
+.BlueLineBtn {
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 126%;
+    letter-spacing: 0.03em;
+    color: #3E64ED;
+    padding: 13px 10px;
+    text-align: center;
+    border: 1px solid #3E64ED;
+}
+
+.steepBtn .BlueLineBtn {
+    margin-top: 10px;
+}
+
+.BlueLineBtn:hover {
+    background: #3E64ED;
+    color: #fff;
+}
+
+.modal .crossChainTab {
+    border-radius: 10px !important;
+}
+
+.nftlistSelectContainer .sinStoreNtf {
+    width: 14.2857%;
+}
+
+.nftlistSelectContainer .storeNtfList {
+    max-height: 360px;
+}
+
 @media (max-width: 576px) {
     .userItem {
         flex: 0 0 calc(50% - 10px);
@@ -1559,20 +1730,6 @@ span.CloseModal {
 }
 
 
-.switchModeBtn {
-    margin: 0 35px;
-    flex: 0 0 56px;
-    max-width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    outline: none;
-    box-shadow: 0 2px 14px rgba(34, 23, 79, 0.15);
-}
 
 @media (min-width: 320px) and (max-width: 991.98px) {
     .switchModeBtn {

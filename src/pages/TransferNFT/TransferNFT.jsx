@@ -8,6 +8,10 @@ import TransferNFTStorage from './components/TransferNFTStorage';
 import TransferNFTSend from './components/TransferNFTSend';
 import TransferNFTModal from './components/TransferNFTModal';
 import TransferNFTSuccess from './components/TransferNFTSuccess';
+import TransferNFTModalNftDetails from './components/TransferNFTModalNftDetail';
+import TransferNFTModalWarning from './components/TransferNFTModalWarning';
+import TransferNFTModalSelectNft from './components/TransferNFTModalSelectNft';
+import TransferNFTModalNftSelecNftList from './components/TransferNFTModalNftSelecNftList';
 const TransferNFT = () => {
     const [show, setShow] = useState(false);
 
@@ -17,11 +21,16 @@ const TransferNFT = () => {
 
     return (
         <Container className="mainContainer">
+            <TransferNFTModalNftSelecNftList />
+            <TransferNFTModalSelectNft />
+            <TransferNFTModalWarning />
             <TransferNFTModal/>
             <TransferNFTSwitcher/>
             <TransferNFTStorage/>
             <TransferNFTSend/>
-            <TransferNFTSuccess/>
+            <TransferNFTSuccess />
+            <TransferNFTModalNftDetails />
+            
         </Container>
     );
 };

@@ -1,5 +1,5 @@
 import React, {Fragment,useState} from 'react';
-import {Image} from "react-bootstrap";
+import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import xpNetIco from '../../../assets/images/XpNet.svg';
 import enrollIco from '../../../assets/images/enroll.svg';
 import userAvatar from '../../../assets/images/userAvatar.svg';
@@ -35,19 +35,18 @@ import NtfList_1 from '../../../assets/img/NtfList/NtfList_1.png';
 import NtfList_2 from '../../../assets/img/NtfList/NtfList_2.png';
 import NtfList_3 from '../../../assets/img/NtfList/NtfList_3.png';
 
-
-
+import TransferNFTModalNftDetails from './TransferNFTModalNftDetail';
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import {Link, NavLink} from "react-router-dom";
 
 const TransferNFTStorage = () => {
+
     const switchHandler = (e) => {
         e.preventDefault();
         console.log("It Works!!");
     }
-
 
     const fromTranBridge= [
         {
@@ -196,6 +195,7 @@ const TransferNFTStorage = () => {
           userText: "Treasurkdhni"
       },
   ]
+
   const [users, setUsers] = useState({
     activeMark: null,
     allUsers: usersObject

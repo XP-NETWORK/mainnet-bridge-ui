@@ -11,11 +11,15 @@ import Trezor from '../../../assets/img/icons/trezor.svg';
 import WalletConnect from '../../../assets/img/icons/WalletConnect.svg';
 import WalletConnect2 from '../../../assets/img/icons/WalletConnect2.svg';
 
+import Warn from '../../../assets/img/warningsvg.png';
+
+import NftDetImg from '../../../assets/img/NftDetImg.png';
+
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import { Link, NavLink } from "react-router-dom";
 
-const TransferNFTModal = () => {
+const TransferNFTModalSelectNft = () => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -28,21 +32,25 @@ const TransferNFTModal = () => {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
-                className="connectBridge"
+                className="connectBridge nftSelectModal"
             >
                 <Modal.Body>
                 <div className="crossChainTab sendNFTBox">
                     <div className="tabTitle arrowTitle">
                         <span className="CloseModal" onClick={handleClose}><Image src={Close} /></span>
-                        <h3><Image src={ConnectBridge} /> Connect Bridge</h3>
+                        <h3>Meka #3241</h3>
                     </div>
-                    <ul className="selsectBridge">
-                        <li className="active" onClick={handleClose}><Link to="#"> <span className="imgw"><Image src={Ledger} /></span> Ledger </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={MetaMask} /> MetaMask </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={Trezor} /> Trezor </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={WalletConnect} /> WalletConnect </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={WalletConnect2} /> WalletConnect </Link></li>
-                    </ul>
+                    <div className="nftSelectCont">
+                        <Image src={NftDetImg} fluid />
+                        <div className="steepBtn">
+                            <Link to="#link" className="bBlueBtn">
+                                Select this NFT
+                            </Link>
+                            <Link to="#link" className="BlueLineBtn" onClick={handleClose}>
+                                View Details
+                            </Link>
+                        </div>
+                    </div>
                 </div>
                 </Modal.Body>
 
@@ -51,4 +59,4 @@ const TransferNFTModal = () => {
     );
 
 };
-export default TransferNFTModal;
+export default TransferNFTModalSelectNft;
