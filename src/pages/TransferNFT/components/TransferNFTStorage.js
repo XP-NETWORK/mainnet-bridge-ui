@@ -29,7 +29,7 @@ import closeBl from '../../../assets/img/icons/closeBl.svg';
 import wroSeImg from '../../../assets/img/logos/wroSeImg.png';
 import FromToArrow from '../../../assets/img/icons/FromToArrow.svg';
 import CheckCircle from '../../../assets/img/icons/check-circle-filled.svg';
-import Inf from '../../../assets/img/icons/inf.svg';
+import Inf from '../../../assets/img/icons/inf.png';
 
 import NtfList_1 from '../../../assets/img/NtfList/NtfList_1.png';
 import NtfList_2 from '../../../assets/img/NtfList/NtfList_2.png';

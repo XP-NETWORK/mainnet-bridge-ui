@@ -20,18 +20,19 @@ const TransferNFT = () => {
 
 
     return (
-        <Container className="mainContainer">
-            <TransferNFTModalNftSelecNftList />
-            <TransferNFTModalSelectNft />
-            <TransferNFTModalWarning />
-            <TransferNFTModal/>
-            <TransferNFTSwitcher/>
-            <TransferNFTStorage/>
-            <TransferNFTSend/>
-            <TransferNFTSuccess />
-            <TransferNFTModalNftDetails />
-            
-        </Container>
+        <div className="wraper">
+            <Container className="mainContainer">
+                <TransferNFTSwitcher/>
+                <TransferNFTStorage/>
+                <TransferNFTSend/>
+                <TransferNFTSuccess />
+                <TransferNFTModalNftDetails />
+                <TransferNFTModalNftSelecNftList />
+                <TransferNFTModalSelectNft />
+                <TransferNFTModalWarning />
+                <TransferNFTModal />
+            </Container>
+        </div>
     );
 };
 

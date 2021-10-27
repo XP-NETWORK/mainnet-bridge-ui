@@ -23,6 +23,9 @@ const TransferNFTModal = () => {
 
     return (
         <>
+            <Button variant="primary" onClick={handleShow}>
+                Connect Bridge
+            </Button>
             <Modal
                 show={show}
                 onHide={handleClose}

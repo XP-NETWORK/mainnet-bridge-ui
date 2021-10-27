@@ -26,6 +26,9 @@ const TransferNFTModalWarning = () => {
 
     return (
         <>
+            <Button variant="primary" onClick={handleShow}>
+                Warning
+            </Button>
             <Modal
                 show={show}
                 onHide={handleClose}

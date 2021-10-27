@@ -25,7 +25,9 @@ const TransferNFTModalNftDetails = () => {
 
     return (
         <>
-            
+            <Button variant="primary" onClick={handleShow}>
+                NFT Details
+            </Button>
             <Modal
                 show={show}
                 onHide={handleClose}

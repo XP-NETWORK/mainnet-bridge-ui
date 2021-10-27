@@ -32,7 +32,10 @@ const TransferNFTModalNftSelecNftList = () => {
 
     return (
         <>
-            
+
+            <Button variant="primary" onClick={handleShow}>
+                Select NFT
+            </Button>
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -138,33 +141,6 @@ const TransferNFTModalNftSelecNftList = () => {
                                     </div>
                                     <p className="storeText">Treasur.dpsl91</p>
                                 </li>
-                                <li className="sinStoreNtf active">
-                                    <div className="storeTop">
-                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
-                                        <div className="storeImg">
-                                            <Image src={NtfList_2} />
-                                        </div>
-                                    </div>
-                                    <p className="storeText">Treasur.dpsl91</p>
-                                </li>
-                                <li className="sinStoreNtf">
-                                    <div className="storeTop">
-                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
-                                        <div className="storeImg">
-                                            <Image src={NtfList_3} />
-                                        </div>
-                                    </div>
-                                    <p className="storeText">Treasur.dpsl91</p>
-                                </li>
-                                <li className="sinStoreNtf">
-                                    <div className="storeTop">
-                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
-                                        <div className="storeImg">
-                                            <Image src={NtfList_1} />
-                                        </div>
-                                    </div>
-                                    <p className="storeText">Treasur.dpsl91</p>
-                                </li>
                                 <li className="sinStoreNtf">
                                     <div className="storeTop">
                                         <Link to="#link" className="inf"><Image src={Inf} /></Link>
@@ -219,7 +195,34 @@ const TransferNFTModalNftSelecNftList = () => {
                                     </div>
                                     <p className="storeText">Treasur.dpsl91</p>
                                 </li>
-                                <li className="sinStoreNtf active">
+                                <li className="sinStoreNtf">
+                                    <div className="storeTop">
+                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                        <div className="storeImg">
+                                            <Image src={NtfList_2} />
+                                        </div>
+                                    </div>
+                                    <p className="storeText">Treasur.dpsl91</p>
+                                </li>
+                                <li className="sinStoreNtf">
+                                    <div className="storeTop">
+                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                        <div className="storeImg">
+                                            <Image src={NtfList_3} />
+                                        </div>
+                                    </div>
+                                    <p className="storeText">Treasur.dpsl91</p>
+                                </li>
+                                <li className="sinStoreNtf">
+                                    <div className="storeTop">
+                                        <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                        <div className="storeImg">
+                                            <Image src={NtfList_1} />
+                                        </div>
+                                    </div>
+                                    <p className="storeText">Treasur.dpsl91</p>
+                                </li>
+                                <li className="sinStoreNtf">
                                     <div className="storeTop">
                                         <Link to="#link" className="inf"><Image src={Inf} /></Link>
                                         <div className="storeImg">

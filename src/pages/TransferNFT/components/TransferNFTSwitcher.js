@@ -226,7 +226,7 @@ const toggleCheckMark = (index) => {
                       </SelectItem>
                     </div>
                   </div>
-            <span className="fromToArrow"> <Image src={FromToArrow}/></span>
+                    <span className="fromToArrow"> <Image src={FromToArrow}/></span>
                   <div className="crosChainSelect">
                     <div className="chainFrom">To</div>
                     <div className="chainSelect">

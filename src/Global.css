@@ -119,6 +119,7 @@ h1, h2, h3, h4, h5 {
 .App {
     background: url('./assets/images/mainBg.svg') center center/cover no-repeat;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 .title {
@@ -1716,6 +1717,9 @@ span.CloseModal {
         margin: 1.5rem 0;
     }
 
+    .modal-dialog {
+        margin: 0 auto !important;
+    }
 
     .userItem img{
         width: 100%;
@@ -1748,3 +1752,100 @@ span.CloseModal {
         margin: 0 10px!important;
     }
 }
+
+@media (max-width: 767px) {
+
+
+    .headerConent {
+        flex-direction: column;
+    }
+
+    .headerLeft {
+        margin-bottom: 14px;
+    }
+
+    .headerright {
+        margin: 0 auto;
+    }
+
+    .crosChainSelectBox {
+        flex-direction: column;
+    }
+
+    .crosChainSelect {
+        width: 100%;
+    }
+
+    span.fromToArrow {
+        position: unset;
+        transform: translate(0) rotate(90deg);
+        margin: -6px auto -6px auto;
+    }
+
+    .crossChainTab {
+        padding: 6px 32px 32px;
+    }
+
+    .sinStoreNtf {
+        width: 50%;
+    }
+
+    .storeNtfList {
+        max-height: 300px;
+    }
+
+    .nftDetModal .modal-dialog {
+        max-width: 575px !important;
+    }
+
+    .nftlistSelectContainer .sinStoreNtf {
+        width: 33.333%;
+    }
+
+    .nftSelectModal .crossChainTab {
+        padding: 6px 20px 37px;
+    }
+
+    .nftSelectModal .tabTitle.arrowTitle {
+        max-width: 281px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 7px 5px;
+        justify-content: flex-start;
+    }
+
+    .nftSelectModal .tabTitle.arrowTitle h3 {
+        justify-content: flex-start;
+    }
+
+    .nftSelectModal .tabTitle.arrowTitle span.CloseModal {
+        right: 0;
+    }
+
+    .warningModal .tabTitle.arrowTitle {
+        margin-right: -32px;
+        margin-left: -32px;
+    }
+
+    .nftDetContBox> div {
+        width: 100%;
+    }
+
+    .nftDetModal .crossChainTab {
+        padding: 6px 20px 20px;
+    }
+
+    .nftDetImg {
+        margin-bottom: 12px;
+    }
+
+    .nftDetCont {
+        padding: 0;
+    }
+
+    .mainContainer .crossChainTab {
+        padding: 6px 20px 20px;
+    }
+
+
+}/* @media (max-width: 767px)  */
