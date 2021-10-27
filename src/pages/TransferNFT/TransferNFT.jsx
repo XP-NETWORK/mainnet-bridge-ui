@@ -7,6 +7,7 @@ import Styles from "./TransferNFT.module.css";
 import TransferNFTStorage from './components/TransferNFTStorage';
 import TransferNFTSend from './components/TransferNFTSend';
 import TransferNFTModal from './components/TransferNFTModal';
+import TransferNFTSuccess from './components/TransferNFTSuccess';
 const TransferNFT = () => {
     const [show, setShow] = useState(false);
 
@@ -16,10 +17,11 @@ const TransferNFT = () => {
 
     return (
         <Container className="mainContainer">
-            <TransferNFTModal />
+            <TransferNFTModal/>
             <TransferNFTSwitcher/>
             <TransferNFTStorage/>
             <TransferNFTSend/>
+            <TransferNFTSuccess/>
         </Container>
     );
 };

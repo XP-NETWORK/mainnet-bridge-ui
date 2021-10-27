@@ -1486,6 +1486,55 @@ span.CloseModal {
     visibility: visible;
 }
 
+.img24 {
+    width: 24px;
+}
+
+.successTagList ul {
+    margin: 0;
+    padding: 0;
+}
+
+.successTagList {
+    border-bottom: 1px solid #EEEFF6;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+}
+
+.successTagList ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    margin-bottom: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 126%;
+    color: #040D27;
+}
+
+.succTagName, .succTagStat {
+    display: flex;
+    align-items: center;
+}
+
+.succTagStat img {
+    display: block;
+    margin-right: 5px;
+}
+
+.successTagList:last-child {
+    border: 0;
+}
+
+.successTagListBox {
+    padding-bottom: 5px;
+}
+
+.ml5 {
+    margin: 0 0 0 5px !important;
+}
+
 @media (max-width: 576px) {
     .userItem {
         flex: 0 0 calc(50% - 10px);
