@@ -6,6 +6,7 @@ import AccUser from "../../assets/images/users/accuser.png";
 import Styles from "./TransferNFT.module.css";
 import TransferNFTStorage from './components/TransferNFTStorage';
 import TransferNFTSend from './components/TransferNFTSend';
+import TransferNFTModal from './components/TransferNFTModal';
 const TransferNFT = () => {
     const [show, setShow] = useState(false);
 
@@ -14,7 +15,8 @@ const TransferNFT = () => {
 
 
     return (
-        <Container>
+        <Container className="mainContainer">
+            <TransferNFTModal />
             <TransferNFTSwitcher/>
             <TransferNFTStorage/>
             <TransferNFTSend/>

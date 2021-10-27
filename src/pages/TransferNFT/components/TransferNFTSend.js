@@ -51,7 +51,15 @@ const TransferNFTSend = () => {
                         <span>0 XPNET</span>
                     </div>
                 
-                <p className="approveRequ">XP.network requires approval <Link to="#link" ><Image src={InfG} /> </Link></p>
+                <p className="approveRequ">
+                    XP.network requires approval 
+                    <Link to="#link" className="infMark">
+                        <span className="infBox">
+                            We'd like to make sure you really want to send the NFT and pay the associated fees.
+                        </span>
+                        <Image src={InfG} /> 
+                    </Link>
+                </p>
                 </div>
                 <div className="steepBtn">
                     <Link to="#link" className="bBlueBtn">
