@@ -1707,6 +1707,20 @@ span.CloseModal {
     max-height: 360px;
 }
 
+.approved {
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 126%;
+    letter-spacing: 0.03em;
+    color: #3E64ED;
+    padding: 14px 10px;
+    text-align: center;
+    display: none;
+}
+
 @media (max-width: 576px) {
     .userItem {
         flex: 0 0 calc(50% - 10px);

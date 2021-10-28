@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import selectnft_5 from '../../../assets/img/selectnft/selectnft_5.png';
-
+import RedCircle from '../../../assets/img/redCircle.svg';
 import Close from '../../../assets/img/icons/closeBl.svg';
 import ConnectBridge from '../../../assets/img/icons/ConnectBridge.svg';
 

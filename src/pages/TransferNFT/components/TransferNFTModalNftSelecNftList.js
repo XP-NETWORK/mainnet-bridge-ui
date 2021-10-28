@@ -26,15 +26,15 @@ import { Link, NavLink } from "react-router-dom";
 
 const TransferNFTModalNftSelecNftList = () => {
 
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
         <>
 
-            <Button variant="primary" onClick={handleShow}>
-                Select NFT
+            <Button variant="primary" className="viewSto"  onClick={handleShow}>
+            View All
             </Button>
             <Modal
                 show={show}

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Navbar, Container, Nav, Image} from 'react-bootstrap';
+import React, { Fragment, useState } from 'react';
+import {Navbar, Container, Nav, Image , Modal, Button, Header, Title, Body} from 'react-bootstrap';
 import Logo from '../assets/img/logo.svg';
 import RedCircle from '../assets/img/redCircle.svg';
 import GreenDot from '../assets/img/walletSvg.png';
@@ -13,6 +13,7 @@ const NavBar = () => {
   const wallet = account ? account : ''
   const walletString = wallet ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}` : ''
     return (
+      <>
     <header className="siteHeader" id="headerArea">
         <div className="container">
           <div className="headerConent">
@@ -38,6 +39,8 @@ const NavBar = () => {
           </div>
         </div>
       </header>
+      
+      </>
     );
 };
 
