@@ -26,9 +26,9 @@ const TransferNFTModalWarning = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Warning
-            </Button>
+            <Link to="#link" className="bBlueBtn" variant="primary" onClick={handleShow}>
+            Connect Wallet
+            </Link>
             <Modal
                 show={show}
                 onHide={handleClose}

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import selectnft_5 from '../../../assets/img/selectnft/selectnft_5.png';
-
+import RedCircle from '../../../assets/img/redCircle.svg';
 import Close from '../../../assets/img/icons/closeBl.svg';
 import ConnectBridge from '../../../assets/img/icons/ConnectBridge.svg';
 
@@ -17,15 +17,15 @@ import { Link, NavLink } from "react-router-dom";
 
 const TransferNFTModal = () => {
 
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow_top = () => setShow(true);
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Connect Bridge
-            </Button>
+            <Link to="#link" className="linkNoConne" onClick={handleShow_top}>
+                <Image src={RedCircle} fluid /> Wallet not connected
+              </Link>
             <Modal
                 show={show}
                 onHide={handleClose}

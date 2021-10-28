@@ -7,6 +7,7 @@ import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import RightBlue from '../../../assets/img/icons/tri_ang_right_blue.svg';
 import NftSelec from '../../../assets/img/NtfList/NtfList_4.png';
 import BSC from '../../../assets/img/nftIcons/bsc.svg';
+import CheckBlue from '../../../assets/img/icons/checkBlue.svg';
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
@@ -59,6 +60,9 @@ const TransferNFTSend = () => {
                 <div className="steepBtn">
                     <Link to="#link" className="bBlueBtn">
                         Approve 
+                    </Link>
+                    <Link to="#link" className="approved">
+                        <Image src={CheckBlue} /> CheckBlue
                     </Link>
                     <Link to="#link" className="grayBtn">
                         Send NFT

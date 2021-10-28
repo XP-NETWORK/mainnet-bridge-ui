@@ -12,7 +12,7 @@ import WalletConnect from '../../../assets/img/icons/WalletConnect.svg';
 import WalletConnect2 from '../../../assets/img/icons/WalletConnect2.svg';
 import arrow_back from '../../../assets/img/icons/arrow_back.svg';
 import NftDetImg from '../../../assets/img/NftDetImg.png';
-
+import Inf from '../../../assets/img/icons/inf.png';
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import { Link, NavLink } from "react-router-dom";
@@ -21,13 +21,11 @@ const TransferNFTModalNftDetails = () => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow_detail = () => setShow(true);
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                NFT Details
-            </Button>
+            <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
             <Modal
                 show={show}
                 onHide={handleClose}

@@ -37,8 +37,13 @@ import NtfList_3 from '../../../assets/img/NtfList/NtfList_3.png';
 
 import TransferNFTModalNftDetails from './TransferNFTModalNftDetail';
 
-import SelectItem from "../../../UIElemnts/SelectItem";
+
+import TransferNFTModalNftDetail from './TransferNFTModalNftDetail';
+
+import TransferNFTModalNftSelecNftList from './TransferNFTModalNftSelecNftList';
+import TransferNFTModalWarning from './TransferNFTModalWarning';
 import { Dropdown } from 'semantic-ui-react';
+import SelectItem from "../../../UIElemnts/SelectItem";
 import {Link, NavLink} from "react-router-dom";
 
 const TransferNFTStorage = () => {
@@ -47,6 +52,8 @@ const TransferNFTStorage = () => {
         e.preventDefault();
         console.log("It Works!!");
     }
+
+    
 
     const fromTranBridge= [
         {
@@ -210,8 +217,15 @@ const toggleCheckMark = (index) => {
         return users.activeMark = true;
     }
 }
+const [show, setShow] = useState(false);
+    const handleClose_hide = () => setShow(false);
+    const handleShow_detail = () => setShow(true);
+
+    const handleClose_list = () => setShow(false);
+    const handleShow_list = () => setShow(true);
 
     return (
+        <>
         <Fragment>
 
             <div className="crossChainTab">
@@ -250,11 +264,11 @@ const toggleCheckMark = (index) => {
                 </div>
 
                 <div className="storeNtfs selecNftsBox">
-                    <h5>Stored NFTs <Link to="#link" className="viewSto">View All </Link></h5>
+                    <h5>Stored NFTs <TransferNFTModalNftSelecNftList/></h5>
                     <ul className="storeNtfList">
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_1} />
                                 </div>
@@ -264,7 +278,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf active">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <TransferNFTModalNftDetail/>
                                 <div className="storeImg">
                                     <Image src={NtfList_2} />
                                 </div>
@@ -274,7 +288,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_3} />
                                 </div>
@@ -284,7 +298,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_1} />
                                 </div>
@@ -294,7 +308,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_2} />
                                 </div>
@@ -304,7 +318,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_3} />
                                 </div>
@@ -314,7 +328,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_1} />
                                 </div>
@@ -324,7 +338,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_2} />
                                 </div>
@@ -334,7 +348,7 @@ const toggleCheckMark = (index) => {
                         </li>
                         <li className="sinStoreNtf">
                             <div className="storeTop">
-                                <Link to="#link" className="inf"><Image src={Inf} /></Link>
+                                <Link to="#link" className="inf" onClick={handleShow_detail}><Image src={Inf} /></Link>
                                 <div className="storeImg">
                                     <Image src={NtfList_3} />
                                 </div>
@@ -345,16 +359,15 @@ const toggleCheckMark = (index) => {
                     </ul>
                 </div>
                 <div className="steepBtn">
-                    <Link to="#link" className="bBlueBtn">
-                        Connect Wallet
-                    </Link>
+                    <TransferNFTModalWarning/>
                 </div>
 
             </div>
 
 
         </Fragment>
-
+        
+        </>
     );
 };
 
