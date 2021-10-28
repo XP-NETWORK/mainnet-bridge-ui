@@ -26,6 +26,11 @@ const generalSlice = createSlice({
     },
     toggleNFTInfo(state, action) {
         state.nftDetails = action.payload
+        state.onlyDetails = false
+    },
+    toggleNFTInfoOnlyDetails(state, action) {
+        state.nftDetails = action.payload
+        state.onlyDetails = true
     },
     setStep(state, action) {
         state.step = action.payload
@@ -33,6 +38,6 @@ const generalSlice = createSlice({
   },
 });
 
-export const { toggleNFTInfo, setTo, setFrom, toggleConnect, setNFTs, setNFT, setStep } = generalSlice.actions;
+export const { toggleNFTInfo, setTo, setFrom, toggleNFTInfoOnlyDetails, toggleConnect, setNFTs, setNFT, setStep } = generalSlice.actions;
 
 export default generalSlice.reducer;

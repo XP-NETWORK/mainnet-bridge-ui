@@ -600,9 +600,13 @@ ul.nftsStoreList li.active .ftsStoreName {
   padding: 14px 10px;
   text-align: center;
 }
-
+.blockchain-img {
+    width: 24px;
+    margin-right: 8px;
+}
 .bBlueBtn:hover {
-  color: #000;
+    background-color: #5173ee;
+    color: #fff;
 }
 
 .steepLines {
@@ -1290,10 +1294,6 @@ li.sinStoreNtf.active span.checkNft {
   top: 5px;
   display: none;
 }
-li.sinStoreNtf.active .inf,
-li.sinStoreNtf:hover .inf {
-  display: flex;
-}
 
 .inf img {
   width: 16px;
@@ -1326,6 +1326,7 @@ li.sinStoreNtf.active .storeText {
   display: block;
   max-width: 120px;
   margin: 0 auto;
+  border-radius: 16px;
 }
 
 .nftSelected {
@@ -1376,7 +1377,6 @@ li.sinStoreNtf.active .storeText {
 
 .nftSelect {
   background: #ffffff;
-  box-shadow: 0px 1px 9px rgba(55, 63, 92, 0.12);
   border-radius: 46px;
   padding: 4px 13px 4px 4px;
   display: flex;
@@ -1387,7 +1387,9 @@ li.sinStoreNtf.active .storeText {
   display: block;
   margin-right: 6px;
 }
-
+.nftselect-blockchain-name {
+    margin-top: -1px;
+}
 .inpDestiAdd input {
   background: #ffffff;
   border: 1px solid #e3e5ee;
@@ -1682,6 +1684,7 @@ span.CloseModal {
   border-radius: 6px;
   font-size: 14px;
   line-height: 126%;
+  word-break: break-all;
   color: #040d27;
   padding: 12px;
 }
@@ -1723,10 +1726,13 @@ span.CloseModal {
 }
 
 .nftSelectCont {
-  max-width: 282px;
+  width: 282px;
   margin: 0 auto;
 }
-
+.nft-sle-cas {
+    width: 100%;
+    border-radius: 16px;
+}
 .BlueLineBtn {
   border-radius: 10px;
   display: block;

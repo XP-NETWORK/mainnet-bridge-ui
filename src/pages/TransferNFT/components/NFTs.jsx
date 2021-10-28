@@ -28,14 +28,12 @@ function NFT(props) {
     },[])
     const select = e => {
         console.log(e.target.classList.value)
-        if(e.target.classList.value.includes('infoOfNFT')){
-            dispatch(toggleNFTInfo(props))
-        }
-        else dispatch(setNFT(props))
-    }
-    const className = `sinStoreNtf ${nft && nft.native && props.native.contract === nft.native.contract && props.native.tokenId === nft.native.tokenId ? 'active' : ''}`
+        dispatch(toggleNFTInfo(props))
+        dispatch(setNFT(props))
+    } 
+    const className = `sinStoreNtf clickable`
     console.log(props)
-    return  img ?<li onClick={select} className={className}>
+    return img ?<li onClick={select} className={className}>
     <div className="storeTop">
       <Link to="#link" className="inf infoOfNFT" >
         <Image src={Inf} className="inf infoOfNFT" />

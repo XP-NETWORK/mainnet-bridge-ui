@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
-
+import {ethers} from 'ethers'
 import InfG from "../../../assets/img/icons/InfG.svg";
 import arrow_back from "../../../assets/img/icons/arrow_back.svg";
 import RightBlue from "../../../assets/img/icons/tri_ang_right_blue.svg";
@@ -13,7 +13,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setStep } from "../../../store/reducers/generalSlice";
+import { setStep, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
 import { chains } from "./values";
 import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
@@ -22,7 +22,7 @@ import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTSend = () => {
   const {nft, to} = useSelector(s => s.general)
-  const {account} = useWeb3React( )
+  const {account, library} = useWeb3React( )
   const dispatch = useDispatch()
   const [show, setShow] = useState()
   const [receiver, setReceiver] = useState()
@@ -32,23 +32,26 @@ const TransferNFTSend = () => {
     if(res && res.data) setShow(res.data)
   },[nft])
   const send = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
     const factory = ChainFactory({
-      ...ChainData.Ethereum,
-      provider: window.ethereum,
-    });
-    // const target = await factory.inner(Chain.POLYGON)
-    // const source = await factory.inner(Chain.ROPSTEN)
-    await factory.transferNft(
-      web3HelperFactory({
+      ropstenParams: {
         ...ChainData.Ethereum,
-        provider: window.ethereum,
-      }),
-      web3HelperFactory({
+        provider
+      },
+      polygonParams: {
         ...ChainData.Polygon,
-        provider: window.ethereum,
-      }),
+        provider: new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com/')
+      }
+
+    });
+    const fromChain = await factory.inner(Chain.ROPSTEN)
+    const toChain = await factory.inner(Chain.POLYGON)
+    const signer = provider.getSigner(account)
+    await factory.transferNft(
+      fromChain,
+      toChain,
       nft,
-      account,
+      signer,
       receiver
       )
       
@@ -75,17 +78,17 @@ const TransferNFTSend = () => {
             <span>Contract address</span> <span>{cont}</span>
           </li>
         </ul>
-        {/* <Link to="#link" className="viewNft">
+        <a onClick={() => dispatch(toggleNFTInfoOnlyDetails(nft))} className="viewNft clickable">
           View Full NFT Information
           <Image src={RightBlue} className="viewArrow" />
-        </Link> */}
+        </a>
       </div>
       <div className="destiAddress">
         <div className="destiTitle">
           <span>Destination address</span>
           <span className="nftSelect">
             <Image className="srcblockchainimg" src={blockchain?.image?.src} />
-            {blockchain?.text}
+            <p className="nftselect-blockchain-name">{blockchain?.text}</p>
           </span>
         </div>
         <div className="inpDestiAdd">

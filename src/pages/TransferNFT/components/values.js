@@ -63,31 +63,88 @@ export const chains = [
 
 export const chainsConfig = {
     Heco: {
-        type: EVM
+        type: EVM,
+        img: heco
     },
     Ethereum: {
         type: EVM,
-        chainId: 3
+        chainId: 3,
+        img: etherium
         // 1
     },
     BSC: {
         type: EVM,
+        img: binance,
         chainId: 56
-    },
+    }, 
     Polygon: {
         type: EVM,
-        chainId: 80001
+        chainId: 80001,
         // 137
+        rpc: 'https://rpc-mumbai.maticvigil.com/',
+        img: etherium,
     },
     Fantom: {
         type: EVM,
+        img: etherium,
         chainId: 250
     },
     Elrond: {
-        type: ELROND
+        type: ELROND,
+        img: enrollIco,
+
     },
     Avalanche: {
         type: EVM,
+        img: etherium,
+        chainId: 43114
+    }
+
+}
+
+export const internalNonce = {
+    3: {
+        title: 'Heco',
+        type: EVM,
+        img: heco
+    },
+    5: {
+        title: 'Ethereum',
+        type: EVM,
+        chainId: 3,
+        img: etherium
+        // 1
+    },
+    4: {
+        title: 'BSC',
+        type: EVM,
+        img: binance,
+        chainId: 56
+    }, 
+    7: {
+        title: 'Polygon',
+        type: EVM,
+        chainId: 80001,
+        // 137
+        rpc: 'https://rpc-mumbai.maticvigil.com/',
+        img: etherium,
+    },
+    8: {
+        title: 'Fantom',
+        type: EVM,
+        img: etherium,
+        chainId: 250
+    },
+    2: {
+        title: 'Elrond',
+        type: ELROND,
+        img: enrollIco,
+
+    },
+    6: {
+        title: 'Avalanche',
+        type: EVM,
+        img: etherium,
         chainId: 43114
     }
 
