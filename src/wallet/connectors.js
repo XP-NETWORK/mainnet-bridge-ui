@@ -1,7 +1,46 @@
-import { InjectedConnector } from '@web3-react/injected-connector'
-import { chainsConfig } from '../pages/TransferNFT/components/values'
+import { InjectedConnector } from "@web3-react/injected-connector";
+import {
+  ChainFactory,
+  ChainParams,
+  CrossChainHelper,
+} from "xp.network/dist/factory/crossChainHelper";
 export const injected = new InjectedConnector({
-  supportedChainIds: [
-      1,3,56,80001,137,250,43114
-  ],
-})
+  supportedChainIds: [1, 3, 4, 5, 42, 43114],
+});
+
+/**
+ * Creates a chain factory from provided params.
+ * @param chainParams: {@link ChainParams} - from ChainData(wallet/config.js)
+ *
+ * @returns a {@link ChainFactory}
+ */
+export const createChainFactory = (params) => {
+  return ChainFactory(params);
+};
+
+/**
+ * Transfers an NFT.
+ * @param fromInnerChain: {@link CrossChainHelper}
+ * @param toInnerChain: {@link CrossChainHelper}
+ * @param nft: from the nft-list-db
+ * @param sender: address/wallet
+ * @param receiver: string - receiver address
+ * @param factory from {@link createChainFactory}
+ * @returns a receipt.
+ */
+export const transferNft = async (
+  fromInnerChain,
+  toInnerChain,
+  nft,
+  sender,
+  receiver,
+  factory
+) => {
+  return await factory.transfer(
+    toInnerChain,
+    fromInnerChain,
+    nft,
+    sender,
+    receiver
+  );
+};
