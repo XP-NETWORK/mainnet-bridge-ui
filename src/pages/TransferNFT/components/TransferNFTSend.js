@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 
@@ -8,47 +8,88 @@ import RightBlue from "../../../assets/img/icons/tri_ang_right_blue.svg";
 import NftSelec from "../../../assets/img/NtfList/NtfList_4.png";
 import BSC from "../../../assets/img/nftIcons/bsc.svg";
 import CheckBlue from "../../../assets/img/icons/checkBlue.svg";
-
+import axios from 'axios'
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setStep } from "../../../store/reducers/generalSlice";
+import { chains } from "./values";
+import { ChainFactory, web3HelperFactory } from "xp.network";
+import { ChainData } from "../../../wallet/config";
+import { Chain } from "xp.network/dist/consts";
+import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTSend = () => {
+  const {nft, to} = useSelector(s => s.general)
+  const {account} = useWeb3React( )
+  const dispatch = useDispatch()
+  const [show, setShow] = useState()
+  const [receiver, setReceiver] = useState()
+  const {uri, name, description, contract} = nft.native
+  useEffect(async () => {
+    const res = await axios.get(uri)
+    if(res && res.data) setShow(res.data)
+  },[nft])
+  const send = async () => {
+    const factory = ChainFactory({
+      ...ChainData.Ethereum,
+      provider: window.ethereum,
+    });
+    // const target = await factory.inner(Chain.POLYGON)
+    // const source = await factory.inner(Chain.ROPSTEN)
+    await factory.transferNft(
+      web3HelperFactory({
+        ...ChainData.Ethereum,
+        provider: window.ethereum,
+      }),
+      web3HelperFactory({
+        ...ChainData.Polygon,
+        provider: window.ethereum,
+      }),
+      nft,
+      account,
+      receiver
+      )
+      
+  }
+  const blockchain = chains.filter(n => n.text === to)[0]
+  const cont = `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}`
   return (
     <div className="crossChainTab sendNFTBox">
       <div className="tabTitle arrowTitle">
-        <span className="backBtn">
+        <span onClick={() => dispatch(setStep(1))} className="backBtn clickable">
           <Image src={arrow_back} />
         </span>
         <h3>Send NFT</h3>
       </div>
       <div className="nftSelected">
-        <Image src={NftSelec} />
+        <Image src={show?.image} />
       </div>
       <div className="nftDetail">
         <ul>
           <li>
-            <span>Name</span> <span>Meka #3241</span>
+            <span>Name</span> <span>{name}</span>
           </li>
           <li>
-            <span>Contract address</span> <span>0x9es455689jk...678h</span>
+            <span>Contract address</span> <span>{cont}</span>
           </li>
         </ul>
-        <Link to="#link" className="viewNft">
+        {/* <Link to="#link" className="viewNft">
           View Full NFT Information
           <Image src={RightBlue} className="viewArrow" />
-        </Link>
+        </Link> */}
       </div>
       <div className="destiAddress">
         <div className="destiTitle">
           <span>Destination address</span>
           <span className="nftSelect">
-            <Image src={BSC} />
-            BSC
+            <Image className="srcblockchainimg" src={blockchain?.image?.src} />
+            {blockchain?.text}
           </span>
         </div>
         <div className="inpDestiAdd">
-          <input type="text" placeholder="Paste destination address" />
+          <input value={receiver} type="text" onChange={e => setReceiver(e.target.value)} placeholder="Paste destination address" />
         </div>
       </div>
       <div className="feesArea">
@@ -68,15 +109,15 @@ const TransferNFTSend = () => {
         </p>
       </div>
       <div className="steepBtn">
-        <Link to="#link" className="bBlueBtn">
+        {/* <Link to="#link" className="bBlueBtn">
           Approve
         </Link>
         <Link to="#link" className="approved">
           <Image src={CheckBlue} /> CheckBlue
-        </Link>
-        <Link to="#link" className="grayBtn">
+        </Link> */}
+        <a onClick={send} className="bBlueBtn clickable">
           Send NFT
-        </Link>
+        </a>
       </div>
     </div>
   );

@@ -35,6 +35,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFrom,
+  setNFTs,
+  setStep,
   setTo,
   toggleConnect,
 } from "../../../store/reducers/generalSlice";
@@ -42,42 +44,17 @@ import { chains, chainsConfig, ELROND, EVM } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { createChainFactory } from "../../../wallet/connectors";
 import { ChainData } from "../../../wallet/config";
+import { Chain } from "xp.network/dist/consts";
+import { ChainFactory } from "xp.network";
+import NFTs from "./NFTs";
 
 const TransferNFTSwitcher = () => {
-  const { to, from, nft } = useSelector((s) => s.general);
+  const { to, from, nft, nfts } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
 
-  const usersObject = [
-    {
-      id: 1,
-      userAvatar: user1,
-      userText: "Treasure one",
-    },
-    {
-      id: 2,
-      userAvatar: user2,
-      userText: "Day on kdjhf",
-    },
-    {
-      id: 3,
-      userAvatar: user3,
-      userText: "Treasuor.dpsl",
-    },
-    {
-      id: 4,
-      userAvatar: user4,
-      userText: "Day one9999",
-    },
-    {
-      id: 5,
-      userAvatar: user5,
-      userText: "Treasurkdhni",
-    },
-  ];
   const [users, setUsers] = useState({
     activeMark: null,
-    allUsers: usersObject,
   });
 
   const toggleCheck = (index) => {
@@ -107,15 +84,21 @@ const TransferNFTSwitcher = () => {
 
   useEffect(async () => {
     if(account && from && isEVM) {
-        const factory = await createChainFactory({
-            ...ChainData.Ethereum,
-            provider: library._provider,
-        })
-        console.log(factory.nftList(5, account))
-        console.log(account, from, library._provider)
+        const factory = ChainFactory({
+              ...ChainData.Ethereum,
+              provider: window.ethereum,
+          });
+        //   const inner = await factory.inner(Chain.ROPSTEN);
+        //   console.log(inner)
+          const nfts = await factory.nftList({getNonce: () => 5}, account)
+          dispatch(setNFTs(nfts))
     }
   },[account, from])
 
+
+  const next = () => {
+      dispatch(setStep(2))
+  }
   return (
     <Fragment>
       <div className="crossChainTab">
@@ -160,18 +143,24 @@ const TransferNFTSwitcher = () => {
 
         <div className="storeNtfs">
           <h5>Stored NFTs</h5>
-          <p>
+          {
+              nfts ? 
+              <NFTs />
+              :
+              <p>
             <Image src={fing} fluid /> Connect the wallet to display your NFTs
           </p>
-          <div
-            style={from ? {} : { opacity: 0.6, pointerEvents: "none" }}
-            className="steepBtn"
-          >
+          }
+  
             {account && isEVM ? (
+            <div
+                style={from && to && account ? {} : { opacity: 0.6, pointerEvents: "none" }}
+                className="steepBtn"
+            >
               <a
                 style={nft && correctChainId ? {} : OFF}
-                onClick={() => dispatch(toggleConnect(true))}
-                className="bBlueBtn"
+                onClick={next}
+                className="bBlueBtn clickable"
               >
                 {correctChainId && nft && to
                   ? "Next"
@@ -183,15 +172,20 @@ const TransferNFTSwitcher = () => {
                   ? "Choose a destination"
                   : ""}
               </a>
+              </div>
             ) : (
+                <div
+                style={from ? {} : { opacity: 0.6, pointerEvents: "none" }}
+                className="steepBtn"
+              >
               <a
                 onClick={() => dispatch(toggleConnect(true))}
                 className="bBlueBtn"
               >
                 Connect Wallet
               </a>
+              </div>
             )}
-          </div>
         </div>
       </div>
     </Fragment>

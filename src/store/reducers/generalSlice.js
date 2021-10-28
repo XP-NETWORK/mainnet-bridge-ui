@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   generalSearch: "",
+  step: 1
 };
 
 const generalSlice = createSlice({
@@ -17,9 +18,21 @@ const generalSlice = createSlice({
     toggleConnect(state, action) {
       state.isConnectOpen = action.payload;
     },
+    setNFTs(state, action) {
+        state.nfts = action.payload
+    },
+    setNFT(state, action) {
+        state.nft = action.payload
+    },
+    toggleNFTInfo(state, action) {
+        state.nftDetails = action.payload
+    },
+    setStep(state, action) {
+        state.step = action.payload
+    }
   },
 });
 
-export const { setTo, setFrom, toggleConnect } = generalSlice.actions;
+export const { toggleNFTInfo, setTo, setFrom, toggleConnect, setNFTs, setNFT, setStep } = generalSlice.actions;
 
 export default generalSlice.reducer;

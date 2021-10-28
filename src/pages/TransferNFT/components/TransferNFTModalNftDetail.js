@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 
@@ -16,19 +16,25 @@ import Inf from "../../../assets/img/icons/inf.png";
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { toggleNFTInfo } from "../../../store/reducers/generalSlice";
+import axios from 'axios'
 const TransferNFTModalNftDetails = () => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow_detail = () => setShow(true);
-
+  const dispatch = useDispatch()
+  const handleClose = () => dispatch(toggleNFTInfo(undefined))
+  const { nftDetails } = useSelector(s => s.general)
+  useEffect(async () => {
+    if(nftDetails) {
+      const res = await axios.get(nftDetails.uri)
+      if(res && res.data) setShow(res.data)
+    } else setShow(undefined)
+  }, [nftDetails])
+  console.log(show)
   return (
     <>
-      <Link to="#link" className="inf" onClick={handleShow_detail}>
-        <Image src={Inf} />
-      </Link>
       <Modal
-        show={show}
+        show={nftDetails}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
@@ -41,29 +47,27 @@ const TransferNFTModalNftDetails = () => {
                 <Image src={Close} />
               </span>
               <span className="backBtn" onClick={handleClose}>
-                <Image src={arrow_back} />
+                {/* <Image src={arrow_back} /> */}
               </span>
               <h3>NFT Details</h3>
             </div>
             <div className="nftDetContBox">
               <div className="nftDetImg">
-                <Image src={NftDetImg} />
+                <Image src={show?.image} />
               </div>
               <div className="nftDetCont">
                 <div className="nftDetContList nftName">
                   <div className="label">Name</div>
-                  <div className="details">Meka #3241</div>
+                  <div className="details">{show?.name}</div>
                 </div>
                 <div className="nftDetContList ">
                   <div className="label">Token ID</div>
-                  <div className="details">0x9es455689jk...678h</div>
+                  <div className="details">{nftDetails?.native?.tokenId}</div>
                 </div>
                 <div className="nftDetContList ">
                   <div className="label">Description</div>
                   <div className="details">
-                    Meka from the MekaVerse - A collection of 8,888 unique
-                    generative NFTs from another universe. Meka from the
-                    MekaVerse - A collection of 8,888
+                    {show?.description}
                   </div>
                 </div>
               </div>

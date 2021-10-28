@@ -62,7 +62,7 @@ export const ChainData = {
   Ethereum: {
     provider: "JsonRpcProvider",
     minter_addr: "0x8C03d5A667A03Ef2A56E78609E510B6cB33147AD",
-    erc1155_addr: "string",
+    erc1155_addr: "0xe909b9b7667121d774133bcd4C1b6f3693239bc4",
     erc721_addr: "0xe909b9b7667121d774133bcd4C1b6f3693239bc4",
     validators: [
       '0x060093d5559dcF01aeD66042Ba33bf243ee422b6', 

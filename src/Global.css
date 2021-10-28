@@ -1290,8 +1290,8 @@ li.sinStoreNtf.active span.checkNft {
   top: 5px;
   display: none;
 }
-
-li.sinStoreNtf.active .inf {
+li.sinStoreNtf.active .inf,
+li.sinStoreNtf:hover .inf {
   display: flex;
 }
 
@@ -1657,6 +1657,8 @@ span.CloseModal {
 
 .nftDetImg img {
   display: block;
+  width: 100%;
+  border-radius: 16px;
   max-width: 100%;
 }
 
@@ -1738,7 +1740,9 @@ span.CloseModal {
   text-align: center;
   border: 1px solid #3e64ed;
 }
-
+.srcblockchainimg {
+    width: 22px;
+}
 .steepBtn .BlueLineBtn {
   margin-top: 10px;
 }

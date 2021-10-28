@@ -8,28 +8,27 @@ import TransferNFTStorage from "./components/TransferNFTStorage";
 import TransferNFTSend from "./components/TransferNFTSend";
 import TransferNFTModal from "./components/TransferNFTModal";
 import TransferNFTSuccess from "./components/TransferNFTSuccess";
-import TransferNFTModalNftDetails from "./components/TransferNFTModalNftDetail";
+import TransferNFTModalNftDetail from "./components/TransferNFTModalNftDetail";
 import TransferNFTModalWarning from "./components/TransferNFTModalWarning";
 import TransferNFTModalSelectNft from "./components/TransferNFTModalSelectNft";
 import TransferNFTModalNftSelecNftList from "./components/TransferNFTModalNftSelecNftList";
+import { useSelector } from "react-redux";
 const TransferNFT = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const {step} = useSelector(s => s.general)
 
   return (
     <div className="wraper">
       <Container className="mainContainer">
-        <TransferNFTSwitcher />
+        {step === 1 ?<TransferNFTSwitcher /> : ''}
         {/* <TransferNFTStorage/> */}
-        {/* <TransferNFTSend/> */}
+        {step === 2 ? <TransferNFTSend/> : ''}
         {/* <TransferNFTSuccess /> */}
         {/* <TransferNFTModalNftDetails /> */}
         {/* <TransferNFTModalNftSelecNftList /> */}
         {/* <TransferNFTModalSelectNft /> */}
         {/* <TransferNFTModalWarning /> */}
         <TransferNFTModal />
+        <TransferNFTModalNftDetail />
       </Container>
     </div>
   );
