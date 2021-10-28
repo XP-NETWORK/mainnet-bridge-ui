@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  generalSearch: ""
-
+  generalSearch: "",
 };
 
 const generalSlice = createSlice({
@@ -13,18 +12,14 @@ const generalSlice = createSlice({
       state.to = action.payload;
     },
     setFrom(state, action) {
-        state.from = action.payload;
+      state.from = action.payload;
     },
     toggleConnect(state, action) {
-        state.isConnectOpen = action.payload
-    }
+      state.isConnectOpen = action.payload;
+    },
   },
 });
 
-export const {
-    setTo,
-    setFrom,
-    toggleConnect
-} = generalSlice.actions;
+export const { setTo, setFrom, toggleConnect } = generalSlice.actions;
 
 export default generalSlice.reducer;

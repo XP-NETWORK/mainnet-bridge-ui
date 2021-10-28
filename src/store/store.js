@@ -1,12 +1,11 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import generalSlice from './reducers/generalSlice'
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import generalSlice from "./reducers/generalSlice";
 
-
-const middleware = [...getDefaultMiddleware()]
+const middleware = [...getDefaultMiddleware()];
 
 export default configureStore({
-    reducer: {
-        general: generalSlice
-    },
-    middleware,
-})
+  reducer: {
+    general: generalSlice,
+  },
+  middleware,
+});
