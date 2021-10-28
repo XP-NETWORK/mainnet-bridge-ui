@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import xpNetIco from "../../../assets/images/XpNet.svg";
 import enrollIco from "../../../assets/images/enroll.svg";
@@ -40,11 +40,13 @@ import {
 } from "../../../store/reducers/generalSlice";
 import { chains, chainsConfig, ELROND, EVM } from "./values";
 import { useWeb3React } from "@web3-react/core";
+import { createChainFactory } from "../../../wallet/connectors";
+import { ChainData } from "../../../wallet/config";
 
 const TransferNFTSwitcher = () => {
   const { to, from, nft } = useSelector((s) => s.general);
   const dispatch = useDispatch();
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, library } = useWeb3React();
 
   const usersObject = [
     {
@@ -103,7 +105,17 @@ const TransferNFTSwitcher = () => {
   const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
 
-  console.log(isEVM, correctChainId && nft && to, !correctChainId, account);
+  useEffect(async () => {
+    if(account && from && isEVM) {
+        const factory = await createChainFactory({
+            ...ChainData.Ethereum,
+            provider: library._provider,
+        })
+        console.log(factory.nftList(5, account))
+        console.log(account, from, library._provider)
+    }
+  },[account, from])
+
   return (
     <Fragment>
       <div className="crossChainTab">

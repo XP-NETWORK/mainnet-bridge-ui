@@ -1,9 +1,6 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
-import {
-  ChainFactory,
-  ChainParams,
-  CrossChainHelper,
-} from "xp.network/dist/factory/crossChainHelper";
+import {ChainFactory} from "xp.network/dist"
+
 export const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42, 43114],
 });

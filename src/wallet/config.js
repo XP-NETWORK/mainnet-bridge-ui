@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const ChainData = {
+export const ChainData = {
   Elrond: {
     node_uri: "string",
     minter_address: "string",
@@ -59,12 +59,20 @@ const ChainData = {
     validators: "string[]",
     nonce: "number",
   },
-  Ropsten: {
+  Ethereum: {
     provider: "JsonRpcProvider",
-    minter_addr: "string",
+    minter_addr: "0x8C03d5A667A03Ef2A56E78609E510B6cB33147AD",
     erc1155_addr: "string",
-    erc721_addr: "string",
-    validators: "string[]",
-    nonce: "number",
+    erc721_addr: "0xe909b9b7667121d774133bcd4C1b6f3693239bc4",
+    validators: [
+      '0x060093d5559dcF01aeD66042Ba33bf243ee422b6', 
+      '0xd067607e5D22BD8Fb806e07090FaE9A048a8Fc0d', 
+      '0xB331E65875EeF5979b83DdF8aFB05bC5E86bB78D',
+      '0xB6C11DC232ab25BD61b3efc7a95C971ec002127C',
+      '0x848AF71847407d27fD8DD3A099F43F59B617C26a',
+      '0x54E68543464e0253C5A9e83471fc00aa9866d7bE',
+      '0x4Cfc8800606EDBd970298bB040Fc8D859c806702',
+    ],
+    nonce: 5,
   },
 };
