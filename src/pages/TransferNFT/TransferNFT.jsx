@@ -23,14 +23,14 @@ const TransferNFT = () => {
         <div className="wraper">
             <Container className="mainContainer">
                 <TransferNFTSwitcher/>
-                <TransferNFTStorage/>
-                <TransferNFTSend/>
-                <TransferNFTSuccess />
-                <TransferNFTModalNftDetails />
-                <TransferNFTModalNftSelecNftList />
-                <TransferNFTModalSelectNft />
-                <TransferNFTModalWarning />
-                <TransferNFTModal />
+                {/* <TransferNFTStorage/> */}
+                {/* <TransferNFTSend/> */}
+                {/* <TransferNFTSuccess /> */}
+                {/* <TransferNFTModalNftDetails /> */}
+                {/* <TransferNFTModalNftSelecNftList /> */}
+                {/* <TransferNFTModalSelectNft /> */}
+                {/* <TransferNFTModalWarning /> */}
+                <TransferNFTModal /> 
             </Container>
         </div>
     );

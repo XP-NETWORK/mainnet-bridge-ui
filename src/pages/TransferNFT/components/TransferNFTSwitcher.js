@@ -34,133 +34,16 @@ import FromToArrow from '../../../assets/img/icons/FromToArrow.svg';
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import {Link, NavLink} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { setFrom, setTo, toggleConnect } from '../../../store/reducers/generalSlice';
+import { chains, chainsConfig, ELROND, EVM } from './values';
+import { useWeb3React } from '@web3-react/core';
 
 const TransferNFTSwitcher = () => {
-    const switchHandler = (e) => {
-        e.preventDefault();
-        console.log("It Works!!");
-    }
+    const { to, from, nft,  } = useSelector(s => s.general)
+    const dispatch = useDispatch()
+    const {account, chainId} = useWeb3React()
 
-
-    const fromTranBridge= [
-        {
-            key: 'XP.network',
-            text: 'XP.network',
-            value: 'XP.network',
-            image: { avatar: true, src: xpNetIco },
-        },
-        {
-            key: 'Elrond',
-            text: 'Elrond',
-            value: 'Elrond',
-            image: { avatar: true, src: enrollIco },
-        },
-        {
-            key: 'Etherium',
-            text: 'Etherium',
-            value: 'Etherium',
-            image: { avatar: true, src: etherium },
-        },
-        {
-            key: 'Heco',
-            text: 'Heco',
-            value: 'Heco',
-            image: { avatar: true, src: heco },
-        },
-        {
-            key: 'Binance',
-            text: 'Binance',
-            value: 'Binance',
-            image: { avatar: true, src: binance },
-        }
-    ]
-
-    const toTranBridge= [
-        {
-            key: 'Elrond',
-            text: 'Elrond',
-            value: 'Elrond',
-            image: { avatar: true, src: enrollIco },
-        },
-        {
-            key: 'XP.network',
-            text: 'XP.network',
-            value: 'XP.network',
-            image: { avatar: true, src: xpNetIco },
-        },
-        {
-            key: 'Binance',
-            text: 'Binance',
-            value: 'Binance',
-            image: { avatar: true, src: binance },
-        },
-        {
-            key: 'Etherium',
-            text: 'Etherium',
-            value: 'Etherium',
-            image: { avatar: true, src: etherium },
-        },
-        {
-            key: 'Heco',
-            text: 'Heco',
-            value: 'Heco',
-            image: { avatar: true, src: heco },
-        }
-    ]
-
-    const sourceAccount= [
-        {
-            key: 'Alice_Stash',
-            text: 'Alice_Stash',
-            value: 'Alice_Stash',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice',
-            text: 'Alice',
-            value: 'Alice',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice_Stash',
-            text: 'Alice_Stash',
-            value: 'Alice_Stash',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice',
-            text: 'Alice',
-            value: 'Alice',
-            image: { avatar: true, src: userAvatar },
-        },
-    ]
-
-    const targetAccount = [
-        {
-            key: 'Alice',
-            text: 'Alice',
-            value: 'Alice',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice_Stash',
-            text: 'Alice_Stash',
-            value: 'Alice_Stash',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice',
-            text: 'Alice',
-            value: 'Alice',
-            image: { avatar: true, src: userAvatar },
-        },
-        {
-            key: 'Alice_Stash',
-            text: 'Alice_Stash',
-            value: 'Alice_Stash',
-            image: { avatar: true, src: userAvatar },
-        }
-    ]
 
     const usersObject = [
       {
@@ -188,27 +71,40 @@ const TransferNFTSwitcher = () => {
           userAvatar: user5,
           userText: "Treasurkdhni"
       },
-  ]
-  const [users, setUsers] = useState({
-    activeMark: null,
-    allUsers: usersObject
-});
+    ]
+    const [users, setUsers] = useState({
+        activeMark: null,
+        allUsers: usersObject
+    });
 
-const toggleCheck = (index) => {
-    setUsers({...users, activeMark: users.allUsers[index]});
-};
+    const toggleCheck = (index) => {
+        setUsers({...users, activeMark: users.allUsers[index]});
+    };
 
-const toggleCheckMark = (index) => {
-    if(users.allUsers[index] === users.activeMark){
-        return users.activeMark = true;
+    const toggleCheckMark = (index) => {
+        if(users.allUsers[index] === users.activeMark){
+            return users.activeMark = true;
+        }
     }
-}
+    const onChangeFrom = e => {
+        const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, '')
+        if(value === to) dispatch(setTo(undefined))
+        dispatch(setFrom(value))
+    }
+    const onChangeTo = e => {
+        const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, '')
+        dispatch(setTo(value))
+    }
+    const OFF = {opacity: 0.6, pointerEvents: 'none'}
+    const correctChainId = from && chainId ? chainsConfig[from]?.chainId === chainId : false
 
+    const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : ''
+    const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : ''
+
+    console.log(isEVM, correctChainId && nft && to, !correctChainId, account)
     return (
         <Fragment>
-
             <div className="crossChainTab">
-
                 <div className="tabTitle">
                   <h3>Select Chain and NFT</h3>
                 </div>
@@ -218,10 +114,12 @@ const toggleCheckMark = (index) => {
                     <div className="chainSelect">
                       <SelectItem >
                         <Dropdown
-                          placeholder='Select Chain'
-                          fluid
-                          selection
-                          options={fromTranBridge}
+                            placeholder='Select Chain'
+                            fluid
+                            selection
+                            value={from}
+                            onChange={onChangeFrom}
+                            options={chains}
                         />
                       </SelectItem>
                     </div>
@@ -232,10 +130,11 @@ const toggleCheckMark = (index) => {
                     <div className="chainSelect">
                       <SelectItem >
                         <Dropdown
-                          placeholder='Select Chain'
-                          fluid
-                          selection
-                          options={fromTranBridge}
+                            placeholder='Select Chain'
+                            fluid
+                            onChange={onChangeTo}   
+                            selection
+                            options={chains.filter(n => n.text !== from)}
                         />
                       </SelectItem>
                     </div>
@@ -245,16 +144,25 @@ const toggleCheckMark = (index) => {
                 <div className="storeNtfs">
                   <h5>Stored NFTs</h5>
                   <p><Image src={fing} fluid/> Connect the wallet to display your NFTs</p>
-                  <div className="steepBtn">
-                    <Link to="#link" className="bBlueBtn">
-                        Connect Wallet
-                    </Link>
+                  <div style={from ? {} : {opacity: 0.6, pointerEvents: 'none'}} className="steepBtn">
+                    {
+                        account && isEVM ? 
+                        <a style={nft && correctChainId ? {} : OFF } onClick={() => dispatch(toggleConnect(true))} className="bBlueBtn">
+                         { correctChainId && nft && to
+                         ? 'Next' 
+                         : !correctChainId ? `You are connected to the wrong chain`
+                         : !nft ? 'Choose an NFT'
+                         : !to ? 'Choose a destination'
+                         : ''
+                         }
+                        </a> 
+                        : <a onClick={() => dispatch(toggleConnect(true))} className="bBlueBtn">
+                            Connect Wallet
+                        </a>
+                    }
                   </div>
                 </div>
-
             </div>
-
-
         </Fragment>
 
     );

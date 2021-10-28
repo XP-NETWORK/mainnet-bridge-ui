@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import selectnft_5 from '../../../assets/img/selectnft/selectnft_5.png';
 
@@ -14,20 +14,39 @@ import WalletConnect2 from '../../../assets/img/icons/WalletConnect2.svg';
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from 'semantic-ui-react';
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleConnect } from '../../../store/reducers/generalSlice';
+import { chainsConfig, EVM, ELROND } from './values'
+import { useWeb3React } from "@web3-react/core"
+import { injected } from "../../../wallet/connectors"
 
 const TransferNFTModal = () => {
+    const { connector, library, chainId, account, activate, deactivate, active, error } = useWeb3React()
 
+    const dispatch = useDispatch()
+    const { isConnectOpen, from } = useSelector(s => s.general)
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => dispatch(toggleConnect(false))
+    async function connect() {
+        try {
+          await activate(injected)
+          handleClose()
+        } catch (ex) {
+          console.log(ex)
+        }
+    }
 
+    useEffect(() => {
+        console.log('hello')
+    }, [account])
+    
+    const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : ''
+    const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : ''
+    const OFF = {opacity: 0.6, pointerEvents: 'none'}
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Connect Bridge
-            </Button>
             <Modal
-                show={show}
+                show={isConnectOpen}
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
@@ -37,14 +56,14 @@ const TransferNFTModal = () => {
                 <div className="crossChainTab sendNFTBox">
                     <div className="tabTitle arrowTitle">
                         <span className="CloseModal" onClick={handleClose}><Image src={Close} /></span>
-                        <h3><Image src={ConnectBridge} /> Connect Bridge</h3>
+                        <h3><Image src={ConnectBridge} />Connect Bridge</h3>
                     </div>
                     <ul className="selsectBridge">
-                        <li className="active" onClick={handleClose}><Link to="#"> <span className="imgw"><Image src={Ledger} /></span> Ledger </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={MetaMask} /> MetaMask </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={Trezor} /> Trezor </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={WalletConnect} /> WalletConnect </Link></li>
-                        <li onClick={handleClose}><Link to="#"> <Image src={WalletConnect2} /> WalletConnect </Link></li>
+                        <li onClick={connect} style={isEVM ? {} : OFF} ><Link to=""> <Image src={MetaMask} /> MetaMask </Link></li>
+                        <li className="" style={isELROND ? {} : OFF}><Link to="#"> <span className="imgw"><Image src={Ledger} /></span> Elrond Wallet </Link></li>
+                        <li style={{opacity: 0.6, pointerEvents: 'none'}}><Link to="#"> <Image src={Trezor} /> Trezor </Link></li>
+                        <li style={{opacity: 0.6, pointerEvents: 'none'}}><Link to="#"> <Image src={WalletConnect} /> WalletConnect </Link></li>
+                        <li style={{opacity: 0.6, pointerEvents: 'none'}}><Link to="#"> <Image src={WalletConnect2} /> WalletConnect </Link></li>
                     </ul>
                 </div>
                 </Modal.Body>

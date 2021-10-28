@@ -5,8 +5,13 @@ import RedCircle from '../assets/img/redCircle.svg';
 import GreenDot from '../assets/img/walletSvg.png';
 import {Link, NavLink} from "react-router-dom";
 import Classes from './NavBar.module.css';
+import { useWeb3React } from '@web3-react/core';
 
 const NavBar = () => {
+  const { connector, library, chainId, account, activate, deactivate, active, error } = useWeb3React()
+
+  const wallet = account ? account : ''
+  const walletString = wallet ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}` : ''
     return (
     <header className="siteHeader" id="headerArea">
         <div className="container">
@@ -20,13 +25,15 @@ const NavBar = () => {
             </div>
             <div className="headerright">
 
-              <Link to="#link" className="linkNoConne">
-                <Image src={RedCircle} fluid /> Wallet not connected
-              </Link>
-
-              <Link to="#link" className="conWallBtn linkConne">
-                    dfghjk67890...7890 <Image src={GreenDot} fluid/>
-              </Link>
+              {
+              wallet 
+              ? <Link className="conWallBtn">
+                  {walletString} <Image src={GreenDot} fluid/>
+                </Link> 
+              : <Link className="linkNoConne">
+                  <Image src={RedCircle} fluid /> Wallet not connected
+                </Link> 
+              }
             </div>
           </div>
         </div>
