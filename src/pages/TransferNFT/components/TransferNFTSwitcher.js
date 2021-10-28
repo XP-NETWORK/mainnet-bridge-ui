@@ -157,7 +157,7 @@ const TransferNFTSwitcher = () => {
                          }
                         </a> 
                         : <a onClick={() => dispatch(toggleConnect(true))} className="bBlueBtn">
-                            Connect Wallet
+                            {from ? 'Connect Wallet' : 'Select from where you send the NFT'}
                         </a>
                     }
                   </div>

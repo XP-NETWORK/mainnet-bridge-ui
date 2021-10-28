@@ -12,6 +12,9 @@ const NavBar = () => {
 
   const wallet = account ? account : ''
   const walletString = wallet ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}` : ''
+
+  const getAccs = async () => {
+  }
     return (
       <>
     <header className="siteHeader" id="headerArea">
@@ -28,12 +31,12 @@ const NavBar = () => {
 
               {
               wallet 
-              ? <Link className="conWallBtn">
+              ? <a onClick={getAccs} className="conWallBtn clickable">
                   {walletString} <Image src={GreenDot} fluid/>
-                </Link> 
-              : <Link className="linkNoConne">
+                </a> 
+              : <a className="linkNoConne clickable">
                   <Image src={RedCircle} fluid /> Wallet not connected
-                </Link> 
+                </a> 
               }
             </div>
           </div>

@@ -16,7 +16,9 @@ h1, h2, h3, h4, h5 {
     border-bottom: 1px solid #A9C6FE;
     padding: 16px !important;
 }
-
+.clickable {
+    cursor: pointer;
+}
 .basicNav a, .tabNavResponsive a {
     font-size: 15px;
     line-height: 126%;

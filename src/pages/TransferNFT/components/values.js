@@ -24,6 +24,24 @@ export const chains = [
         image: { avatar: true, src: etherium },
     },
     {
+        key: 'Fantom',
+        text: 'Fantom',
+        value: 'Fantom',
+        image: { avatar: true, src: etherium },
+    },
+    {
+        key: 'Tron',
+        text: 'Tron',
+        value: 'Tron',
+        image: { avatar: true, src: etherium },
+    },
+    {
+        key: 'Polygon',
+        text: 'Polygon',
+        value: 'Polygon',
+        image: { avatar: true, src: etherium },
+    },
+    {
         key: 'Heco',
         text: 'Heco',
         value: 'Heco',
@@ -53,7 +71,17 @@ export const chainsConfig = {
         // 1
     },
     BSC: {
-        type: EVM
+        type: EVM,
+        chainId: 56
+    },
+    Polygon: {
+        type: EVM,
+        chainId: 80001
+        // 137
+    },
+    Fantom: {
+        type: EVM,
+        chainId: 250
     },
     Elrond: {
         type: ELROND
