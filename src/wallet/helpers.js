@@ -1,4 +1,5 @@
 import {ethers} from 'ethers'
+import { chainsConfig, EVM } from '../pages/TransferNFT/components/values'
 import store from '../store/store'
 import { ChainData } from './config'
 export const getFromParams = async () => {
@@ -20,4 +21,14 @@ export const getFromParams = async () => {
               }
         }
     }
+}
+
+export const isEVM = () => {
+    const {from} = store.getState().general
+    return chainsConfig[from] ? chainsConfig[from].type === EVM : "";
+}
+
+export const getChainId = () => {
+    const {from} = store.getState().general
+    return chainsConfig[from] ? chainsConfig[from].chainId : ''
 }

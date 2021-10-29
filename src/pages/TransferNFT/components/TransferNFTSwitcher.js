@@ -154,30 +154,8 @@ const TransferNFTSwitcher = () => {
           </p>
           }
   
-            {account && isEVM ? (
-            <div
-                style={from && to && account ? {} : { opacity: 0.6, pointerEvents: "none" }}
-                className="steepBtn"
-            >
-              <a
-                style={nft && correctChainId ? {} : OFF}
-                onClick={next}
-                className="bBlueBtn clickable"
-              >
-                {correctChainId && nft && to
-                  ? "Next"
-                  : !correctChainId
-                  ? `You are connected to the wrong chain`
-                  : !nft
-                  ? "Choose an NFT"
-                  : !to
-                  ? "Choose a destination"
-                  : ""}
-              </a>
-              </div>
-            ) : (
                 <div
-                style={from ? {} : { opacity: 0.6, pointerEvents: "none" }}
+                style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
                 className="steepBtn"
               >
               <a
@@ -187,7 +165,6 @@ const TransferNFTSwitcher = () => {
                 Connect Wallet
               </a>
               </div>
-            )}
         </div>
       </div>
     </Fragment>

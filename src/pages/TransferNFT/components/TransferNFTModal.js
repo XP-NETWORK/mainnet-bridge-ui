@@ -4,7 +4,7 @@ import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 import RedCircle from "../../../assets/img/redCircle.svg";
 import Close from "../../../assets/img/icons/closeBl.svg";
 import ConnectBridge from "../../../assets/img/icons/ConnectBridge.svg";
-
+import {ethers} from 'ethers'
 import Ledger from "../../../assets/img/icons/lefger.svg";
 import MetaMask from "../../../assets/img/icons/MetaMask.svg";
 import Trezor from "../../../assets/img/icons/trezor.svg";
@@ -16,9 +16,10 @@ import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleConnect } from "../../../store/reducers/generalSlice";
-import { chainsConfig, EVM, ELROND } from "./values";
+import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
+import { getChainId, isEVM } from "../../../wallet/helpers";
 
 const TransferNFTModal = () => {
   const {
@@ -38,18 +39,37 @@ const TransferNFTModal = () => {
   const handleClose = () => dispatch(toggleConnect(false));
   async function connect() {
     try {
-      await activate(injected);
-      handleClose();
+        const fromConfig = chainsConfig[from]
+        await activate(injected);
+        const chainsMatch = chainId === getChainId()
+        if(chainsMatch) handleClose()
+        else {
+            const info = CHAIN_INFO[from];
+            console.log(from, info, CHAIN_INFO)
+            const chainId = `0x${info.chainId.toString(16)}`;
+            try {
+                console.log(new ethers.providers.Web3Provider(window.ethereum))
+              await new ethers.providers.Web3Provider(window.ethereum).request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId }],
+              })
+            } catch(err) {
+                console.log(err)
+            }
+            console.log(library)
+        }
+    //   handleClose();
     } catch (ex) {
       console.log(ex);
     }
   }
 
   useEffect(() => {
-    console.log("hello");
-  }, [account]);
+      if(chainId) {
+          console.log(active)
+      }
+  }, [chainId]);
 
-  const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   return (
@@ -73,7 +93,7 @@ const TransferNFTModal = () => {
               </h3>
             </div>
             <ul className="selsectBridge">
-              <li onClick={connect} style={isEVM ? {} : OFF}>
+              <li onClick={connect} style={isEVM() ? {} : OFF}>
                 <Link to="">
                   {" "}
                   <Image src={MetaMask} /> MetaMask{" "}

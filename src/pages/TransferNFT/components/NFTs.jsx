@@ -29,7 +29,6 @@ function NFT(props) {
         try {
             const p = await factory.nftUri(inner, nft)
             const res = await axios.get(p.uri)
-            console.log(res.data)
             if(res && res.data) setImg(res.data)
         } catch(err) {
             console.log(err)
