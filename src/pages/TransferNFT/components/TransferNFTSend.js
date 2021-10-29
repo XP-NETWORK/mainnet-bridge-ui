@@ -66,6 +66,13 @@ const TransferNFTSend = () => {
       const toChain = await factory.inner(toChainConfig.Chain)
       console.log(toChain)
       const signer = provider.getSigner(account)
+      console.log(
+        fromChain,
+        toChain,
+        nft,
+        signer,
+        receiver
+      )
       await factory.transferNft(
         fromChain,
         toChain,
