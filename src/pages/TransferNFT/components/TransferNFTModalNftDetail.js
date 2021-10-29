@@ -33,11 +33,11 @@ const TransferNFTModalNftDetails = () => {
   const factory = ChainFactory({
     ropstenParams: {
       ...ChainData.Ethereum,
-      provider: new ethers.providers.Web3Provider(window.ethereum),
+      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
     },
     polygonParams: {
       ...ChainData.Polygon,
-      provider: new ethers.providers.Web3Provider(window.ethereum),
+      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
     }
   });
   useEffect(async () => {

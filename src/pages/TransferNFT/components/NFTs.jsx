@@ -26,15 +26,17 @@ function NFT(props) {
     useEffect(async() => {
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
-        console.log(inner, nft, factory)
-        const p = await factory.nftUri(inner, nft)
+        try {
+            const p = await factory.nftUri(inner, nft)
+            const res = await axios.get(p.uri)
+            console.log(res.data)
+            if(res && res.data) setImg(res.data)
+        } catch(err) {
+            console.log(err)
+        }
 
-        const res = await axios.get(p.uri)
-        console.log(res.data)
-        if(res && res.data) setImg(res.data)
     },[props.uri])
     const select = e => {
-        console.log(e.target.classList.value)
         dispatch(toggleNFTInfo(nft))
         dispatch(setNFT(nft))
     } 

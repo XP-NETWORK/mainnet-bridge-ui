@@ -4,6 +4,7 @@ import { ChainData } from './config'
 export const getFromParams = async () => {
     const {from} = store.getState().general
     const provider = new ethers.providers.Web3Provider(window.ethereum)
+    console.log(from, 'hellosasda')
     if(from === 'Ethereum') {
         return {
             ropstenParams: {

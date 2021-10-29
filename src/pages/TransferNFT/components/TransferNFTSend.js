@@ -31,6 +31,16 @@ const TransferNFTSend = () => {
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
   useEffect(async () => {
+    const factory = ChainFactory({
+      ropstenParams: {
+        ...ChainData.Ethereum,
+        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
+      },
+      polygonParams: {
+        ...ChainData.Polygon,
+        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
+      }
+      });
     const res = await axios.get(uri)
     if(res && res.data) setShow(res.data)
   },[nft])
@@ -38,7 +48,7 @@ const TransferNFTSend = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     if(fromChainConfig && toChainConfig) {
       const fromParams = await getFromParams()
-      const factory = ChainFactory({
+      const p = {
         ropstenParams: {
           ...ChainData.Ethereum,
           provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
@@ -48,21 +58,11 @@ const TransferNFTSend = () => {
           provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
         },
         ...fromParams
-      });
-      console.log({
-        ropstenParams: {
-          ...ChainData.Ethereum,
-          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
-        },
-        polygonParams: {
-          ...ChainData.Polygon,
-          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
-        },
-        ...fromParams
-      })
-      const fromChain = await factory.inner(Chain.ROPSTEN)
-      console.log(fromChain)
-      const toChain = await factory.inner(Chain.POLYGON)
+      }
+      const factory = ChainFactory(p)
+      console.log(p)
+      const fromChain = await factory.inner(fromChainConfig.Chain)
+      const toChain = await factory.inner(toChainConfig.Chain)
       console.log(toChain)
       const signer = provider.getSigner(account)
       await factory.transferNft(

@@ -76,11 +76,11 @@ const TransferNFTSwitcher = () => {
   const factory = ChainFactory({
     ropstenParams: {
       ...ChainData.Ethereum,
-      provider: new ethers.providers.Web3Provider(window.ethereum),
+      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
     },
     polygonParams: {
       ...ChainData.Polygon,
-      provider: new ethers.providers.Web3Provider(window.ethereum),
+      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
     }
     });
   useEffect(async () => {
@@ -88,10 +88,9 @@ const TransferNFTSwitcher = () => {
 
         if(from && isEVM) {
             const fromChain = chainsConfig[from]
-    
+
               const inner = await factory.inner(fromChain.Chain);
               const nfts = await factory.nftList(inner, account)
-              console.log(nfts)
               dispatch(setNFTs(nfts))
         }
       }
