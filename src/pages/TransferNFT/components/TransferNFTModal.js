@@ -20,6 +20,7 @@ import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
 import { getChainId, isEVM } from "../../../wallet/helpers";
+import Warn from "../../../assets/img/warningsvg.png";
 
 const TransferNFTModal = () => {
   const {
@@ -35,21 +36,35 @@ const TransferNFTModal = () => {
 
   const dispatch = useDispatch();
   const { isConnectOpen, from } = useSelector((s) => s.general);
+  const [switchNetwork, setSwitchNetwork] = useState(false)
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
   async function connect() {
     try {
-        const fromConfig = chainsConfig[from]
+        console.log(injected)
         await activate(injected);
-        const chainsMatch = chainId === getChainId()
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+  useEffect(() => {
+      console.log(chainId, isConnectOpen)
+    if(chainId && isConnectOpen) {
+        const fromConfig = chainsConfig[from]
+        const chainsMatch = chainId === fromConfig.chainId
         if(chainsMatch) handleClose()
         else {
-            const info = CHAIN_INFO[from];
+            setSwitchNetwork(true)
+        }
+    }
+
+  },[chainId])
+  const switchChain = async () => {
+    const info = CHAIN_INFO[from];
             console.log(from, info, CHAIN_INFO)
             const chainId = `0x${info.chainId.toString(16)}`;
             try {
-                console.log(new ethers.providers.Web3Provider(window.ethereum))
-              await new ethers.providers.Web3Provider(window.ethereum).request({
+              await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
                 params: [{ chainId }],
               })
@@ -57,13 +72,7 @@ const TransferNFTModal = () => {
                 console.log(err)
             }
             console.log(library)
-        }
-    //   handleClose();
-    } catch (ex) {
-      console.log(ex);
-    }
   }
-
   useEffect(() => {
       if(chainId) {
           console.log(active)
@@ -77,12 +86,34 @@ const TransferNFTModal = () => {
       <Modal
         show={isConnectOpen}
         onHide={handleClose}
-        backdrop="static"
         keyboard={false}
-        className="connectBridge"
+        className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
         <Modal.Body>
-          <div className="crossChainTab sendNFTBox">
+          { switchNetwork ? 
+                    <div className="crossChainTab sendNFTBox">
+                    <div className="tabTitle arrowTitle">
+                      <span className="CloseModal" onClick={handleClose}>
+                        <Image src={Close} />
+                      </span>
+                      <h3>Wrong Network</h3>
+                    </div>
+                    <div className="warModaCont">
+                      <Image src={Warn} />
+                      <h3>
+                        Switch to {from} Mainnet
+                      </h3>
+                      <p className="">
+                        XP.network bridge requires you to connect to the {from} Mainnet
+                      </p>
+                    </div>
+                    <div className="steepBtn">
+                      <a onClick={switchChain} className="bBlueBtn clickable">
+                        Switch to Mainnet
+                      </a>
+                    </div>
+                  </div>
+          : <div className="crossChainTab sendNFTBox">
             <div className="tabTitle arrowTitle">
               <span className="CloseModal" onClick={handleClose}>
                 <Image src={Close} />
@@ -127,7 +158,7 @@ const TransferNFTModal = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div>}
         </Modal.Body>
       </Modal>
     </>

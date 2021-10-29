@@ -85,8 +85,9 @@ const TransferNFTSwitcher = () => {
     });
   useEffect(async () => {
       if(account) {
-
-        if(from && isEVM) {
+        const fromConfig = chainsConfig[from]
+        console.log(chainId,fromConfig.chainId)
+        if(from && isEVM && chainId === fromConfig.chainId) {
             const fromChain = chainsConfig[from]
 
               const inner = await factory.inner(fromChain.Chain);
@@ -95,7 +96,7 @@ const TransferNFTSwitcher = () => {
         }
       }
 
-  },[account, from])
+  },[account, from, chainId])
 
 
   const next = () => {
