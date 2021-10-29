@@ -16,24 +16,35 @@ import Warn from "../../../assets/img/warningsvg.png";
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setNFTs, toggleDisconnect } from "../../../store/reducers/generalSlice";
+import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTModalWarning = () => {
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = useWeb3React();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const dispatch = useDispatch()
+  const handleClose = () => dispatch(toggleDisconnect(false));
   const handleShow = () => setShow(true);
-
+  const {disconnectOpen} = useSelector(s => s.general)
+  const disconnect = async () => {
+    deactivate()
+    dispatch(setNFTs(undefined))
+    handleClose()
+  }
   return (
     <>
-      <Link
-        to="#link"
-        className="bBlueBtn"
-        variant="primary"
-        onClick={handleShow}
-      >
-        Connect Wallet
-      </Link>
       <Modal
-        show={show}
+        show={disconnectOpen}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
@@ -58,12 +69,12 @@ const TransferNFTModalWarning = () => {
               </p>
             </div>
             <div className="steepBtn">
-              <Link to="#link" className="bBlueBtn">
+              <a onClick={disconnect} className="bBlueBtn clickable">
                 Disconnect Wallet
-              </Link>
-              <Link to="#link" className="grayBtn" onClick={handleClose}>
+              </a>
+              <a className="grayBtn clickable" onClick={handleClose}>
                 Cancel
-              </Link>
+              </a>
             </div>
           </div>
         </Modal.Body>

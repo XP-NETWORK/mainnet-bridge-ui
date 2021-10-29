@@ -34,10 +34,22 @@ const generalSlice = createSlice({
     },
     setStep(state, action) {
         state.step = action.payload
+    },
+    toggleDisconnect(state, action) {
+        state.disconnectOpen = action.payload
     }
   },
 });
 
-export const { toggleNFTInfo, setTo, setFrom, toggleNFTInfoOnlyDetails, toggleConnect, setNFTs, setNFT, setStep } = generalSlice.actions;
+export const { toggleNFTInfo, 
+    setTo, 
+    setFrom, 
+    toggleNFTInfoOnlyDetails, 
+    toggleConnect, 
+    setNFTs, 
+    setNFT, 
+    setStep,
+    toggleDisconnect
+} = generalSlice.actions;
 
 export default generalSlice.reducer;

@@ -2,12 +2,17 @@ import xpNetIco from "../../../assets/images/XpNet.svg";
 import enrollIco from "../../../assets/images/enroll.svg";
 import userAvatar from "../../../assets/images/userAvatar.svg";
 import binance from "../../../assets/images/binance.svg";
+import tron from "../../../assets/images/tron.svg";
+import avalanche from "../../../assets/images/avalanche.svg";
+import polygon from "../../../assets/images/polygon.svg";
+import fantom from "../../../assets/images/fantom.svg";
 import ftsStoreimg from "../../../assets/img/ftsStoreimg.svg";
 import etherium from "../../../assets/images/Etherium.svg";
 import fing from "../../../assets/img/fing.png";
 import heco from "../../../assets/images/HECO.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
+import { ChainData } from "../../../wallet/config";
 export const EVM = "EVM";
 export const ELROND = "Elrond";
 export const chains = [
@@ -27,19 +32,19 @@ export const chains = [
         key: 'Fantom',
         text: 'Fantom',
         value: 'Fantom',
-        image: { avatar: true, src: etherium },
+        image: { avatar: true, src: fantom },
     },
     {
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
-        image: { avatar: true, src: etherium },
+        image: { avatar: true, src: tron },
     },
     {
         key: 'Polygon',
         text: 'Polygon',
         value: 'Polygon',
-        image: { avatar: true, src: etherium },
+        image: { avatar: true, src: polygon },
     },
     {
         key: 'Heco',
@@ -57,47 +62,54 @@ export const chains = [
         key: 'Avalanche',
         text: 'Avalanche',
         value: 'Avalanche',
-        image: { avatar: true, src: binance },
+        image: { avatar: true, src: avalanche },
     }
 ]
 
 export const chainsConfig = {
     Heco: {
         type: EVM,
-        img: heco
+        img: heco,
+        chainData: ChainData.Heco
     },
     Ethereum: {
         type: EVM,
         chainId: 3,
-        img: etherium
+        img: etherium,
+        chainData: ChainData.Ethereum
         // 1
     },
     BSC: {
         type: EVM,
         img: binance,
-        chainId: 56
+        chainId: 56,
+        chainData: ChainData.BSC
     }, 
     Polygon: {
         type: EVM,
         chainId: 80001,
         // 137
         rpc: 'https://rpc-mumbai.maticvigil.com/',
-        img: etherium,
+        img: polygon,
+        chainData: ChainData.Polygon
     },
     Fantom: {
         type: EVM,
-        img: etherium,
-        chainId: 250
+        img: fantom,
+        chainId: 250,
+        chainData: ChainData.Fantom
     },
     Elrond: {
         type: ELROND,
         img: enrollIco,
+        chainData: ChainData.Elrond
 
     },
     Avalanche: {
         type: EVM,
-        img: etherium,
-        chainId: 43114
+        img: avalanche,
+        chainId: 43114,
+        chainData: ChainData.Avalanche
     }
 
 }
@@ -105,47 +117,33 @@ export const chainsConfig = {
 export const internalNonce = {
     3: {
         title: 'Heco',
-        type: EVM,
-        img: heco
+       ...chainsConfig.Heco
     },
     5: {
         title: 'Ethereum',
-        type: EVM,
-        chainId: 3,
-        img: etherium
+        ...chainsConfig.Ethereum
         // 1
     },
     4: {
         title: 'BSC',
-        type: EVM,
-        img: binance,
-        chainId: 56
+        ...chainsConfig.BSC
     }, 
     7: {
         title: 'Polygon',
-        type: EVM,
-        chainId: 80001,
-        // 137
-        rpc: 'https://rpc-mumbai.maticvigil.com/',
-        img: etherium,
+        ...chainsConfig.Polygon
     },
     8: {
         title: 'Fantom',
-        type: EVM,
-        img: etherium,
-        chainId: 250
+        ...chainsConfig.Fantom
     },
     2: {
         title: 'Elrond',
-        type: ELROND,
-        img: enrollIco,
+        ...chainsConfig.Elrond
 
     },
     6: {
         title: 'Avalanche',
-        type: EVM,
-        img: etherium,
-        chainId: 43114
+        ...chainsConfig.Avalanche
     }
 
 }

@@ -29,7 +29,7 @@ export const ChainData = {
   },
   Polygon: {
     provider: "JsonRpcProvider",
-    minter_addr: "0x8C03d5A667A03Ef2A56E78609E510B6cB33147AD",
+    minter_addr: "0xc6148C73f4beCbd7aE39ba23a9CeBa9518fF96BE",
     erc1155_addr: "0xAE25CF0d6D8d7c420768Ed179Ef01cf80c3708B1",
     erc721_addr: "0xAE25CF0d6D8d7c420768Ed179Ef01cf80c3708B1",
     validators: [
@@ -44,6 +44,14 @@ export const ChainData = {
     nonce: 7,
   },
   Fantom: {
+    provider: "JsonRpcProvider",
+    minter_addr: "string",
+    erc1155_addr: "string",
+    erc721_addr: "string",
+    validators: "string[]",
+    nonce: "number",
+  },
+  BSC: {
     provider: "JsonRpcProvider",
     minter_addr: "string",
     erc1155_addr: "string",

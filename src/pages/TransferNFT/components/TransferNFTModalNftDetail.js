@@ -51,7 +51,7 @@ const TransferNFTModalNftDetails = () => {
               <span className="CloseModal" onClick={handleClose}>
                 <Image src={Close} />
               </span>
-              <span className="backBtn" onClick={() => setDetails(false)}>
+              <span className="backBtn clickable" onClick={() => setDetails(false)}>
                 {onlyDetails ? '' : <Image src={arrow_back} /> }
               </span>
               <h3>NFT Details</h3>

@@ -191,7 +191,6 @@ h5 {
   font-weight: 500 !important;
   font-size: 1.125rem !important;
   line-height: 126% !important;
-  letter-spacing: 0.03em !important;
   color: #040d27 !important;
   font-family: "Inter", sans-serif !important;
 }
@@ -284,6 +283,7 @@ body {
   font-weight: 500;
   line-height: 126%;
 }
+
 
 h1,
 h2,
@@ -578,7 +578,9 @@ span.ftsStoreLine {
   display: block;
   margin-top: 3px;
 }
-
+.ui.dropdown > .text, .visible.menu .item {
+    font-size: 14px;
+}
 ul.nftsStoreList li.active .ftsStoreName {
   color: #040d27;
 }
