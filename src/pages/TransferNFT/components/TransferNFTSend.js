@@ -27,7 +27,7 @@ const TransferNFTSend = () => {
   const dispatch = useDispatch()
   const [show, setShow] = useState()
   const [receiver, setReceiver] = useState()
-  const {uri, name, description, contract} = nft.native
+  const {uri, name, description, contract, chainId} = nft.native
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
   useEffect(async () => {
@@ -41,7 +41,8 @@ const TransferNFTSend = () => {
         provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
       }
       });
-    const res = await axios.get(uri)
+    const inner = await factory.inner(parseInt(chainId));
+    const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
     if(res && res.data) setShow(res.data)
   },[nft])
   const send = async () => {
