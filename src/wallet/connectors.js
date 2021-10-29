@@ -2,7 +2,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import {ChainFactory} from "xp.network/dist"
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42, 43114],
+  supportedChainIds: [1, 3, 4, 5, 42, 43114, 80001],
 });
 
 /**

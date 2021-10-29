@@ -19,6 +19,7 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
+import { getFromParams } from "../../../wallet/helpers";
 
 const TransferNFTSend = () => {
   const {nft, to, from} = useSelector(s => s.general)
@@ -36,17 +37,29 @@ const TransferNFTSend = () => {
   const send = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     if(fromChainConfig && toChainConfig) {
+      const fromParams = await getFromParams()
       const factory = ChainFactory({
         ropstenParams: {
           ...ChainData.Ethereum,
-          provider
+          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
         },
         polygonParams: {
           ...ChainData.Polygon,
-          provider: new ethers.providers.JsonRpcProvider('https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/')
-        }
-  
+          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
+        },
+        ...fromParams
       });
+      console.log({
+        ropstenParams: {
+          ...ChainData.Ethereum,
+          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
+        },
+        polygonParams: {
+          ...ChainData.Polygon,
+          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
+        },
+        ...fromParams
+      })
       const fromChain = await factory.inner(Chain.ROPSTEN)
       console.log(fromChain)
       const toChain = await factory.inner(Chain.POLYGON)

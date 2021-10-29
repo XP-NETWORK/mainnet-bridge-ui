@@ -11,6 +11,7 @@ import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 import arrow_back from "../../../assets/img/icons/arrow_back.svg";
+import {ethers} from 'ethers'
 import NftDetImg from "../../../assets/img/NftDetImg.png";
 import Inf from "../../../assets/img/icons/inf.png";
 import SelectItem from "../../../UIElemnts/SelectItem";
@@ -20,28 +21,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { setStep, toggleNFTInfo } from "../../../store/reducers/generalSlice";
 import axios from 'axios'
 import { ChainFactory } from "xp.network";
+import { ChainData } from "../../../wallet/config";
 const TransferNFTModalNftDetails = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch()
   const [details, setDetails] = useState(false)
+  const [chainId, setChainId] = useState()
   const handleClose = () => dispatch(toggleNFTInfo(undefined))
   const { nftDetails, onlyDetails, from } = useSelector(s => s.general)
   const fromChain = chainsConfig[from]
+  const factory = ChainFactory({
+    ropstenParams: {
+      ...ChainData.Ethereum,
+      provider: new ethers.providers.Web3Provider(window.ethereum),
+    },
+    polygonParams: {
+      ...ChainData.Polygon,
+      provider: new ethers.providers.Web3Provider(window.ethereum),
+    }
+  });
   useEffect(async () => {
     if(nftDetails) {
       const {uri} = nftDetails
-      let url = uri
-        const factory = ChainFactory({
-          ...fromChain.chainData,
-          provider: window.ethereum,
-      });
-      // const inner = await factory.inner(Chain.ROPSTEN);
-      // factory.nftUri()
-      const res = await axios.get(nftDetails.uri)
+      const inner = await factory.inner(fromChain.Chain);
+      const p = await factory.nftUri(inner, nftDetails)
+      setChainId(p.chainId)
+      const res = await axios.get(p.uri)
       if(res && res.data) setShow(res.data)
     } else setShow(undefined)
   }, [nftDetails])
-  const { chainId } = nftDetails ? nftDetails.native : {}
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
   return (

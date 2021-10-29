@@ -7,32 +7,38 @@ import Inf from "../../../assets/img/icons/inf.png";
 import CheckCircle from "../../../assets/img/icons/check-circle-filled.svg";
 import axios from 'axios'
 import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
+import { chainsConfig } from './values';
 
-export default function NFTs() {
+export default function NFTs(props) {
     const {nfts} = useSelector(s => s.general)
     return (
         <ul className="storeNtfList">
-          {nfts.map((n, i) => <NFT {...n} key={`${i}`} />)}
+          {nfts.map((n, i) => <NFT factory={props.factory} nft={n} key={`${i}`} />)}
         </ul>
     )
 }
 
 function NFT(props) {
+    const {nft, factory} = props
     const [img, setImg] = useState()
-    const {nft} = useSelector(s => s.general)
     const dispatch = useDispatch()
+    const {from} = useSelector(s => s.general)
     useEffect(async() => {
-        const res = await axios.get(props.uri)
+        const fromChain = chainsConfig[from]
+        const inner = await factory.inner(fromChain.Chain);
+        console.log(inner, nft, factory)
+        const p = await factory.nftUri(inner, nft)
+
+        const res = await axios.get(p.uri)
         console.log(res.data)
         if(res && res.data) setImg(res.data)
-    },[])
+    },[props.uri])
     const select = e => {
         console.log(e.target.classList.value)
-        dispatch(toggleNFTInfo(props))
-        dispatch(setNFT(props))
+        dispatch(toggleNFTInfo(nft))
+        dispatch(setNFT(nft))
     } 
     const className = `sinStoreNtf clickable`
-    console.log(props)
     return img ?<li onClick={select} className={className}>
     <div className="storeTop">
       <Link to="#link" className="inf infoOfNFT" >

@@ -13,6 +13,7 @@ import heco from "../../../assets/images/HECO.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
 import { ChainData } from "../../../wallet/config";
+import { Chain } from "xp.network/dist/consts";
 export const EVM = "EVM";
 export const ELROND = "Elrond";
 export const chains = [
@@ -70,7 +71,8 @@ export const chainsConfig = {
     Heco: {
         type: EVM,
         img: heco,
-        chainData: ChainData.Heco
+        chainData: ChainData.Heco,
+        Chain: Chain.HECO,
     },
     Ethereum: {
         type: EVM,
@@ -78,7 +80,8 @@ export const chainsConfig = {
         token: 'ETH',
         rpc: 'https://delicate-proud-rain.ropsten.quiknode.pro/6a57d9cf10aa9d5af8a2c54151763e21d29136ac/',
         img: etherium,
-        chainData: ChainData.Ethereum
+        chainData: ChainData.Ethereum,
+        Chain: Chain.ROPSTEN,
         // 1
     },
     BSC: {
@@ -86,7 +89,8 @@ export const chainsConfig = {
         token: 'BNB',
         img: binance,
         chainId: 56,
-        chainData: ChainData.BSC
+        chainData: ChainData.BSC,
+        Chain: Chain.BSC,
     }, 
     Polygon: {
         type: EVM,
@@ -94,6 +98,7 @@ export const chainsConfig = {
         chainId: 80001,
         // 137
         rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
+        Chain: Chain.POLYGON,
         img: polygon,
         chainData: ChainData.Polygon
     },
@@ -102,13 +107,15 @@ export const chainsConfig = {
         token: 'FTM',
         img: fantom,
         chainId: 250,
+        Chain: Chain.FANTOM,
         chainData: ChainData.Fantom
     },
     Elrond: {
         type: ELROND,
         token: 'EGLD',
         img: enrollIco,
-        chainData: ChainData.Elrond
+        chainData: ChainData.Elrond,
+        Chain: Chain.ELROND
 
     },
     Avalanche: {
@@ -116,7 +123,9 @@ export const chainsConfig = {
         token: 'AVAX',
         img: avalanche,
         chainId: 43114,
-        chainData: ChainData.Avalanche
+        chainData: ChainData.Avalanche,
+        Chain: Chain.AVALANCHE
+
     }
 
 }

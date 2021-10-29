@@ -10,6 +10,7 @@ import fing from "../../../assets/img/fing.png";
 import heco from "../../../assets/images/HECO.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
+import {ethers} from 'ethers'
 
 import selectnft_1 from "../../../assets/img/selectnft/selectnft_1.png";
 import selectnft_2 from "../../../assets/img/selectnft/selectnft_2.png";
@@ -72,18 +73,29 @@ const TransferNFTSwitcher = () => {
 
   const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
-
-  useEffect(async () => {
-    if(account && from && isEVM) {
-        const factory = ChainFactory({
-              ...ChainData.Polygon,
-              provider: window.ethereum,
-          });
-        //   const inner = await factory.inner(Chain.ROPSTEN);
-        //   console.log(inner)
-          const nfts = await factory.nftList({getNonce: () => 7}, account)
-          dispatch(setNFTs(nfts))
+  const factory = ChainFactory({
+    ropstenParams: {
+      ...ChainData.Ethereum,
+      provider: new ethers.providers.Web3Provider(window.ethereum),
+    },
+    polygonParams: {
+      ...ChainData.Polygon,
+      provider: new ethers.providers.Web3Provider(window.ethereum),
     }
+    });
+  useEffect(async () => {
+      if(account) {
+
+        if(from && isEVM) {
+            const fromChain = chainsConfig[from]
+    
+              const inner = await factory.inner(fromChain.Chain);
+              const nfts = await factory.nftList(inner, account)
+              console.log(nfts)
+              dispatch(setNFTs(nfts))
+        }
+      }
+
   },[account, from])
 
 
@@ -136,7 +148,7 @@ const TransferNFTSwitcher = () => {
           <h5>Stored NFTs</h5>
           {
               nfts ? 
-              <NFTs />
+              <NFTs factory={factory} />
               :
               <p>
             <Image src={fing} fluid /> Connect the wallet to display your NFTs
