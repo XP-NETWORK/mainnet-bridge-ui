@@ -63,13 +63,22 @@ const TransferNFTModal = () => {
     const info = CHAIN_INFO[from];
             console.log(from, info, CHAIN_INFO)
             const chainId = `0x${info.chainId.toString(16)}`;
+            console.log(chainId)
             try {
               await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
                 params: [{ chainId }],
               })
             } catch(err) {
-                console.log(err)
+                try {
+                    await window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: { ...info  },
+                      })
+                } catch(err) {
+                    console.log(err)
+                }
+
             }
             console.log(library)
   }

@@ -1,5 +1,9 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import {ChainFactory} from "xp.network/dist"
+import { ChainData } from "./config";
+import {chainsConfig} from '../pages/TransferNFT/components/values'
+import { getFromParams } from "./helpers";
+import {ethers} from 'ethers'
 
 export const injected = new InjectedConnector({
 //   supportedChainIds: [1, 3, 4, 5, 42, 43114, 80001],
@@ -41,3 +45,23 @@ export const transferNft = async (
     receiver
   );
 };
+
+
+export const getFactory = async () => {
+    const fromParams = await getFromParams()
+    return ChainFactory({
+      ropstenParams: {
+        ...ChainData.Ethereum,
+        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
+      },
+      polygonParams: {
+        ...ChainData.Polygon,
+        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
+      },
+    //   fantomParams: {
+    //       ...ChainData.Fantom,
+    //       provider: new ethers.providers.JsonRpcProvider(chainsConfig.Fantom.rpc)
+    //   },
+      ...fromParams
+    })
+}

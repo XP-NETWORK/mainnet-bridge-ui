@@ -37,6 +37,10 @@ const generalSlice = createSlice({
     },
     toggleDisconnect(state, action) {
         state.disconnectOpen = action.payload
+    },
+    setSuccess(state, action) {
+        state.txid = action.payload.txid
+        state.receiver = action.payload.receiver
     }
   },
 });
@@ -46,6 +50,7 @@ export const { toggleNFTInfo,
     setFrom, 
     toggleNFTInfoOnlyDetails, 
     toggleConnect, 
+    setSuccess,
     setNFTs, 
     setNFT, 
     setStep,

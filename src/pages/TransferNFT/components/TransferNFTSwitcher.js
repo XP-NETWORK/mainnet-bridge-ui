@@ -48,11 +48,13 @@ import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { ChainFactory } from "xp.network";
 import NFTs from "./NFTs";
+import Loader from "./Loader";
 
 const TransferNFTSwitcher = () => {
   const { to, from, nft, nfts } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
+  const [loadingNFTs, setLoadingNFTs] = useState(false)
 
   const [users, setUsers] = useState({
     activeMark: null,
@@ -86,13 +88,13 @@ const TransferNFTSwitcher = () => {
   useEffect(async () => {
       if(account) {
         const fromConfig = chainsConfig[from]
-        console.log(chainId,fromConfig.chainId)
         if(from && isEVM && chainId === fromConfig.chainId) {
+            setLoadingNFTs(true)
             const fromChain = chainsConfig[from]
-
-              const inner = await factory.inner(fromChain.Chain);
-              const nfts = await factory.nftList(inner, account)
-              dispatch(setNFTs(nfts))
+            const inner = await factory.inner(fromChain.Chain);
+            const nfts = await factory.nftList(inner, account)
+            dispatch(setNFTs(nfts))
+            setLoadingNFTs(false)
         }
       }
 
@@ -116,6 +118,7 @@ const TransferNFTSwitcher = () => {
                 <Dropdown
                   placeholder="Select Chain"
                   fluid
+                  disabled={account ? true : false}
                   selection
                   value={from}
                   onChange={onChangeFrom}
@@ -128,14 +131,16 @@ const TransferNFTSwitcher = () => {
             {" "}
             <Image src={FromToArrow} />
           </span>
-          <div className="crosChainSelect">
-            <div className="chainFrom">To</div>
+          <div style={{marginTop: '8px'}} className="crosChainSelect">
+            <div className="chainFrom">Send To</div>
             <div className="chainSelect">
               <SelectItem>
                 <Dropdown
                   placeholder="Select Chain"
                   fluid
+                  disabled={account ? true : false}
                   onChange={onChangeTo}
+                  value={to}
                   selection
                   options={chains.filter((n) => n.text !== from)}
                 />
@@ -147,6 +152,8 @@ const TransferNFTSwitcher = () => {
         <div className="storeNtfs">
           <h5>Stored NFTs</h5>
           {
+              loadingNFTs ? <div className="nftloadercontainer"> <Loader className="nftloader" /></div>
+              :
               nfts ? 
               <NFTs factory={factory} />
               :
@@ -155,7 +162,7 @@ const TransferNFTSwitcher = () => {
           </p>
           }
   
-                <div
+                {!account ? <div
                 style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
                 className="steepBtn"
               >
@@ -165,7 +172,7 @@ const TransferNFTSwitcher = () => {
               >
                 Connect Wallet
               </a>
-              </div>
+              </div> : '' }
         </div>
       </div>
     </Fragment>

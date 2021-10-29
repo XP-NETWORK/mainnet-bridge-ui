@@ -13,23 +13,29 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setStep, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
+import { setStep, setSuccess, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
 import { chains, chainsConfig } from "./values";
 import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-import { getFromParams } from "../../../wallet/helpers";
+import { getFromParams, isEVM } from "../../../wallet/helpers";
+import { getFactory } from "../../../wallet/connectors";
+import Loader from './Loader'
 
 const TransferNFTSend = () => {
   const {nft, to, from} = useSelector(s => s.general)
   const {account, library} = useWeb3React( )
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState()
   const dispatch = useDispatch()
   const [show, setShow] = useState()
+  const [fees, setFees] = useState()
   const [receiver, setReceiver] = useState()
   const {uri, name, description, contract, chainId} = nft.native
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
+
   useEffect(async () => {
     const factory = ChainFactory({
       ropstenParams: {
@@ -45,44 +51,56 @@ const TransferNFTSend = () => {
     const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
     if(res && res.data) setShow(res.data)
   },[nft])
+
   const send = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    if(fromChainConfig && toChainConfig) {
-      const fromParams = await getFromParams()
-      const p = {
-        ropstenParams: {
-          ...ChainData.Ethereum,
-          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc)
-        },
-        polygonParams: {
-          ...ChainData.Polygon,
-          provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc)
-        },
-        ...fromParams
-      }
-      const factory = ChainFactory(p)
-      console.log(p)
-      const fromChain = await factory.inner(fromChainConfig.Chain)
-      const toChain = await factory.inner(toChainConfig.Chain)
-      console.log(toChain)
-      const signer = provider.getSigner(account)
-      console.log(
-        fromChain,
-        toChain,
-        nft,
-        signer,
-        receiver
-      )
-      await factory.transferNft(
-        fromChain,
-        toChain,
-        nft,
-        signer,
-        receiver
-      )
-    }
+    try {
+      if(!loading && receiver) {
+        setError('')
+        if(isEVM()) {
+          const isAddress = await library.utils.isAddress(receiver)
+          if(isAddress) {
+            if(fromChainConfig && toChainConfig) {
+              setLoading(true)
+              const factory = await getFactory()
+              const fromChain = await factory.inner(fromChainConfig.Chain)
+              const toChain = await factory.inner(toChainConfig.Chain)
+              const signer = provider.getSigner(account)
+              const txid = await factory.transferNft(
+                fromChain,
+                toChain,
+                nft,
+                signer,
+                receiver
+              )
+              if(txid) {
+                dispatch(setSuccess({ receiver, txid }))
+                dispatch(setStep(3))
+              }
+            } 
+          } else setError('Not a valid address')
 
-      
+        }
+      }
+    } catch(err) {
+      setLoading(false)
+      console.log(err)
+    }
+  }
+
+  useEffect(async () => {
+    estimate()
+    const s = setInterval(() => estimate(), 1000 * 30)
+    return () => clearInterval(s)
+  }, [])
+  const estimate = async () => {
+   const factory = await getFactory()
+    const fromChain = await factory.inner(fromChainConfig.Chain)
+    const toChain = await factory.inner(toChainConfig.Chain)
+    const fee = await factory.estimateFees(fromChain, toChain, nft, account)
+    if(isEVM()) {
+      setFees(await library.utils.fromWei(fee.toString(), 'ether'))
+    }
   }
   const blockchain = chains.filter(n => n.text === to)[0]
   const cont = `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}`
@@ -121,14 +139,15 @@ const TransferNFTSend = () => {
         </div>
         <div className="inpDestiAdd">
           <input value={receiver} type="text" onChange={e => setReceiver(e.target.value)} placeholder="Paste destination address" />
+          {error ? <p>{error}</p> : ''}
         </div>
       </div>
       <div className="feesArea">
         <div className="feesTitle">
           <span>Fees</span>
-          <span>0 {fromChainConfig?.token}</span>
+          <span>{fees ? `${fees} ${fromChainConfig?.token}` : 'Calculating fees'}</span>
         </div>
-        <p className="approveRequ">
+        {/* <p className="approveRequ">
           XP.network requires approval
           <Link to="#link" className="infMark">
             <span className="infBox">
@@ -137,7 +156,7 @@ const TransferNFTSend = () => {
             </span>
             <Image src={InfG} />
           </Link>
-        </p>
+        </p> */}
       </div>
       <div className="steepBtn">
         {/* <Link to="#link" className="bBlueBtn">
@@ -146,8 +165,10 @@ const TransferNFTSend = () => {
         <Link to="#link" className="approved">
           <Image src={CheckBlue} /> CheckBlue
         </Link> */}
-        <a onClick={send} className="bBlueBtn clickable">
-          Send NFT
+        <a onClick={send} style={{  }} className="bBlueBtn clickable">
+          {
+            loading ? <Loader /> : 'Send NFT'
+          }
         </a>
       </div>
     </div>
