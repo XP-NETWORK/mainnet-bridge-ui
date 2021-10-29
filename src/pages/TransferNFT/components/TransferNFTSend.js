@@ -14,46 +14,53 @@ import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
-import { chains } from "./values";
+import { chains, chainsConfig } from "./values";
 import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTSend = () => {
-  const {nft, to} = useSelector(s => s.general)
+  const {nft, to, from} = useSelector(s => s.general)
   const {account, library} = useWeb3React( )
   const dispatch = useDispatch()
   const [show, setShow] = useState()
   const [receiver, setReceiver] = useState()
   const {uri, name, description, contract} = nft.native
+  const fromChainConfig = chainsConfig[from]
+  const toChainConfig = chainsConfig[to]
   useEffect(async () => {
     const res = await axios.get(uri)
     if(res && res.data) setShow(res.data)
   },[nft])
   const send = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const factory = ChainFactory({
-      ropstenParams: {
-        ...ChainData.Ethereum,
-        provider
-      },
-      polygonParams: {
-        ...ChainData.Polygon,
-        provider: new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com/')
-      }
+    if(fromChainConfig && toChainConfig) {
+      const factory = ChainFactory({
+        ropstenParams: {
+          ...ChainData.Ethereum,
+          provider
+        },
+        polygonParams: {
+          ...ChainData.Polygon,
+          provider: new ethers.providers.JsonRpcProvider('https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/')
+        }
+  
+      });
+      const fromChain = await factory.inner(Chain.ROPSTEN)
+      console.log(fromChain)
+      const toChain = await factory.inner(Chain.POLYGON)
+      console.log(toChain)
+      const signer = provider.getSigner(account)
+      await factory.transferNft(
+        fromChain,
+        toChain,
+        nft,
+        signer,
+        receiver
+      )
+    }
 
-    });
-    const fromChain = await factory.inner(Chain.ROPSTEN)
-    const toChain = await factory.inner(Chain.POLYGON)
-    const signer = provider.getSigner(account)
-    await factory.transferNft(
-      fromChain,
-      toChain,
-      nft,
-      signer,
-      receiver
-    )
       
   }
   const blockchain = chains.filter(n => n.text === to)[0]
@@ -98,7 +105,7 @@ const TransferNFTSend = () => {
       <div className="feesArea">
         <div className="feesTitle">
           <span>Fees</span>
-          <span>0 XPNET</span>
+          <span>0 {fromChainConfig?.token}</span>
         </div>
         <p className="approveRequ">
           XP.network requires approval

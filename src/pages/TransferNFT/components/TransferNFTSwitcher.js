@@ -57,15 +57,6 @@ const TransferNFTSwitcher = () => {
     activeMark: null,
   });
 
-  const toggleCheck = (index) => {
-    setUsers({ ...users, activeMark: users.allUsers[index] });
-  };
-
-  const toggleCheckMark = (index) => {
-    if (users.allUsers[index] === users.activeMark) {
-      return (users.activeMark = true);
-    }
-  };
   const onChangeFrom = (e) => {
     const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, "");
     if (value === to) dispatch(setTo(undefined));
@@ -85,12 +76,12 @@ const TransferNFTSwitcher = () => {
   useEffect(async () => {
     if(account && from && isEVM) {
         const factory = ChainFactory({
-              ...ChainData.Ethereum,
+              ...ChainData.Polygon,
               provider: window.ethereum,
           });
         //   const inner = await factory.inner(Chain.ROPSTEN);
         //   console.log(inner)
-          const nfts = await factory.nftList({getNonce: () => 5}, account)
+          const nfts = await factory.nftList({getNonce: () => 7}, account)
           dispatch(setNFTs(nfts))
     }
   },[account, from])

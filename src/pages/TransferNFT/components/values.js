@@ -75,38 +75,45 @@ export const chainsConfig = {
     Ethereum: {
         type: EVM,
         chainId: 3,
+        token: 'ETH',
+        rpc: 'https://delicate-proud-rain.ropsten.quiknode.pro/6a57d9cf10aa9d5af8a2c54151763e21d29136ac/',
         img: etherium,
         chainData: ChainData.Ethereum
         // 1
     },
     BSC: {
         type: EVM,
+        token: 'BNB',
         img: binance,
         chainId: 56,
         chainData: ChainData.BSC
     }, 
     Polygon: {
         type: EVM,
+        token: 'MATIC',
         chainId: 80001,
         // 137
-        rpc: 'https://rpc-mumbai.maticvigil.com/',
+        rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
         img: polygon,
         chainData: ChainData.Polygon
     },
     Fantom: {
         type: EVM,
+        token: 'FTM',
         img: fantom,
         chainId: 250,
         chainData: ChainData.Fantom
     },
     Elrond: {
         type: ELROND,
+        token: 'EGLD',
         img: enrollIco,
         chainData: ChainData.Elrond
 
     },
     Avalanche: {
         type: EVM,
+        token: 'AVAX',
         img: avalanche,
         chainId: 43114,
         chainData: ChainData.Avalanche
@@ -146,4 +153,14 @@ export const internalNonce = {
         ...chainsConfig.Avalanche
     }
 
+}
+
+
+export function isBase64(str) {
+    if (str ==='' || str.trim() ===''){ return false; }
+    try {
+        return btoa(atob(str)) == str;
+    } catch (err) {
+        return false;
+    }
 }

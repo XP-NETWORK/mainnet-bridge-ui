@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
-import { internalNonce } from '../components/values'
+import { chainsConfig, internalNonce, isBase64 } from '../components/values'
 import Close from "../../../assets/img/icons/closeBl.svg";
 import ConnectBridge from "../../../assets/img/icons/ConnectBridge.svg";
 import moment from 'moment'
@@ -19,14 +19,24 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep, toggleNFTInfo } from "../../../store/reducers/generalSlice";
 import axios from 'axios'
+import { ChainFactory } from "xp.network";
 const TransferNFTModalNftDetails = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch()
   const [details, setDetails] = useState(false)
   const handleClose = () => dispatch(toggleNFTInfo(undefined))
-  const { nftDetails, onlyDetails } = useSelector(s => s.general)
+  const { nftDetails, onlyDetails, from } = useSelector(s => s.general)
+  const fromChain = chainsConfig[from]
   useEffect(async () => {
     if(nftDetails) {
+      const {uri} = nftDetails
+      let url = uri
+        const factory = ChainFactory({
+          ...fromChain.chainData,
+          provider: window.ethereum,
+      });
+      // const inner = await factory.inner(Chain.ROPSTEN);
+      // factory.nftUri()
       const res = await axios.get(nftDetails.uri)
       if(res && res.data) setShow(res.data)
     } else setShow(undefined)
