@@ -15,7 +15,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
@@ -53,8 +53,20 @@ const TransferNFTModal = () => {
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
-    await instance.init()
-    await instance.login()
+    try {
+      await instance.init()
+      await instance.login()
+      const { account } = instance
+      if(account && account.address) {
+        dispatch(setElrondWallet(account.address))
+        handleClose()
+      }
+    } catch(err) {
+      // cancelled
+      console.log(err)
+    }
+
+   
   }
 
   async function connectTronlink() {

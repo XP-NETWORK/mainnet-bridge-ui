@@ -596,6 +596,7 @@ ul.nftsStoreList li.active .ftsStoreName {
 .bBlueBtn {
   background: #3e64ed;
   border-radius: 10px;
+  font-family: 'Inter';
   cursor: pointer;
   display: block;
   width: 100%;
@@ -604,6 +605,7 @@ ul.nftsStoreList li.active .ftsStoreName {
   line-height: 126%;
   letter-spacing: 0.03em;
   color: #ffffff;
+  font-weight: 400;
   padding: 14px 10px;
   text-align: center;
 }
@@ -1808,7 +1810,6 @@ span.CloseModal {
   color: #3e64ed;
   padding: 14px 10px;
   text-align: center;
-  display: none;
 }
 
 @media (max-width: 576px) {
@@ -2016,6 +2017,12 @@ span.CloseModal {
   margin: auto;
   height: 40px;
 }
-.nftloader div{
+.nftloader div, .nftloader .lds-ellipsis div{
   background-color: #3e64ed;
+}
+
+.disbldBtn {
+  background-color: #E4E7F2;
+  color: rgba(4, 13, 39, 0.7);
+  pointer-events: none;
 }

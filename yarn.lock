@@ -15860,7 +15860,7 @@ xmlhttprequest@1.8.0:
 
 "xp.network@git+https://github.com/xp-network/xpjs#bleeding-edge":
   version "0.0.1"
-  resolved "git+https://github.com/xp-network/xpjs#ba63548f371feeba797a0f89dbdab6dfab3eb4c8"
+  resolved "git+https://github.com/xp-network/xpjs#9defe664a5fd67de67e10c66fdffdbbd6ea93a64"
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.5"
     axios "^0.21.1"

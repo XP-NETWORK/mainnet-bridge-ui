@@ -106,10 +106,10 @@ export const chainsConfig = {
         token: 'MATIC',
         // 137
         //80001
-        chainId: 137,
-        rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
-        // chainId: 80001,
-        // rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
+        // chainId: 137,
+        // rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
+        chainId: 80001,
+        rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
         Chain: Chain.POLYGON,
         img: polygon,
         chainData: ChainData.Polygon

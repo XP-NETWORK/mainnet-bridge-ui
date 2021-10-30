@@ -27,7 +27,10 @@ const TransferNFTSend = () => {
   const {nft, to, from} = useSelector(s => s.general)
   const {account, library} = useWeb3React( )
   const [error, setError] = useState()
+  const [loadingApproval, setLoadingApproval] = useState()
   const [loading, setLoading] = useState()
+  const [isApproved, setIsApproved] = useState()
+  const [preCheckApproved, setLoadingPreCheckApproved] = useState(true)
   const dispatch = useDispatch()
   const [show, setShow] = useState()
   const [fees, setFees] = useState()
@@ -37,10 +40,16 @@ const TransferNFTSend = () => {
   const toChainConfig = chainsConfig[to]
 
   useEffect(async () => {
+    isApprovedForMinter()
+    estimate()
+    const s = setInterval(() => estimate(), 1000 * 30)
     const factory = await getRPCFactory()
     const inner = await factory.inner(parseInt(chainId));
     const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
     if(res && res.data) setShow(res.data)
+
+    return () => clearInterval(s)
+
   },[nft])
 
   const send = async () => {
@@ -54,6 +63,7 @@ const TransferNFTSend = () => {
             if(fromChainConfig && toChainConfig) {
               setLoading(true)
               const factory = await getFactory()
+              console.log(factory)
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
               const signer = provider.getSigner(account)
@@ -80,9 +90,7 @@ const TransferNFTSend = () => {
   }
 
   useEffect(async () => {
-    estimate()
-    const s = setInterval(() => estimate(), 1000 * 30)
-    return () => clearInterval(s)
+
   }, [])
   const estimate = async () => {
     const factory = await getRPCFactory()
@@ -93,6 +101,36 @@ const TransferNFTSend = () => {
       setFees(await library.utils.fromWei(fee.toString(), 'ether'))
     }
   }
+  const approve = async () => {
+    if(isEVM()) {
+      setLoadingApproval(true)
+      const factory = await getFactory()
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const fromChain = await factory.inner(fromChainConfig.Chain)
+      const signer = provider.getSigner(account)
+      try {
+        await fromChain.approveForMinter(nft, signer)
+        setIsApproved(true)
+      } catch(err) {
+
+      }
+      setLoadingApproval(false)
+    }
+  }
+  const isApprovedForMinter = async () => {
+    setLoadingPreCheckApproved(true)
+    if(isEVM()) {
+      const factory = await getFactory()
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const fromChain = await factory.inner(fromChainConfig.Chain)
+      const signer = provider.getSigner(account)
+      const checkIsApproved = await fromChain.isApprovedForMinter(nft, signer)
+     setIsApproved(checkIsApproved)
+    } else setIsApproved(true)
+    setLoadingPreCheckApproved(false)
+
+  }
+
   const blockchain = chains.filter(n => n.text === to)[0]
   const cont = `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}`
   return (
@@ -149,19 +187,26 @@ const TransferNFTSend = () => {
           </Link>
         </p> */}
       </div>
-      <div className="steepBtn">
-        {/* <Link to="#link" className="bBlueBtn">
-          Approve
-        </Link>
-        <Link to="#link" className="approved">
-          <Image src={CheckBlue} /> CheckBlue
-        </Link> */}
-        <a onClick={send} style={{  }} className="bBlueBtn clickable">
+      {!preCheckApproved ? <div className="steepBtn">
+        {isEVM() 
+        ? <>
+          <a onClick={approve} style={{display: isApproved || !isEVM() ? 'none' : '' }}  className="bBlueBtn">
+            {loadingApproval ? <Loader /> : 'Approve'}
+          </a>
+          <a style={{display: isApproved ? '' : 'none' }} className="approved">
+            <Image src={CheckBlue} /> Approved
+          </a>
+        </> 
+        :''}
+        
+        <a onClick={send} style={{  }} className={`bBlueBtn clickable ${isApproved ? '' : 'disbldBtn'}`}>
           {
-            loading ? <Loader /> : 'Send NFT'
+            loading ? <Loader  /> : 'Send NFT'
           }
         </a>
-      </div>
+      </div> : 
+        <Loader className="nftloader" />
+      }
     </div>
   );
 };

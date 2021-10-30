@@ -61,6 +61,13 @@ export const getFactoryParams = async (chain) => {
                 provider: new ethers.providers.JsonRpcProvider(chainsConfig.Fantom.rpc)
               }
         }
+    } else if(chain === 'Elrond') {
+        return {
+            elrondParams: {
+                ...ChainData.Elrond,
+                provider: 'https://devnet-api.elrond.com'
+            }
+        }
     }
 }
 

@@ -51,7 +51,7 @@ import Loader from "./Loader";
 import { getRPCFactory } from "../../../wallet/helpers";
 
 const TransferNFTSwitcher = () => {
-  const { to, from, nft, nfts } = useSelector((s) => s.general);
+  const { to, from, nft, nfts, elrondWallet } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
   const [loadingNFTs, setLoadingNFTs] = useState(false)
@@ -87,9 +87,17 @@ const TransferNFTSwitcher = () => {
             dispatch(setNFTs(nfts))
             setLoadingNFTs(false)
         }
+      } else if(elrondWallet) {
+        const factory = await getRPCFactory();
+        setLoadingNFTs(true)
+        const fromChain = chainsConfig[from]
+        const inner = await factory.inner(fromChain.Chain);
+        const nfts = await factory.nftList(inner, elrondWallet)
+        dispatch(setNFTs(nfts))
+        setLoadingNFTs(false)
       }
 
-  },[account, from, chainId])
+  },[account, from, chainId, elrondWallet])
 
   const next = () => {
       dispatch(setStep(2))

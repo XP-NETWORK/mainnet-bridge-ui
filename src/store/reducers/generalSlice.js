@@ -15,6 +15,9 @@ const generalSlice = createSlice({
     setFrom(state, action) {
       state.from = action.payload;
     },
+    setElrondWallet(state, action) {
+      state.elrondWallet = action.payload
+    },
     toggleConnect(state, action) {
       state.isConnectOpen = action.payload;
     },
@@ -52,6 +55,7 @@ export const { toggleNFTInfo,
     toggleConnect, 
     setSuccess,
     setNFTs, 
+    setElrondWallet,
     setNFT, 
     setStep,
     toggleDisconnect
