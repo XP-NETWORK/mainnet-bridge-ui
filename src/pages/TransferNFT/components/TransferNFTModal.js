@@ -15,13 +15,15 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleConnect } from "../../../store/reducers/generalSlice";
+import { setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/warningsvg.png";
 import { TronLink } from "../../../wallet/tronlink";
+
+import {ExtensionProvider} from "@elrondnetwork/erdjs"
 
 const TransferNFTModal = () => {
   const {
@@ -49,10 +51,15 @@ const TransferNFTModal = () => {
     }
   }
 
+  const connectToElrond = async () => {
+    const instance = ExtensionProvider.getInstance()
+    await instance.init()
+    await instance.login()
+  }
+
   async function connectTronlink() {
       try {
-        await window.tronWeb.ready
-        TronLink()
+        await window.tronWeb.request({ method: "tron_requestAccounts" });
       } catch(err) {
           console.log(err)
       }
@@ -150,7 +157,7 @@ const TransferNFTModal = () => {
                 </Link>
               </li>
 
-              <li className="" style={isELROND ? {} : OFF}>
+              <li className="" style={isELROND ? {} : OFF} onClick={connectToElrond}>
                 <Link to="#">
                   {" "}
                   <span className="imgw">
