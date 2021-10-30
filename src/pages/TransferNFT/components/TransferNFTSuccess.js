@@ -15,24 +15,16 @@ import { chainsConfig, internalNonce } from "./values";
 import axios from 'axios'
 import { ChainFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
+import { getRPCFactory } from "../../../wallet/helpers";
 const TransferNFTSuccess = () => {
   const {from, to, nft, receiver, txid} = useSelector(s => s.general)
   const [show, setShow] = useState()
   const [chainId, setChainId] = useState()
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
-  const factory = ChainFactory({
-    ropstenParams: {
-      ...ChainData.Ethereum,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
-    },
-    polygonParams: {
-      ...ChainData.Polygon,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
-    }
-  });
   useEffect(async () => {
-    const inner = await factory.inner(fromChainConfig.Chain);
+  const factory = await getRPCFactory()
+  const inner = await factory.inner(fromChainConfig.Chain);
     const p = await factory.nftUri(inner, nft)
     setChainId(p.chainId)
     const res = await axios.get(p.uri)

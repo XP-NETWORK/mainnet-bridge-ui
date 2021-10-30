@@ -22,6 +22,7 @@ import { setStep, toggleNFTInfo } from "../../../store/reducers/generalSlice";
 import axios from 'axios'
 import { ChainFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
+import { getRPCFactory } from "../../../wallet/helpers";
 const TransferNFTModalNftDetails = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch()
@@ -30,18 +31,10 @@ const TransferNFTModalNftDetails = () => {
   const handleClose = () => dispatch(toggleNFTInfo(undefined))
   const { nftDetails, onlyDetails, from } = useSelector(s => s.general)
   const fromChain = chainsConfig[from]
-  const factory = ChainFactory({
-    ropstenParams: {
-      ...ChainData.Ethereum,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
-    },
-    polygonParams: {
-      ...ChainData.Polygon,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
-    }
-  });
+
   useEffect(async () => {
     if(nftDetails) {
+      const factory  = await getRPCFactory()
       const {uri} = nftDetails
       const inner = await factory.inner(fromChain.Chain);
       const p = await factory.nftUri(inner, nftDetails)

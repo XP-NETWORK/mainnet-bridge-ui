@@ -8,8 +8,10 @@ import CheckCircle from "../../../assets/img/icons/check-circle-filled.svg";
 import axios from 'axios'
 import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
+import { getRPCFactory } from '../../../wallet/helpers';
 
 export default function NFTs(props) {
+
     const {nfts} = useSelector(s => s.general)
     return (
         <ul className="storeNtfList">
@@ -24,6 +26,7 @@ function NFT(props) {
     const dispatch = useDispatch()
     const {from} = useSelector(s => s.general)
     useEffect(async() => {
+        const factory = await getRPCFactory()
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
         try {

@@ -15,6 +15,9 @@ export const TronLink = () => {
     if (e.data.message && e.data.message.action == "tabReply") {
         console.log("tabReply event", e.data.message)
         console.log(e.data.message.data.data.message, 'akdslldakslkadsadkls')
+        if(e.data.message.data.data && e.data.message.data.data.message.includes('whitelist')) {
+            // site is already whitelisted
+        }
     }
 
     if (e.data.message && e.data.message.action == "setAccount") {

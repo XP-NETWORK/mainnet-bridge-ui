@@ -104,9 +104,12 @@ export const chainsConfig = {
     Polygon: {
         type: EVM,
         token: 'MATIC',
-        chainId: 80001,
         // 137
-        rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
+        //80001
+        chainId: 137,
+        rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
+        // chainId: 80001,
+        // rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
         Chain: Chain.POLYGON,
         img: polygon,
         chainData: ChainData.Polygon
@@ -116,6 +119,7 @@ export const chainsConfig = {
         token: 'FTM',
         img: fantom,
         chainId: 250,
+        rpc: 'https://summer-dark-sea.fantom.quiknode.pro/96ff3e9e727ddccec57f93e68ad321c6e02e88a0/',
         Chain: Chain.FANTOM,
         chainData: ChainData.Fantom
     },

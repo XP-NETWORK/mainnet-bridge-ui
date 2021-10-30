@@ -19,7 +19,7 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-import { getFromParams, isEVM } from "../../../wallet/helpers";
+import { getFromParams, getRPCFactory, isEVM } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
 
@@ -37,16 +37,7 @@ const TransferNFTSend = () => {
   const toChainConfig = chainsConfig[to]
 
   useEffect(async () => {
-    const factory = ChainFactory({
-      ropstenParams: {
-        ...ChainData.Ethereum,
-        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
-      },
-      polygonParams: {
-        ...ChainData.Polygon,
-        provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
-      }
-      });
+    const factory = await getRPCFactory()
     const inner = await factory.inner(parseInt(chainId));
     const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
     if(res && res.data) setShow(res.data)
@@ -94,7 +85,7 @@ const TransferNFTSend = () => {
     return () => clearInterval(s)
   }, [])
   const estimate = async () => {
-   const factory = await getFactory()
+    const factory = await getRPCFactory()
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
     const fee = await factory.estimateFees(fromChain, toChain, nft, account)

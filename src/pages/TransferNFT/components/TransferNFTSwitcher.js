@@ -46,9 +46,9 @@ import { useWeb3React } from "@web3-react/core";
 import { createChainFactory } from "../../../wallet/connectors";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
-import { ChainFactory } from "xp.network";
 import NFTs from "./NFTs";
 import Loader from "./Loader";
+import { getRPCFactory } from "../../../wallet/helpers";
 
 const TransferNFTSwitcher = () => {
   const { to, from, nft, nfts } = useSelector((s) => s.general);
@@ -75,20 +75,11 @@ const TransferNFTSwitcher = () => {
 
   const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
-  const factory = ChainFactory({
-    ropstenParams: {
-      ...ChainData.Ethereum,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Ethereum.rpc),
-    },
-    polygonParams: {
-      ...ChainData.Polygon,
-      provider: new ethers.providers.JsonRpcProvider(chainsConfig.Polygon.rpc),
-    }
-    });
   useEffect(async () => {
       if(account) {
         const fromConfig = chainsConfig[from]
         if(from && isEVM && chainId === fromConfig.chainId) {
+            const factory = await getRPCFactory();
             setLoadingNFTs(true)
             const fromChain = chainsConfig[from]
             const inner = await factory.inner(fromChain.Chain);
@@ -99,7 +90,6 @@ const TransferNFTSwitcher = () => {
       }
 
   },[account, from, chainId])
-
 
   const next = () => {
       dispatch(setStep(2))
@@ -155,7 +145,7 @@ const TransferNFTSwitcher = () => {
               loadingNFTs ? <div className="nftloadercontainer"> <Loader className="nftloader" /></div>
               :
               nfts ? 
-              <NFTs factory={factory} />
+              <NFTs />
               :
               <p>
             <Image src={fing} fluid /> Connect the wallet to display your NFTs
