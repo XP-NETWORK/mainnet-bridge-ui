@@ -19,8 +19,9 @@ import { toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
-import { getChainId, isEVM } from "../../../wallet/helpers";
+import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/warningsvg.png";
+import { TronLink } from "../../../wallet/tronlink";
 
 const TransferNFTModal = () => {
   const {
@@ -46,6 +47,15 @@ const TransferNFTModal = () => {
     } catch (ex) {
       console.log(ex);
     }
+  }
+
+  async function connectTronlink() {
+      try {
+        await window.tronWeb.ready
+        TronLink()
+      } catch(err) {
+          console.log(err)
+      }
   }
   useEffect(() => {
       console.log(chainId, isConnectOpen)
@@ -129,7 +139,7 @@ const TransferNFTModal = () => {
               </span>
               <h3>
                 <Image src={ConnectBridge} />
-                Connect Bridge
+                Connect Wallet
               </h3>
             </div>
             <ul className="selsectBridge">
@@ -139,6 +149,7 @@ const TransferNFTModal = () => {
                   <Image src={MetaMask} /> MetaMask{" "}
                 </Link>
               </li>
+
               <li className="" style={isELROND ? {} : OFF}>
                 <Link to="#">
                   {" "}
@@ -146,6 +157,12 @@ const TransferNFTModal = () => {
                     <Image src={Ledger} />
                   </span>{" "}
                   Elrond Wallet{" "}
+                </Link>
+              </li>
+              <li onClick={connectTronlink} style={isTronLink() ? {} : OFF}>
+                <Link to="">
+                  {" "}
+                  <Image src={MetaMask} /> TronLink
                 </Link>
               </li>
               <li style={{ opacity: 0.6, pointerEvents: "none" }}>

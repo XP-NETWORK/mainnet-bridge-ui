@@ -74,6 +74,15 @@ export const chainsConfig = {
         chainData: ChainData.Heco,
         Chain: Chain.HECO,
     },
+    Tron: {
+        type: 'TRON',
+        chainId: 0x9,
+        token: 'TRX', 
+        rpc: 'https://api.shasta.trongrid.io/',
+        img: tron,
+        chainData: ChainData.Tron,
+        Chain: Chain.TRON
+    },
     Ethereum: {
         type: EVM,
         chainId: 3,

@@ -28,6 +28,11 @@ export const isEVM = () => {
     return chainsConfig[from] ? chainsConfig[from].type === EVM : "";
 }
 
+export const isTronLink = () => {
+    const {from} = store.getState().general
+    return from === 'Tron'
+}
+
 export const getChainId = () => {
     const {from} = store.getState().general
     return chainsConfig[from] ? chainsConfig[from].chainId : ''
