@@ -38,6 +38,13 @@ export const getFromParams = async () => {
                 provider
               }
         }
+    } else if(from === 'Avalanche') {
+        return {
+            avalancheParams: {
+                ...ChainData.Avalanche,
+                provider
+              }
+        }
     } else if(from === 'Elrond') {
         return {
             elrondParams: {
@@ -77,7 +84,15 @@ export const getFactoryParams = async (chain) => {
                 provider: new ethers.providers.JsonRpcProvider(chainsConfig.Fantom.rpc)
               }
         }
-    } else if(chain === 'BSC') {
+    } else if(chain === 'Avalanche') {
+        return {
+            avalancheParams: {
+                ...ChainData.Avalanche,
+                provider: new ethers.providers.JsonRpcProvider(chainsConfig.Avalanche.rpc)
+              }
+        }
+    }
+    else if(chain === 'BSC') {
         return {
             bscParams: {
                 ...ChainData.BSC,

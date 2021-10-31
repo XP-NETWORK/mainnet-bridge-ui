@@ -38,7 +38,7 @@ export const ChainData = {
       '0xa50d8208B15F5e79A1ceABdB4a3ED1866CEB764c',
       '0xa3F99eF33eDA9E54DbA4c04a6133c0c507bA4352'
     ],
-    nonce: 8,
+    nonce: 6,
   },
   Polygon: {
     provider: "JsonRpcProvider",
