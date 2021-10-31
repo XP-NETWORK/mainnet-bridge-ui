@@ -23,10 +23,11 @@ import { getFromParams, getRPCFactory, isEVM } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
 import { BigNumber } from "bignumber.js";
-
+import web3 from 'web3'
+import { ExtensionProvider } from "@elrondnetwork/erdjs/out";
 
 const TransferNFTSend = () => {
-  const {nft, to, from} = useSelector(s => s.general)
+  const {nft, to, from, elrondWallet} = useSelector(s => s.general)
   const {account, library} = useWeb3React( )
   const [error, setError] = useState()
   const [loadingApproval, setLoadingApproval] = useState()
@@ -38,16 +39,17 @@ const TransferNFTSend = () => {
   const [fees, setFees] = useState()
   const [bnFee, setBNFee] = useState()
   const [receiver, setReceiver] = useState()
-  const {uri, name, description, contract, chainId} = nft.native
+  const {uri, name, description, contract, chainId, tokenIdentifier} = nft.native
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
-
+  
   useEffect(async () => {
     isApprovedForMinter()
     estimate()
     const s = setInterval(() => estimate(), 1000 * 30)
     const factory = await getRPCFactory()
-    const inner = await factory.inner(parseInt(chainId));
+    console.log(factory, chainId, nft.native)
+    const inner = await factory.inner(chainId ? parseInt(chainId) : Chain.ELROND);
     const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
     if(res && res.data) setShow(res.data)
 
@@ -60,23 +62,23 @@ const TransferNFTSend = () => {
     try {
       if(!loading && receiver) {
         setError('')
-        if(isEVM()) {
-          const isAddress = await library.utils.isAddress(receiver)
+        // if(isEVM()) {
+          const isAddress = await new web3.utils.isAddress(receiver)
           if(isAddress) {
             if(fromChainConfig && toChainConfig) {
               setLoading(true)
               const factory = await getFactory()
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
-              const signer = provider.getSigner(account)
+              const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
               const bign = bnFee.decimalPlaces(0).toString()
+              console.log(nft, 'nft')
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
                 nft,
                 signer,
                 receiver,
-                bign
               )
               console.log(txid, 'hellasklda')
               if(txid) {
@@ -86,7 +88,7 @@ const TransferNFTSend = () => {
             } 
           } else setError('Not a valid address')
 
-        }
+        // }
       }
     } catch(err) {
       setLoading(false)
@@ -104,12 +106,13 @@ const TransferNFTSend = () => {
     const factory = await getRPCFactory()
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
-    const fee = await factory.estimateFees(fromChain, toChain, nft, account)
-    if(isEVM()) {
+    const fee = await factory.estimateFees(fromChain, toChain, nft, account ? account : '0xadFF46B0064a490c1258506d91e4325A277B22aE')
+    // console.log(fee)
+    // if(isEVM()) {
       setBNFee(fee.multipliedBy(1.8))
       const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
-      setFees(await library.utils.fromWei(bign , 'ether'))
-    }
+      setFees(await new web3.utils.fromWei(bign , 'ether'))
+    // }
     } catch(err) {
       console.log(err,' alldlkskld')
     }
@@ -133,6 +136,8 @@ const TransferNFTSend = () => {
         }
       }
       setLoadingApproval(false)
+    } else  {
+      console.log('hellos')
     }
   }
   const isApprovedForMinter = async () => {
@@ -157,7 +162,8 @@ const TransferNFTSend = () => {
   }
 
   const blockchain = chains.filter(n => n.text === to)[0]
-  const cont = `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}`
+  console.log(nft)
+  const cont = contract ? `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}` :  tokenIdentifier
   return (
     <div className="crossChainTab sendNFTBox">
       <div className="tabTitle arrowTitle">

@@ -85,9 +85,11 @@ export const chainsConfig = {
     },
     Ethereum: {
         type: EVM,
-        chainId: 3,
+        // chainId: 3,
+        // rpc: 'https://delicate-proud-rain.ropsten.quiknode.pro/6a57d9cf10aa9d5af8a2c54151763e21d29136ac/',
+        chainId: 1,
+        rpc: 'https://rough-dawn-meadow.quiknode.pro/2629bf63052353892b121c240f57f6b19a74ac8c/',
         token: 'ETH',
-        rpc: 'https://delicate-proud-rain.ropsten.quiknode.pro/6a57d9cf10aa9d5af8a2c54151763e21d29136ac/',
         img: etherium,
         chainData: ChainData.Ethereum,
         Chain: Chain.ROPSTEN,
@@ -224,7 +226,7 @@ export const CHAIN_INFO = {
     Ethereum: {
       nonce: 5,
       native: coins[3],
-      chainId: 3,
+      chainId: 1,
       rpcUrl: "https://ropsten.infura.io/v3/182b3d3fb2d14d5fbe7421348624d1ce",
       decimals: 1e18,
       contract: "0x2C742F65E6FEcDbb4ceE3D35473e39012aEDf3DD",

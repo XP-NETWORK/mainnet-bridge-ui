@@ -7,13 +7,19 @@ import { useEffect } from "react";
 import { Chain } from "xp.network/dist/consts";
 import { chainsConfig } from "./pages/TransferNFT/components/values";
 import {ethers} from 'ethers'
+import {ExtensionProvider} from "@elrondnetwork/erdjs"
+import { elrondHelperFactory } from "xp.network";
+import { getFactoryParams, getFromParams } from "./wallet/helpers";
 function App() {
     const mint = async () => {
         const factory = await getFactory()
-        const fromChain = await factory.inner(chainsConfig.Fantom.Chain)
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        factory.mint(fromChain, provider.getSigner('0x5fbc2F7B45155CbE713EAa9133Dd0e88D74126f6'), 
-        {uris: ['https://staking-api.xp.network/staking-nfts/4'], contract: '0x0267b99B8e26A8945F894010460aB83543e8d6aa'}
+        const fromChain = await factory.inner(chainsConfig.Elrond.Chain)
+        const provider = ExtensionProvider.getInstance()
+        ;
+        const address = await ExtensionProvider.getInstance().getAddress()
+        // await fromChain.mintableEsdts(address)
+        factory.mint(fromChain, provider, 
+        {identifier: 'XPNFT-9d19d5"', name:' ruby', uris: ['https://staking-api.xp.network/staking-nfts/4']}
         )
     }
     useEffect(() => {

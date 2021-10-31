@@ -18,12 +18,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setElrondWallet, setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "../../../wallet/connectors";
+import { getFactory, injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 
-import {ExtensionProvider} from "@elrondnetwork/erdjs"
+import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
 
 const TransferNFTModal = () => {
   const {
@@ -38,7 +38,8 @@ const TransferNFTModal = () => {
   } = useWeb3React();
 
   const dispatch = useDispatch();
-  const { isConnectOpen, from } = useSelector((s) => s.general);
+
+  const { isConnectOpen, from, elrondWallet } = useSelector((s) => s.general);
   const [switchNetwork, setSwitchNetwork] = useState(false)
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
@@ -57,6 +58,37 @@ const TransferNFTModal = () => {
       await instance.init()
       await instance.login()
       const { account } = instance
+      console.log(elrondWallet)
+      // if(elrondWallet) {
+      //   console.log('kldklads')
+      //   const factory = await getFactory()
+      //   const fromChain = await factory.inner(chainsConfig.Elrond.Chain)
+      //   // const ticker = await fromChain.issueESDTNft(
+      //   //   ExtensionProvider.getInstance(),
+      //   //   'XPNET',
+      //   //   'XPNET',
+      //   //   false,
+      //   //   false,
+      //   //   true
+      //   // )
+      //   // settik(ticker)
+      //   // console.log(ticker)
+      //   // await fromChain.setESDTRole(
+      //   //   ExtensionProvider.getInstance(),
+      //   //   // ticker,
+      //   //   'XPNET-cdcf5b',
+      //   //   new Address(address),
+      //   //   Array.of('ESDTRoleNFTCreate')
+      //   // )
+      //   const provider = ExtensionProvider.getInstance()
+      //   ;
+      //   const address = await ExtensionProvider.getInstance().getAddress()
+      //   // await fromChain.mintableEsdts(address)
+      //   factory.mint(fromChain, provider, 
+      //   {identifier: 'XPNET-cdcf5b', name:' ruby', uris: ['https://staking-api.xp.network/staking-nfts/4']}
+      //   )
+      // }
+      // else 
       if(account && account.address) {
         dispatch(setElrondWallet(account.address))
         handleClose()

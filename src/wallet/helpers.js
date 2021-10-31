@@ -104,7 +104,6 @@ export const getFactoryParams = async (chain) => {
         return {
             elrondParams: {
                 ...ChainData.Elrond,
-                provider: ''
             }
         }
     }

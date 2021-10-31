@@ -56,9 +56,9 @@ const NavBar = () => {
                   {walletString} <Image src={GreenDot} fluid />
                 </a>
               ) : (
-                <Link className="linkNoConne">
+                <a className="linkNoConne">
                   <Image src={RedCircle} fluid /> Wallet not connected
-                </Link>
+                </a>
               )}
             </div>
           </div>
