@@ -12,6 +12,7 @@ import TransferNFTModalNftDetail from "./components/TransferNFTModalNftDetail";
 import TransferNFTModalWarning from "./components/TransferNFTModalWarning";
 import TransferNFTModalSelectNft from "./components/TransferNFTModalSelectNft";
 import TransferNFTModalNftSelecNftList from "./components/TransferNFTModalNftSelecNftList";
+import TransferNFTModalNftSelect from "./components/TransferNFTModalSelect";
 import { useSelector } from "react-redux";
 import TransferNFTModalError from "./components/TransferNFTError";
 const TransferNFT = () => {
