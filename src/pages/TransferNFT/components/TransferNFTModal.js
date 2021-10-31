@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
+import TronWeb from 'tronweb'
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 import RedCircle from "../../../assets/img/redCircle.svg";
 import Close from "../../../assets/img/icons/closeBl.svg";
@@ -7,6 +8,7 @@ import ConnectBridge from "../../../assets/img/icons/ConnectBridge.svg";
 import {ethers} from 'ethers'
 import Ledger from "../../../assets/img/icons/lefger.svg";
 import MetaMask from "../../../assets/img/icons/MetaMask.svg";
+import TronLinkIcon from "../../../assets/img/icons/TronLInk.svg";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
@@ -15,13 +17,13 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setElrondWallet, setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
+import {setElrondWallet, setFrom, setTronWallet, toggleConnect} from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
-import { TronLink } from "../../../wallet/tronlink";
+// import { TronLink } from "../../../wallet/tronlink";
 
 import {ExtensionProvider} from "@elrondnetwork/erdjs"
 
@@ -70,12 +72,20 @@ const TransferNFTModal = () => {
   }
 
   async function connectTronlink() {
-      try {
-        await window.tronWeb.request({ method: "tron_requestAccounts" });
-      } catch(err) {
-          console.log(err)
+    if (window.tronWeb) {
+      if (window.tronWeb.ready) {
+        if (window.tronWeb.defaultAddress) {
+          dispatch(setTronWallet(window.tronWeb.defaultAddress.base58))
+          handleClose()
+        }
+      } else {
+        alert('TronLink wallet detected, please login.')
       }
+    } else {
+      window.open('https://chrome.google.com/webstore/detail/tronlink%EF%BC%88%E6%B3%A2%E5%AE%9D%E9%92%B1%E5%8C%85%EF%BC%89/ibnejdfjmmkpcnlpebklmnkoeoihofec')
+    }
   }
+  
   useEffect(() => {
       console.log(chainId, isConnectOpen)
     if(chainId && isConnectOpen) {
@@ -181,7 +191,7 @@ const TransferNFTModal = () => {
               <li onClick={connectTronlink} style={isTronLink() ? {} : OFF}>
                 <Link to="">
                   {" "}
-                  <Image src={MetaMask} /> TronLink
+                  <Image src={TronLinkIcon} width={24} height={24} /> TronLink
                 </Link>
               </li>
               <li style={{ opacity: 0.6, pointerEvents: "none" }}>
