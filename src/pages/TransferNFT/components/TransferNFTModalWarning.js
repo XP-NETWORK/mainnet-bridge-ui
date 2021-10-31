@@ -11,7 +11,7 @@ import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
-import Warn from "../../../assets/img/warningsvg.png";
+import Warn from "../../../assets/img/3dwallet.png";
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";

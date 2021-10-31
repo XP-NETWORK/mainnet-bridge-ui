@@ -20,7 +20,7 @@ import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
-import Warn from "../../../assets/img/warningsvg.png";
+import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 
 import {ExtensionProvider} from "@elrondnetwork/erdjs"
