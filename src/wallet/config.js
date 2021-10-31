@@ -62,9 +62,9 @@ export const ChainData = {
   },
   BSC: {
     provider: "JsonRpcProvider",
-    minter_addr: "0xd9dDB5d6c9D7d764B06E7C5aFF26AD316a4c227F",
-    erc1155_addr: "0xb4A252B3b24AF2cA83fcfdd6c7Fac04Ff9d45A7D",
-    erc721_addr: "0xb4A252B3b24AF2cA83fcfdd6c7Fac04Ff9d45A7D",
+    minter_addr: "0xF8679A16858cB7d21b3aF6b2AA1d6818876D3741",
+    erc1155_addr: "0xa1B8947Ff4C1fD992561F629cfE67aEb90DfcBd5",
+    erc721_addr: "0xa1B8947Ff4C1fD992561F629cfE67aEb90DfcBd5",
     validators:[
       '0xadFF46B0064a490c1258506d91e4325A277B22aE',
       '0xa50d8208B15F5e79A1ceABdB4a3ED1866CEB764c',

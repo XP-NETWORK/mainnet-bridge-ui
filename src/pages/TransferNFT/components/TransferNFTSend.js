@@ -22,6 +22,8 @@ import { useWeb3React } from "@web3-react/core";
 import { getFromParams, getRPCFactory, isEVM } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
+import { BigNumber } from "bignumber.js";
+
 
 const TransferNFTSend = () => {
   const {nft, to, from} = useSelector(s => s.general)
@@ -34,6 +36,7 @@ const TransferNFTSend = () => {
   const dispatch = useDispatch()
   const [show, setShow] = useState()
   const [fees, setFees] = useState()
+  const [bnFee, setBNFee] = useState()
   const [receiver, setReceiver] = useState()
   const {uri, name, description, contract, chainId} = nft.native
   const fromChainConfig = chainsConfig[from]
@@ -66,12 +69,14 @@ const TransferNFTSend = () => {
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
               const signer = provider.getSigner(account)
+              const bign = bnFee.decimalPlaces(0).toString()
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
                 nft,
                 signer,
-                receiver
+                receiver,
+                bign
               )
               console.log(txid, 'hellasklda')
               if(txid) {
@@ -101,7 +106,9 @@ const TransferNFTSend = () => {
     const toChain = await factory.inner(toChainConfig.Chain)
     const fee = await factory.estimateFees(fromChain, toChain, nft, account)
     if(isEVM()) {
-      setFees(await library.utils.fromWei(fee.toString(), 'ether'))
+      setBNFee(fee.multipliedBy(1.8))
+      const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
+      setFees(await library.utils.fromWei(bign , 'ether'))
     }
     } catch(err) {
       console.log(err,' alldlkskld')
@@ -112,7 +119,6 @@ const TransferNFTSend = () => {
     if(isEVM()) {
       setLoadingApproval(true)
       const factory = await getFactory()
-      console.log(factory)
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const fromChain = await factory.inner(fromChainConfig.Chain)
       const signer = provider.getSigner(account)
@@ -120,8 +126,11 @@ const TransferNFTSend = () => {
         await fromChain.approveForMinter(nft, signer)
         setIsApproved(true)
       } catch(err) {
-        dispatch(toggleError(err))
-        console.log(err.message)
+        if(err.data && err.data.code === -32000) {
+          setIsApproved(true)
+        } else {
+          dispatch(toggleError(err))
+        }
       }
       setLoadingApproval(false)
     }
@@ -189,7 +198,7 @@ const TransferNFTSend = () => {
       </div>
       <div className="feesArea">
         <div className="feesTitle">
-          <span>Fees</span>
+          <span>Gas Fees</span>
           <span>{fees ? `${fees} ${fromChainConfig?.token}` : 'Calculating fees'}</span>
         </div>
         {/* <p className="approveRequ">
