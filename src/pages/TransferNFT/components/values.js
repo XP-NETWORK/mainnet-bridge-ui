@@ -135,6 +135,7 @@ export const chainsConfig = {
     Avalanche: {
         type: EVM,
         token: 'AVAX',
+        rpc: 'https://avaxnode.xp.network/ext/bc/C/rpc',
         img: avalanche,
         chainId: 43114,
         chainData: ChainData.Avalanche,
@@ -214,7 +215,7 @@ export const CHAIN_INFO = {
     BSC: {
       nonce: 4,
       native: coins[2],
-      chainId: 97,
+      chainId: 56,
       rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545",
       decimals: 1e18,
       contract: "0x12889E870A48Be2A04564e74f66fC91D439Da03e",
