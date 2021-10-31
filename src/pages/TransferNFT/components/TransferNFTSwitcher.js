@@ -50,6 +50,8 @@ import NFTs from "./NFTs";
 import Loader from "./Loader";
 import { getRPCFactory } from "../../../wallet/helpers";
 
+import TransferNFTModalSelect from "./TransferNFTModalSelect"
+
 const TransferNFTSwitcher = () => {
   const { to, from, nft, nfts, elrondWallet } = useSelector((s) => s.general);
   const dispatch = useDispatch();
@@ -61,12 +63,14 @@ const TransferNFTSwitcher = () => {
   });
 
   const onChangeFrom = (e) => {
-    const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, "");
+    // const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, "");
+    const value = e.replace(/(?:\r\n|\r|\n)/g, "");
     if (value === to) dispatch(setTo(undefined));
     dispatch(setFrom(value));
   };
   const onChangeTo = (e) => {
-    const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, "");
+    // const value = e.target.innerText.replace(/(?:\r\n|\r|\n)/g, "");
+    const value = e.replace(/(?:\r\n|\r|\n)/g, "");
     dispatch(setTo(value));
   };
   const OFF = { opacity: 0.6, pointerEvents: "none" };
@@ -103,6 +107,10 @@ const TransferNFTSwitcher = () => {
   const next = () => {
       dispatch(setStep(2))
   }
+
+  console.log("from: ",from);
+  console.log("to: ",to);
+
   return (
     <Fragment>
       <div className="crossChainTab">
@@ -114,11 +122,11 @@ const TransferNFTSwitcher = () => {
             <div className="chainFrom">From</div>
             <div className="chainSelect">
               <SelectItem>
-                <Dropdown
+                <TransferNFTModalSelect
                   placeholder="Select Chain"
-                  fluid
+                  // fluid
                   disabled={account ? true : false}
-                  selection
+                  // selection
                   value={from}
                   onChange={onChangeFrom}
                   options={chains}
@@ -134,13 +142,13 @@ const TransferNFTSwitcher = () => {
             <div className="chainFrom">Send To</div>
             <div className="chainSelect">
               <SelectItem>
-                <Dropdown
+                <TransferNFTModalSelect
                   placeholder="Select Chain"
-                  fluid
+                  // fluid
                   disabled={account ? true : false}
                   onChange={onChangeTo}
                   value={to}
-                  selection
+                  // selection
                   options={chains.filter((n) => n.text !== from)}
                 />
               </SelectItem>

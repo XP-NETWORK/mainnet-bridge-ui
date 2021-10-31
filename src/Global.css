@@ -2080,3 +2080,84 @@ span.CloseModal {
   background-color: #E6E8EF !important;
   box-shadow: none !important;
 }
+
+.modalSelectPopupSize{
+  width: 286px !important;
+
+}
+
+.modalSelectPopupSize .modal-body{
+  padding: 0px;
+}
+
+.modalSelectPopupSize .modal-content{
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+.modalSelectButtonChoose,
+.modalSelectButton{
+  background: #ffffff;
+  box-shadow: 0px 1px 9px rgb(55 63 92 / 12%);
+  border-radius: 46px;
+  padding: 8px;
+  margin: 0;
+  height: 44px;
+  max-width: 100%;
+  min-width: unset;
+  width: 100% ;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modalSelectButtonChooseDisable{
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.modalSelectButton::before{
+  content: url("./assets/img/icons/binance.svg");
+  border-radius: 50%;
+  overflow: hidden;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.modalSelectButtonPlaceHolder{
+  font-weight: 400;
+  color: #040d27;
+  font-size: 14px;
+}
+
+.modalSelectOptions{
+  display: flex;
+  align-items: center;
+  height: 64px;
+  cursor: pointer;
+}
+
+.modalSelectOptions:hover{
+  background: rgba(243, 244, 250, 0.6);
+}
+
+.modalSelectOptionsImage{
+  width: 32px;
+  height: 32px;
+  margin-inline-start: 16px;
+}
+
+.modalSelectOptionsText{
+  font-weight: 500;
+  font-size: 18px;
+  color: #040D27;
+  margin-inline-start: 18px;
+}
+
+.modalSelectButtonChooseImg{
+  border-radius: 50%;
+    overflow: hidden;
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+}
