@@ -450,7 +450,8 @@ section.crossChainSec {
 
 .ui.dropdown > .text,
 .visible.menu .item {
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 400;
   color: #040d27 !important;
 }
 
@@ -1278,7 +1279,7 @@ ul.ms-options {
   background: #dadeee !important;
 }
 
-.storeImg img {
+.storeImg img, .storeImg video {
   display: block;
   width: 100%;
 }
@@ -1686,7 +1687,7 @@ span.CloseModal {
   width: 55%;
 }
 
-.nftDetImg img {
+.nftDetImg img, .nftDetImg video {
   display: block;
   width: 100%;
   border-radius: 16px;
@@ -2025,4 +2026,57 @@ span.CloseModal {
   background-color: #E4E7F2;
   color: rgba(4, 13, 39, 0.7);
   pointer-events: none;
+}
+
+* {
+  margin: 0;
+  padding: 0
+}
+.loader-container {
+  margin: 0 auto;
+  width: 400px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
+@keyframes placeholder {
+    0% { background-position: -600px 0 }
+    100% { background-position: 600px 0 }
+}
+
+.animated-background {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeholder;
+  animation-timing-function: linear;
+  background: #eeeeee;
+  background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+  background-size: 1200px 100px;
+  min-height: 110px;
+  max-height: 110px;
+  width: 100%;
+  margin: 5px 0 5px 0;
+  border-radius: 0px;
+  margin: 5px;
+}
+.animated-background-name {
+  min-height: 10px;
+  margin-top: 10px;
+}
+.container-of-nft-loader {
+  width: 33.333%;
+}
+
+.ui.disabled.dropdown, .ui.dropdown .menu>.disabled.item {
+  opacity: 1 !important;
+  background-color: #E6E8EF !important;
+}
+
+.ui.disabled.fluid.selection.dropdown {
+  background-color: #E6E8EF !important;
+  box-shadow: none !important;
 }

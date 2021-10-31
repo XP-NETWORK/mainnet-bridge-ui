@@ -98,6 +98,7 @@ export const chainsConfig = {
         token: 'BNB',
         img: binance,
         chainId: 56,
+        rpc: 'https://wandering-shy-leaf.bsc.quiknode.pro/8fb0366ce43528907ebf07a02b1f5a1f7df0f1b7/',
         chainData: ChainData.BSC,
         Chain: Chain.BSC,
     }, 
@@ -106,10 +107,10 @@ export const chainsConfig = {
         token: 'MATIC',
         // 137
         //80001
-        // chainId: 137,
-        // rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
-        chainId: 80001,
-        rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
+        chainId: 137,
+        rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
+        // chainId: 80001,
+        // rpc: 'https://quiet-thrumming-wind.matic-testnet.quiknode.pro/b068443f6df35f4e8c2c8aa8bc53fb9bbf96068f/',
         Chain: Chain.POLYGON,
         img: polygon,
         chainData: ChainData.Polygon
@@ -240,7 +241,7 @@ export const CHAIN_INFO = {
     Polygon: {
       nonce: 0x7,
       native: coins[5],
-      chainId: 80001,
+      chainId: 137,
       decimals: 1e18,
       rpcUrl: "https://matic-testnet-archive-rpc.bwarelabs.com",
       contract: "0x9E93256Df2a4fE757f8AEB533D3943E56ba8CF94",
@@ -251,7 +252,7 @@ export const CHAIN_INFO = {
       nonce: 0x8,
       rpcUrl: "https://rpc.testnet.fantom.network/",
       decimals: 1e18,
-      chainId: 4002,
+      chainId: 250,
       contract: "0xbc53f71E12007b93Ed2868E5f6CAE1D2ceB7287C",
       blockExplorerUrls: "https://explorer.testnet.fantom.network/transactions",
     },

@@ -34,12 +34,14 @@ const TransferNFTModalNftDetails = () => {
 
   useEffect(async () => {
     if(nftDetails) {
+      setDetails(false)
       const factory  = await getRPCFactory()
       const {uri} = nftDetails
       const inner = await factory.inner(fromChain.Chain);
       const p = await factory.nftUri(inner, nftDetails)
       setChainId(p.chainId)
       const res = await axios.get(p.uri)
+      console.log(res.data)
       if(res && res.data) setShow(res.data)
     } else setShow(undefined)
   }, [nftDetails])
@@ -50,8 +52,6 @@ const TransferNFTModalNftDetails = () => {
       <Modal
         show={nftDetails}
         onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
         className={details || onlyDetails ? "nftDetModal" : 'connectBridge nftSelectModal'}
       >
         <Modal.Body>
@@ -69,7 +69,7 @@ const TransferNFTModalNftDetails = () => {
             </div>
             <div className="nftDetContBox">
               <div className="nftDetImg">
-                <Image src={show?.image} />
+                {show?.animation_url ? <video src={show?.animation_url} autoPlay={true} loop={true} /> : <Image src={show?.image} />}
               </div>
               <div className="nftDetCont">
                 <div className="nftDetContList nftName">
@@ -106,7 +106,12 @@ const TransferNFTModalNftDetails = () => {
               <h3>{show?.name}</h3>
             </div>
             <div className="nftSelectCont">
-              <Image className="nft-sle-cas" src={show?.image} fluid />
+              {
+                          show?.animation_url 
+                          ? <video className="nft-sle-cas" src={show?.animation_url} autoPlay={true} loop={true} />
+                          : <Image className="nft-sle-cas" src={show?.image} fluid />
+              }
+              
               <div className="steepBtn">
                 <a className="" onClick={() => {
                   dispatch(setStep(2))

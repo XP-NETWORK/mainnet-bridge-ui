@@ -82,6 +82,7 @@ const TransferNFTSwitcher = () => {
             const factory = await getRPCFactory();
             setLoadingNFTs(true)
             const fromChain = chainsConfig[from]
+            console.log(fromChain, factory)
             const inner = await factory.inner(fromChain.Chain);
             const nfts = await factory.nftList(inner, account)
             dispatch(setNFTs(nfts))
@@ -110,7 +111,7 @@ const TransferNFTSwitcher = () => {
         </div>
         <div className="crosChainSelectBox">
           <div className="crosChainSelect">
-            <div className="chainFrom">Form</div>
+            <div className="chainFrom">From</div>
             <div className="chainSelect">
               <SelectItem>
                 <Dropdown

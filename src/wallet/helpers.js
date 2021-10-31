@@ -4,6 +4,7 @@ import store from '../store/store'
 import { createChainFactory } from "./connectors";
 import { ChainFactory } from "xp.network";
 import { ChainData } from './config'
+import { ExtensionProvider } from '@elrondnetwork/erdjs/out';
 export const getFromParams = async () => {
     const {from} = store.getState().general
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -22,11 +23,25 @@ export const getFromParams = async () => {
                 provider
               }
         }
-    } else if(from === 'Fantom') {
+    } else if(from === 'BSC') {
+        return {
+            bscParams: {
+                ...ChainData.BSC,
+                provider
+              }
+        }
+    }  
+    else if(from === 'Fantom') {
         return {
             fantomParams: {
                 ...ChainData.Fantom,
                 provider
+              }
+        }
+    } else if(from === 'Elrond') {
+        return {
+            elrondParams: {
+                ...ChainData.Elrond,
               }
         }
     }
@@ -36,6 +51,7 @@ export const getRPCFactory = async (chain) => {
     const {from, to} = store.getState().general
     const f = await getFactoryParams(from)
     const t = await getFactoryParams(to)
+    console.log(f, t)
     return ChainFactory({ ...f, ...t});
 }
 
@@ -61,11 +77,19 @@ export const getFactoryParams = async (chain) => {
                 provider: new ethers.providers.JsonRpcProvider(chainsConfig.Fantom.rpc)
               }
         }
-    } else if(chain === 'Elrond') {
+    } else if(chain === 'BSC') {
+        return {
+            bscParams: {
+                ...ChainData.BSC,
+                provider: new ethers.providers.JsonRpcProvider(chainsConfig.BSC.rpc)
+              }
+        }
+    } 
+    else if(chain === 'Elrond') {
         return {
             elrondParams: {
                 ...ChainData.Elrond,
-                provider: 'https://devnet-api.elrond.com'
+                provider: ''
             }
         }
     }

@@ -24,6 +24,7 @@ function NFT(props) {
     const {nft, factory} = props
     const [img, setImg] = useState()
     const dispatch = useDispatch()
+    const [killed, setKill] = useState()
     const {from} = useSelector(s => s.general)
     useEffect(async() => {
         const factory = await getRPCFactory()
@@ -31,10 +32,12 @@ function NFT(props) {
         const inner = await factory.inner(fromChain.Chain);
         try {
             const p = await factory.nftUri(inner, nft)
+            console.log(p, nft,'aklslkdsa')
             const res = await axios.get(p.uri)
             if(res && res.data) setImg(res.data)
         } catch(err) {
             console.log(err)
+            setKill(true)
         }
 
     },[props.uri])
@@ -43,18 +46,26 @@ function NFT(props) {
         dispatch(setNFT(nft))
     } 
     const className = `sinStoreNtf clickable`
-    return img ?<li onClick={select} className={className}>
+    console.log(img)
+    return killed ? '' : img ? <li onClick={select} className={className}>
     <div className="storeTop">
       <Link to="#link" className="inf infoOfNFT" >
         <Image src={Inf} className="inf infoOfNFT" />
       </Link>
       <div className="storeImg">
-        <Image src={img.image} />
+        {
+          img?.animation_url 
+          ? <video height={'100%'} src={img?.animation_url} autoPlay={true} loop={true} />
+          : <Image src={img.image} />
+        }
       </div>
       <span className="checkNft">
         <Image src={CheckCircle} />
       </span>
     </div>
     <p className="storeText">{img.name}</p>
-  </li> : ''
+  </li> : <div className="container-of-nft-loader">
+  <div class="animated-background"></div>
+  <div class="animated-background animated-background-name"></div>
+  </div>
 }

@@ -13,7 +13,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setStep, setSuccess, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
+import { setStep, setSuccess, toggleError, toggleNFTInfoOnlyDetails } from "../../../store/reducers/generalSlice";
 import { chains, chainsConfig } from "./values";
 import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
@@ -63,7 +63,6 @@ const TransferNFTSend = () => {
             if(fromChainConfig && toChainConfig) {
               setLoading(true)
               const factory = await getFactory()
-              console.log(factory)
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
               const signer = provider.getSigner(account)
@@ -74,6 +73,7 @@ const TransferNFTSend = () => {
                 signer,
                 receiver
               )
+              console.log(txid, 'hellasklda')
               if(txid) {
                 dispatch(setSuccess({ receiver, txid }))
                 dispatch(setStep(3))
@@ -85,6 +85,8 @@ const TransferNFTSend = () => {
       }
     } catch(err) {
       setLoading(false)
+      dispatch(toggleError(err))
+      console.log(err.message)
       console.log(err)
     }
   }
@@ -93,6 +95,7 @@ const TransferNFTSend = () => {
 
   }, [])
   const estimate = async () => {
+    try {
     const factory = await getRPCFactory()
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
@@ -100,11 +103,16 @@ const TransferNFTSend = () => {
     if(isEVM()) {
       setFees(await library.utils.fromWei(fee.toString(), 'ether'))
     }
+    } catch(err) {
+      console.log(err,' alldlkskld')
+    }
+
   }
   const approve = async () => {
     if(isEVM()) {
       setLoadingApproval(true)
       const factory = await getFactory()
+      console.log(factory)
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const fromChain = await factory.inner(fromChainConfig.Chain)
       const signer = provider.getSigner(account)
@@ -112,7 +120,8 @@ const TransferNFTSend = () => {
         await fromChain.approveForMinter(nft, signer)
         setIsApproved(true)
       } catch(err) {
-
+        dispatch(toggleError(err))
+        console.log(err.message)
       }
       setLoadingApproval(false)
     }
@@ -120,12 +129,19 @@ const TransferNFTSend = () => {
   const isApprovedForMinter = async () => {
     setLoadingPreCheckApproved(true)
     if(isEVM()) {
-      const factory = await getFactory()
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const fromChain = await factory.inner(fromChainConfig.Chain)
-      const signer = provider.getSigner(account)
-      const checkIsApproved = await fromChain.isApprovedForMinter(nft, signer)
-     setIsApproved(checkIsApproved)
+      try {
+        const factory = await getFactory()
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const fromChain = await factory.inner(fromChainConfig.Chain)
+        const signer = provider.getSigner(account)
+        const checkIsApproved = await fromChain.isApprovedForMinter(nft, signer)
+        setIsApproved(checkIsApproved)
+      } catch(err) {
+        console.log(err, 'adsklalsdkaklsdasdkl')
+
+        setIsApproved(true)
+      }
+
     } else setIsApproved(true)
     setLoadingPreCheckApproved(false)
 
@@ -199,7 +215,7 @@ const TransferNFTSend = () => {
         </> 
         :''}
         
-        <a onClick={send} style={{  }} className={`bBlueBtn clickable ${isApproved ? '' : 'disbldBtn'}`}>
+        <a onClick={send} style={{ marginTop: isApproved ? '' : '10px' }} className={`bBlueBtn clickable ${isApproved ? '' : 'disbldBtn'}`}>
           {
             loading ? <Loader  /> : 'Send NFT'
           }

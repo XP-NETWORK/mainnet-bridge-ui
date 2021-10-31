@@ -18,6 +18,9 @@ const generalSlice = createSlice({
     setElrondWallet(state, action) {
       state.elrondWallet = action.payload
     },
+    toggleError(state,action) {
+      state.error = action.payload
+    },
     toggleConnect(state, action) {
       state.isConnectOpen = action.payload;
     },
@@ -58,6 +61,7 @@ export const { toggleNFTInfo,
     setElrondWallet,
     setNFT, 
     setStep,
+    toggleError,
     toggleDisconnect
 } = generalSlice.actions;
 
