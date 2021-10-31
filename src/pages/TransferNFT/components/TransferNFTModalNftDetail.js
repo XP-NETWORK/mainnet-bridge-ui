@@ -47,6 +47,8 @@ const TransferNFTModalNftDetails = () => {
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
+
+  
   return (
     <>
       <Modal

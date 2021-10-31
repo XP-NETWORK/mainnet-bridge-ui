@@ -30,7 +30,6 @@ const TransferNFTModalSelect = (props) => {
   const handleShow = () => setShow(true);
 
   const chooseValue = (e) => {
-    // console.log(e);
     onChange(e);
     handleClose();
   };
@@ -53,10 +52,15 @@ const TransferNFTModalSelect = (props) => {
       <Modal
         show={show}
         onHide={handleClose}
+        backdrop="static"
         keyboard={true}
         dialogClassName="modalSelectPopupSize"
       >
         <Modal.Body>
+          <div className="closeChooseChain">
+            <div className="closeChooseChainText">Select Chain</div>
+            <img className="closeChooseButton" onClick={handleClose} src={Close} alt="closeSVG"/>
+          </div>
           {options
             ? options.map((n) => {
                 const { image, text, key, value } = n;

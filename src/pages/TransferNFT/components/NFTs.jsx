@@ -46,7 +46,6 @@ function NFT(props) {
         dispatch(setNFT(nft))
     } 
     const className = `sinStoreNtf clickable`
-    console.log(img)
     return killed ? '' : img ? <li onClick={select} className={className}>
     <div className="storeTop">
       <Link to="#link" className="inf infoOfNFT" >

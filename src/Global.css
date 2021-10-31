@@ -2082,7 +2082,7 @@ span.CloseModal {
 }
 
 .modalSelectPopupSize{
-  width: 286px !important;
+  width: 376px !important;
 
 }
 
@@ -2133,7 +2133,7 @@ span.CloseModal {
 .modalSelectOptions{
   display: flex;
   align-items: center;
-  height: 64px;
+  height: 60px;
   cursor: pointer;
 }
 
@@ -2142,16 +2142,16 @@ span.CloseModal {
 }
 
 .modalSelectOptionsImage{
-  width: 32px;
-  height: 32px;
-  margin-inline-start: 16px;
+  width: 26px;
+  height: 26px;
+  margin-inline-start: 38px;
 }
 
 .modalSelectOptionsText{
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   color: #040D27;
-  margin-inline-start: 18px;
+  margin-inline-start: 26px;
 }
 
 .modalSelectButtonChooseImg{
@@ -2160,4 +2160,28 @@ span.CloseModal {
     width: 28px;
     height: 28px;
     margin-right: 8px;
+}
+
+.closeChooseChain{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #E0E8F4;
+  justify-content: flex-end;
+}
+.closeChooseChainText{
+  width: 280px;
+height: 58px;
+font-weight: 500;
+font-size: 18px;
+color: #040D27;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.closeChooseButton{
+  margin-inline-end: 17px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
 }
