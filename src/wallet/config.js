@@ -30,11 +30,15 @@ export const ChainData = {
   },
   Avalanche: {
     provider: "JsonRpcProvider",
-    minter_addr: "string",
-    erc1155_addr: "string",
-    erc721_addr: "string",
-    validators: "string[]",
-    nonce: "number",
+    minter_addr: "0x5B916EFb0e7bc0d8DdBf2d6A9A7850FdAb1984C4",
+    erc1155_addr: "0xe12B16FFBf7D79eb72016102F3e3Ae6fe03fCA56",
+    erc721_addr: "0xe12B16FFBf7D79eb72016102F3e3Ae6fe03fCA56",
+    validators: [
+      '0xadFF46B0064a490c1258506d91e4325A277B22aE',
+      '0xa50d8208B15F5e79A1ceABdB4a3ED1866CEB764c',
+      '0xa3F99eF33eDA9E54DbA4c04a6133c0c507bA4352'
+    ],
+    nonce: 8,
   },
   Polygon: {
     provider: "JsonRpcProvider",
