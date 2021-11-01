@@ -17,7 +17,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setNFTs, toggleDisconnect } from "../../../store/reducers/generalSlice";
+import {setNFTs, setTronWallet, toggleDisconnect} from "../../../store/reducers/generalSlice";
 import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTModalWarning = () => {
@@ -35,9 +35,13 @@ const TransferNFTModalWarning = () => {
   const dispatch = useDispatch()
   const handleClose = () => dispatch(toggleDisconnect(false));
   const handleShow = () => setShow(true);
-  const {disconnectOpen} = useSelector(s => s.general)
+  const {disconnectOpen, tronWallet} = useSelector(s => s.general)
   const disconnect = async () => {
-    deactivate()
+    if (account) {
+      deactivate()
+    } else if (tronWallet) {
+      dispatch(setTronWallet(undefined))
+    }
     dispatch(setNFTs(undefined))
     handleClose()
   }

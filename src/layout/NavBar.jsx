@@ -16,7 +16,7 @@ import GreenDot from "../assets/img/walletSvg.png";
 import { Link, NavLink } from "react-router-dom";
 import Classes from "./NavBar.module.css";
 import { useWeb3React } from "@web3-react/core";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { toggleDisconnect } from "../store/reducers/generalSlice";
 
 const NavBar = () => {
@@ -30,11 +30,12 @@ const NavBar = () => {
     active,
     error,
   } = useWeb3React();
+  const {tronWallet} = useSelector(s => s.general)
   const dispatch = useDispatch()
   const disconnect = () => {
     dispatch(toggleDisconnect(true))
   }
-  const wallet = account ? account : "";
+  const wallet = account ? account : (tronWallet ? tronWallet : "");
   const walletString = wallet
     ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}`
     : "";
