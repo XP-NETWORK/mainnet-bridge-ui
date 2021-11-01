@@ -51,7 +51,7 @@ import Loader from "./Loader";
 import { getRPCFactory } from "../../../wallet/helpers";
 
 const TransferNFTSwitcher = () => {
-  const { to, from, nft, nfts, elrondWallet } = useSelector((s) => s.general);
+  const { to, from, nft, nfts, elrondWallet, tronWallet } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
   const [loadingNFTs, setLoadingNFTs] = useState(false)
@@ -96,9 +96,13 @@ const TransferNFTSwitcher = () => {
         const nfts = await factory.nftList(inner, elrondWallet)
         dispatch(setNFTs(nfts))
         setLoadingNFTs(false)
+      } else if(tronWallet) {
+        setLoadingNFTs(true)
+        
+        // setLoadingNFTs(false)
       }
 
-  },[account, from, chainId, elrondWallet])
+  },[account, from, chainId, elrondWallet, tronWallet])
 
   const next = () => {
       dispatch(setStep(2))
@@ -160,18 +164,21 @@ const TransferNFTSwitcher = () => {
             <Image src={fing} fluid /> Connect the wallet to display your NFTs
           </p>
           }
-  
-                {!account ? <div
-                style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
-                className="steepBtn"
-              >
+          {(account || tronWallet) ? (
+            ''
+          ) : (
+            <div
+              style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
+              className="steepBtn"
+            >
               <a
                 onClick={() => dispatch(toggleConnect(true))}
                 className="bBlueBtn"
               >
                 Connect Wallet
               </a>
-              </div> : '' }
+            </div>
+          )}
         </div>
       </div>
     </Fragment>
