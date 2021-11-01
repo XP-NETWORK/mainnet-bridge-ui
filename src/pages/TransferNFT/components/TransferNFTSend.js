@@ -25,6 +25,7 @@ import Loader from './Loader'
 import { BigNumber } from "bignumber.js";
 import web3 from 'web3'
 import { ExtensionProvider } from "@elrondnetwork/erdjs/out";
+const Web3Utils = require('web3-utils');
 
 const TransferNFTSend = () => {
   const {nft, to, from, elrondWallet} = useSelector(s => s.general)
@@ -73,14 +74,19 @@ const TransferNFTSend = () => {
               const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
               const bign = bnFee.decimalPlaces(0).toString()
               console.log(nft, 'nft')
+              if(elrondWallet) {
+                await fromChain.doEgldSwap(signer, bign)
+              }
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
                 nft,
                 signer,
                 receiver,
+                '10000000000000000'
+                // bnFee.decimalPlaces(0).toString()
               )
-              console.log(txid, 'hellasklda')
+              console.log(txid, 'hellasklda',)
               if(txid) {
                 dispatch(setSuccess({ receiver, txid }))
                 dispatch(setStep(3))
@@ -111,7 +117,8 @@ const TransferNFTSend = () => {
     // if(isEVM()) {
       setBNFee(fee.multipliedBy(1.8))
       const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
-      setFees(await new web3.utils.fromWei(bign , 'ether'))
+      console.log(await Web3Utils.fromWei(bign , 'ether'))
+      setFees(await Web3Utils.fromWei(bign , 'ether'))
     // }
     } catch(err) {
       console.log(err,' alldlkskld')

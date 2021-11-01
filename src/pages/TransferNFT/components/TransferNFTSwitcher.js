@@ -169,7 +169,7 @@ const TransferNFTSwitcher = () => {
           </p>
           }
   
-                {!account ? <div
+                {!account && !elrondWallet ? <div
                 style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
                 className="steepBtn"
               >

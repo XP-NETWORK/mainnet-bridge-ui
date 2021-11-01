@@ -454,7 +454,10 @@ section.crossChainSec {
   font-weight: 400;
   color: #040d27 !important;
 }
-
+.navBrand {
+  display: flex;
+  align-items: center;
+}
 .fromToArrow {
   position: absolute;
   top: 40px;
@@ -474,7 +477,9 @@ section.crossChainSec {
   box-shadow: none;
   width: 220px;
 }
-
+.tronlink-icon-wallet {
+  width: 22px;
+}
 .ms-dd .ms-dd-header {
   background: #ffffff;
   box-shadow: 0px 1px 7px rgb(31 43 57 / 7%);
@@ -1077,8 +1082,17 @@ ul.ms-options {
 .inputGroup {
   margin-bottom: 12px;
 }
-
+.logo p {
+  margin-top: 6px;
+}
 @media (max-width: 576px) {
+  .logo p {
+    text-align: center;
+    margin-top: 6px;
+  }
+  .navBrand {
+    justify-content: center;
+  }
   .inputGroup {
     margin-bottom: 5px;
   }
@@ -1231,7 +1245,10 @@ ul.ms-options {
 .headerright {
   display: flex;
 }
-
+.comingUpChain {
+  opacity: 0.6;
+  pointer-events: none;
+}
 .sinStoreNtf {
   position: relative;
   width: 33.333%;

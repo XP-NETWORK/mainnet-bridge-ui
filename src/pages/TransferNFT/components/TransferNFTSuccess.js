@@ -16,9 +16,12 @@ import axios from 'axios'
 import { ChainFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { getRPCFactory } from "../../../wallet/helpers";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
 const TransferNFTSuccess = () => {
   const {from, to, nft, receiver, txid} = useSelector(s => s.general)
   const [show, setShow] = useState()
+  const [copied, setCopy] = useState()
   const [chainId, setChainId] = useState()
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
@@ -31,11 +34,15 @@ const TransferNFTSuccess = () => {
     if(res && res.data) setShow(res.data)
   }, [])
   const blockchain = internalNonce[chainId]
+  const copy = () => {
+    setCopy(true)
+    setTimeout(() => setCopy(false), 2000)
+  }
   return (
     <div className="crossChainTab sendNFTBox">
       <div className="tabTitle arrowTitle">
         <span className="CloseModal">
-          <Image src={Close} />{" "}
+          <Image onClick={() => window.location.reload()} src={Close} />
         </span>
         <h3>
           <Image src={Success} className="img24" />
@@ -69,7 +76,7 @@ const TransferNFTSuccess = () => {
             </li>
             <li>
               <span className="succTagName">Contract address</span>{" "}
-              <span className="succTagStat ">{`${nft.native.contract.substring(0, 10)}...${nft.native.contract.substring(nft.native.contract.length - 6)}`}</span>
+              <span className="succTagStat ">{nft.native.contract ?`${nft.native.contract.substring(0, 10)}...${nft.native.contract.substring(nft.native.contract.length - 6)}` : nft.native.tokenIdentifier}</span>
             </li>
             <li>
               <span className="succTagName">Blockchain</span>{" "}
@@ -108,7 +115,12 @@ const TransferNFTSuccess = () => {
               <span className="succTagStat ">
                 {`${txid.substring(0, 6)}...${txid.substring(txid.length - 4)}`}{" "}
                 <span className="copyText">
-                  <Image src={Copy} className="ml5" />
+                <CopyToClipboard 
+                text={txid}
+                onCopy={copy}
+                >
+                  <Image src={Copy} className="ml5 clickable" />
+              </CopyToClipboard>
                 </span>
               </span>
             </li>
@@ -116,9 +128,9 @@ const TransferNFTSuccess = () => {
         </div>
       </div>
       <div className="steepBtn">
-        <Link to="#link" className="bBlueBtn">
+        <a href={`${fromChainConfig.tx + txid}`} target="_blank" className="bBlueBtn">
           View Transaction
-        </Link>
+        </a>
       </div>
     </div>
   );

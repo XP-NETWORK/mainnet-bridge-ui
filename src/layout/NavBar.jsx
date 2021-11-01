@@ -16,8 +16,8 @@ import GreenDot from "../assets/img/walletSvg.png";
 import { Link, NavLink } from "react-router-dom";
 import Classes from "./NavBar.module.css";
 import { useWeb3React } from "@web3-react/core";
-import { useDispatch } from "react-redux";
-import { toggleDisconnect } from "../store/reducers/generalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setElrondWallet, toggleDisconnect } from "../store/reducers/generalSlice";
 
 const NavBar = () => {
   const {
@@ -30,11 +30,12 @@ const NavBar = () => {
     active,
     error,
   } = useWeb3React();
+  const {elrondWallet} = useSelector(s => s.general)
   const dispatch = useDispatch()
   const disconnect = () => {
     dispatch(toggleDisconnect(true))
   }
-  const wallet = account ? account : "";
+  const wallet = account ? account : elrondWallet ? elrondWallet : '';
   const walletString = wallet
     ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}`
     : "";
@@ -46,7 +47,7 @@ const NavBar = () => {
             <div className="headerLeft">
               <div className="navBrand">
                 <Link to="/" className="logo">
-                  <Image src={Logo} fluid />
+                  <Image src={Logo} fluid /><p>ALPHA</p>
                 </Link>
               </div>
             </div>

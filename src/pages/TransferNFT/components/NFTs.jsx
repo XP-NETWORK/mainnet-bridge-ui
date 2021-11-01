@@ -9,6 +9,7 @@ import axios from 'axios'
 import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
 import { getRPCFactory } from '../../../wallet/helpers';
+import { isBase64 } from './values'
 
 export default function NFTs(props) {
 
@@ -25,18 +26,27 @@ function NFT(props) {
     const [img, setImg] = useState()
     const dispatch = useDispatch()
     const [killed, setKill] = useState()
-    const {from} = useSelector(s => s.general)
+    const {from, to} = useSelector(s => s.general)
     useEffect(async() => {
         const factory = await getRPCFactory()
         const fromChain = chainsConfig[from]
+        const toChain = chainsConfig[to]
         const inner = await factory.inner(fromChain.Chain);
+        const toChainInner = await factory.inner(toChain.Chain)
         try {
+            console.log(nft)
+ 
             const p = await factory.nftUri(inner, nft)
-            console.log(p, nft,'aklslkdsa')
             const res = await axios.get(p.uri)
             if(res && res.data) setImg(res.data)
         } catch(err) {
-            console.log(err)
+            if(isBase64(nft.uri)) {
+              const elrond = await factory.inner(toChain.Chain)
+              const decoded = await elrond.isWrappedNft(nft)
+              console.log(decoded)
+                console.log(elrond)
+              console.log(atob(nft.uri))
+            }
             setKill(true)
         }
 
@@ -46,7 +56,6 @@ function NFT(props) {
         dispatch(setNFT(nft))
     } 
     const className = `sinStoreNtf clickable`
-    console.log(img)
     return killed ? '' : img ? <li onClick={select} className={className}>
     <div className="storeTop">
       <Link to="#link" className="inf infoOfNFT" >

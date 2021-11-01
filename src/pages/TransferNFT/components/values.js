@@ -21,12 +21,14 @@ export const chains = [
         key: ELROND,
         text: ELROND,
         value: ELROND,
+        // coming: true,
         image: { avatar: true, src: enrollIco },
     },
     {
         key: 'Ethereum',
         text: 'Ethereum',
         value: 'Ethereum',
+        coming: true,
         image: { avatar: true, src: etherium },
     },
     {
@@ -39,6 +41,7 @@ export const chains = [
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
+        coming: true,
         image: { avatar: true, src: tron },
     },
     {
@@ -51,6 +54,7 @@ export const chains = [
         key: 'Heco',
         text: 'Heco',
         value: 'Heco',
+        coming: true,
         image: { avatar: true, src: heco },
     },
     {
@@ -63,6 +67,7 @@ export const chains = [
         key: 'Avalanche',
         text: 'Avalanche',
         value: 'Avalanche',
+        coming: true,
         image: { avatar: true, src: avalanche },
     }
 ]
@@ -100,6 +105,7 @@ export const chainsConfig = {
         token: 'BNB',
         img: binance,
         chainId: 56,
+        tx: 'https://bscscan.com/tx/',
         rpc: 'https://wandering-shy-leaf.bsc.quiknode.pro/8fb0366ce43528907ebf07a02b1f5a1f7df0f1b7/',
         chainData: ChainData.BSC,
         Chain: Chain.BSC,
@@ -109,6 +115,7 @@ export const chainsConfig = {
         token: 'MATIC',
         // 137
         //80001
+        tx: 'https://polygonscan.com/tx/',
         chainId: 137,
         rpc: 'https://red-black-water.matic.quiknode.pro/a1bec0e749c6fed57405002677902b7046c59689/',
         // chainId: 80001,
@@ -122,6 +129,7 @@ export const chainsConfig = {
         token: 'FTM',
         img: fantom,
         chainId: 250,
+        tx: 'https://ftmscan.com/tx/',
         rpc: 'https://summer-dark-sea.fantom.quiknode.pro/96ff3e9e727ddccec57f93e68ad321c6e02e88a0/',
         Chain: Chain.FANTOM,
         chainData: ChainData.Fantom
@@ -131,7 +139,8 @@ export const chainsConfig = {
         token: 'EGLD',
         img: enrollIco,
         chainData: ChainData.Elrond,
-        Chain: Chain.ELROND
+        Chain: Chain.ELROND,
+        tx: 'https://explorer.elrond.com/transactions/'
 
     },
     Avalanche: {

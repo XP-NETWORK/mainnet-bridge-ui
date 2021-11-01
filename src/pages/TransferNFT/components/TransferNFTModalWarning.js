@@ -17,7 +17,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setNFTs, toggleDisconnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setNFTs, toggleDisconnect } from "../../../store/reducers/generalSlice";
 import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTModalWarning = () => {
@@ -39,6 +39,7 @@ const TransferNFTModalWarning = () => {
   const disconnect = async () => {
     deactivate()
     dispatch(setNFTs(undefined))
+    dispatch(setElrondWallet(undefined))
     handleClose()
   }
   return (

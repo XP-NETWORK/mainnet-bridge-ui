@@ -59,10 +59,10 @@ const TransferNFTModalSelect = (props) => {
         <Modal.Body>
           {options
             ? options.map((n) => {
-                const { image, text, key, value } = n;
+                const { image, text, key, value, coming } = n;
                 return (
                   <div
-                    className="modalSelectOptions"
+                    className={`modalSelectOptions ${coming ? 'comingUpChain' : ''}`}
                     onClick={() => chooseValue(value)}
                   >
                     <img
@@ -70,7 +70,7 @@ const TransferNFTModalSelect = (props) => {
                       alt={key}
                       className="modalSelectOptionsImage"
                     />
-                    <div className="modalSelectOptionsText">{text}</div>
+                    <div className="modalSelectOptionsText">{text} {coming ? ' - Coming up' : ''}</div>
                   </div>
                 );
               })

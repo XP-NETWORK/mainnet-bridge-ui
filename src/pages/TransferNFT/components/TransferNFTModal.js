@@ -7,6 +7,7 @@ import ConnectBridge from "../../../assets/img/icons/ConnectBridge.svg";
 import {ethers} from 'ethers'
 import Ledger from "../../../assets/img/icons/lefger.svg";
 import MetaMask from "../../../assets/img/icons/MetaMask.svg";
+import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
@@ -59,36 +60,36 @@ const TransferNFTModal = () => {
       await instance.login()
       const { account } = instance
       console.log(elrondWallet)
-      // if(elrondWallet) {
-      //   console.log('kldklads')
-      //   const factory = await getFactory()
-      //   const fromChain = await factory.inner(chainsConfig.Elrond.Chain)
-      //   // const ticker = await fromChain.issueESDTNft(
-      //   //   ExtensionProvider.getInstance(),
-      //   //   'XPNET',
-      //   //   'XPNET',
-      //   //   false,
-      //   //   false,
-      //   //   true
-      //   // )
-      //   // settik(ticker)
-      //   // console.log(ticker)
-      //   // await fromChain.setESDTRole(
-      //   //   ExtensionProvider.getInstance(),
-      //   //   // ticker,
-      //   //   'XPNET-cdcf5b',
-      //   //   new Address(address),
-      //   //   Array.of('ESDTRoleNFTCreate')
-      //   // )
-      //   const provider = ExtensionProvider.getInstance()
-      //   ;
-      //   const address = await ExtensionProvider.getInstance().getAddress()
-      //   // await fromChain.mintableEsdts(address)
-      //   factory.mint(fromChain, provider, 
-      //   {identifier: 'XPNET-cdcf5b', name:' ruby', uris: ['https://staking-api.xp.network/staking-nfts/4']}
-      //   )
-      // }
-      // else 
+      if(elrondWallet) {
+        console.log('kldklads')
+        const factory = await getFactory()
+        const fromChain = await factory.inner(chainsConfig.Elrond.Chain)
+        // const ticker = await fromChain.issueESDTNft(
+        //   ExtensionProvider.getInstance(),
+        //   'XPNET',
+        //   'XPNET',
+        //   false,
+        //   false,
+        //   true
+        // )
+        // settik(ticker)
+        // console.log(ticker)
+        // await fromChain.setESDTRole(
+        //   ExtensionProvider.getInstance(),
+        //   // ticker,
+        //   'XPNET-cdcf5b',
+        //   new Address(address),
+        //   Array.of('ESDTRoleNFTCreate')
+        // )
+        const provider = ExtensionProvider.getInstance()
+        ;
+        const address = await ExtensionProvider.getInstance().getAddress()
+        // await fromChain.mintableEsdts(address)
+        factory.mint(fromChain, provider, 
+        {identifier: 'XPNET-cdcf5b', name:' ruby', uris: ['https://staking-api.xp.network/staking-nfts/4']}
+        )
+      }
+      else 
       if(account && account.address) {
         dispatch(setElrondWallet(account.address))
         handleClose()
@@ -213,7 +214,7 @@ const TransferNFTModal = () => {
               <li onClick={connectTronlink} style={isTronLink() ? {} : OFF}>
                 <Link to="">
                   {" "}
-                  <Image src={MetaMask} /> TronLink
+                  <Image className="tronlink-icon-wallet" src={TronLinkIcon} /> TronLink
                 </Link>
               </li>
               <li style={{ opacity: 0.6, pointerEvents: "none" }}>
