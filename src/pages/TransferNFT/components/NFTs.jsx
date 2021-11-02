@@ -14,6 +14,7 @@ import { isBase64 } from './values'
 export default function NFTs(props) {
 
     const {nfts} = useSelector(s => s.general)
+    console.log(JSON.stringify(nfts))
     return (
         <ul className="storeNtfList">
           {nfts.map((n, i) => <NFT factory={props.factory} nft={n} key={`${i}`} />)}
@@ -34,7 +35,6 @@ function NFT(props) {
         const inner = await factory.inner(fromChain.Chain);
         const toChainInner = await factory.inner(toChain.Chain)
         try {
-            console.log(nft)
  
             const p = await factory.nftUri(inner, nft)
             const res = await axios.get(setupURI(p.uri))
@@ -54,6 +54,7 @@ function NFT(props) {
               setImg(res.data)
             }
         } catch(err) {
+          console.log(nft.uri, 'hello')
             if(isBase64(nft.uri)) {
               // const elrond = await factory.inner(toChain.Chain)
               // const decoded = await elrond.isWrappedNft(nft)
