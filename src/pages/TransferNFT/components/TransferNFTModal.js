@@ -46,7 +46,6 @@ const TransferNFTModal = () => {
   const handleClose = () => dispatch(toggleConnect(false));
   async function connect() {
     try {
-        console.log(injected)
         await activate(injected);
     } catch (ex) {
       console.log(ex);
