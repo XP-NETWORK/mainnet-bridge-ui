@@ -22,7 +22,7 @@ import { setStep, toggleNFTInfo } from "../../../store/reducers/generalSlice";
 import axios from 'axios'
 import { ChainFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
-import { getRPCFactory } from "../../../wallet/helpers";
+import { getRPCFactory, setupURI } from "../../../wallet/helpers";
 const TransferNFTModalNftDetails = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch()
@@ -40,14 +40,13 @@ const TransferNFTModalNftDetails = () => {
       const inner = await factory.inner(fromChain.Chain);
       const p = await factory.nftUri(inner, nftDetails)
       setChainId(p.chainId)
-      const res = await axios.get(p.uri)
+      const res = await axios.get(setupURI(p.uri))
       console.log(res.data)
       if(res && res.data) setShow(res.data)
     } else setShow(undefined)
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
-  console.log(nftDetails)
   return (
     <>
       <Modal
@@ -70,7 +69,10 @@ const TransferNFTModalNftDetails = () => {
             </div>
             <div className="nftDetContBox">
               <div className="nftDetImg">
-                {show?.animation_url ? <video src={show?.animation_url} autoPlay={true} loop={true} /> : <Image src={show?.image} />}
+                {show?.animation_url 
+                ? <video src={show?.animation_url} autoPlay={true} loop={true} /> 
+                : <Image src={setupURI(show?.image)} />
+                }
               </div>
               <div className="nftDetCont">
                 <div className="nftDetContList nftName">
@@ -110,7 +112,7 @@ const TransferNFTModalNftDetails = () => {
               {
                           show?.animation_url 
                           ? <video className="nft-sle-cas" src={show?.animation_url} autoPlay={true} loop={true} />
-                          : <Image className="nft-sle-cas" src={show?.image} fluid />
+                          : <Image className="nft-sle-cas" src={setupURI(show?.image)} fluid />
               }
               
               <div className="steepBtn">

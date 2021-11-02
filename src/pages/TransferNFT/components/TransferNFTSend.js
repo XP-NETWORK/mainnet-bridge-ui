@@ -19,7 +19,7 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-import { getFromParams, getRPCFactory, isEVM } from "../../../wallet/helpers";
+import { getFromParams, getRPCFactory, isEVM, setupURI } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
 import { BigNumber } from "bignumber.js";
@@ -49,9 +49,10 @@ const TransferNFTSend = () => {
     estimate()
     const s = setInterval(() => estimate(), 1000 * 30)
     const factory = await getRPCFactory()
-    console.log(factory, chainId, nft.native)
     const inner = await factory.inner(chainId ? parseInt(chainId) : Chain.ELROND);
-    const res = await axios.get(await factory.nftUri(inner, nft).then(v => v.uri));
+    const uri = setupURI(await factory.nftUri(inner, nft).then(v => v.uri))
+    const res = await axios.get(uri);
+    console.log(res.data)
     if(res && res.data) setShow(res.data)
 
     return () => clearInterval(s)
@@ -72,21 +73,14 @@ const TransferNFTSend = () => {
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
               const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
-              const bign = bnFee.decimalPlaces(0).toString()
-              console.log(nft, 'nft')
-              if(elrondWallet) {
-                await fromChain.doEgldSwap(signer, bign)
-              }
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
                 nft,
                 signer,
                 receiver,
-                '10000000000000000'
-                // bnFee.decimalPlaces(0).toString()
+                bnFee.decimalPlaces(0).toString()
               )
-              console.log(txid, 'hellasklda',)
               if(txid) {
                 dispatch(setSuccess({ receiver, txid }))
                 dispatch(setStep(3))
@@ -113,13 +107,9 @@ const TransferNFTSend = () => {
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
     const fee = await factory.estimateFees(fromChain, toChain, nft, account ? account : '0xadFF46B0064a490c1258506d91e4325A277B22aE')
-    // console.log(fee)
-    // if(isEVM()) {
-      setBNFee(fee.multipliedBy(1.8))
-      const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
-      console.log(await Web3Utils.fromWei(bign , 'ether'))
-      setFees(await Web3Utils.fromWei(bign , 'ether'))
-    // }
+    setBNFee(fee.multipliedBy(1.8))
+    const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
+    setFees(await Web3Utils.fromWei(bign , 'ether'))
     } catch(err) {
       console.log(err,' alldlkskld')
     }
@@ -144,7 +134,22 @@ const TransferNFTSend = () => {
       }
       setLoadingApproval(false)
     } else  {
-      console.log('hellos')
+      setLoadingApproval(true)
+      try {
+        const factory = await getFactory()
+        const fromChain = await factory.inner(fromChainConfig.Chain)
+        const toChain = await factory.inner(toChainConfig.Chain)
+        const signer = ExtensionProvider.getInstance()
+        const bign = bnFee.decimalPlaces(0).toString()
+        await fromChain.doEgldSwap(signer, bign)
+        setIsApproved(true)
+        setLoadingApproval(false)
+        console.log('hellos')
+      } catch(err) {
+      setLoadingApproval(false)
+        
+      }
+
     }
   }
   const isApprovedForMinter = async () => {
@@ -159,11 +164,17 @@ const TransferNFTSend = () => {
         setIsApproved(checkIsApproved)
       } catch(err) {
         console.log(err, 'adsklalsdkaklsdasdkl')
+        if(elrondWallet){
 
+        } else
         setIsApproved(true)
       }
 
-    } else setIsApproved(true)
+    } else if(elrondWallet) {
+
+    } else {
+      setIsApproved(true)
+    }
     setLoadingPreCheckApproved(false)
 
   }
@@ -180,12 +191,12 @@ const TransferNFTSend = () => {
         <h3>Send NFT</h3>
       </div>
       <div className="nftSelected">
-        <Image src={show?.image} />
+        <Image src={setupURI(show?.image)} />
       </div>
       <div className="nftDetail">
         <ul>
           <li>
-            <span>Name</span> <span>{name}</span>
+            <span>Name</span> <span>{name ? name : show?.name}</span>
           </li>
           <li>
             <span>Contract address</span> <span>{cont}</span>
@@ -226,9 +237,9 @@ const TransferNFTSend = () => {
         </p> */}
       </div>
       {!preCheckApproved ? <div className="steepBtn">
-        {isEVM() 
+        {isEVM() || elrondWallet
         ? <>
-          <a onClick={approve} style={{display: isApproved || !isEVM() ? 'none' : '' }}  className="bBlueBtn">
+          <a onClick={approve} style={{display: isApproved  ? 'none' : '' }}  className="bBlueBtn">
             {loadingApproval ? <Loader /> : 'Approve'}
           </a>
           <a style={{display: isApproved ? '' : 'none' }} className="approved">

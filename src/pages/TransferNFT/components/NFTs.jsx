@@ -8,7 +8,7 @@ import CheckCircle from "../../../assets/img/icons/check-circle-filled.svg";
 import axios from 'axios'
 import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
-import { getRPCFactory } from '../../../wallet/helpers';
+import { getRPCFactory, setupURI } from '../../../wallet/helpers';
 import { isBase64 } from './values'
 
 export default function NFTs(props) {
@@ -37,15 +37,29 @@ function NFT(props) {
             console.log(nft)
  
             const p = await factory.nftUri(inner, nft)
-            const res = await axios.get(p.uri)
-            if(res && res.data) setImg(res.data)
+            const res = await axios.get(setupURI(p.uri))
+            if(res && res.data) {
+              // if(res.data.animation_url) {
+              //   const vid = document.createElement('video')
+              //   vid.src = res.data.animation_url
+              //   console.log(vid)
+              //   document.body.createElement(vid)
+              //   console.log(vid)
+              //   vid.onload = function() {
+              //     console.log('aklsd')
+              //     setImg(res.data)
+              //   }
+              // } 
+              // else 
+              setImg(res.data)
+            }
         } catch(err) {
             if(isBase64(nft.uri)) {
-              const elrond = await factory.inner(toChain.Chain)
-              const decoded = await elrond.isWrappedNft(nft)
-              console.log(decoded)
-                console.log(elrond)
-              console.log(atob(nft.uri))
+              // const elrond = await factory.inner(toChain.Chain)
+              // const decoded = await elrond.isWrappedNft(nft)
+              // console.log(decoded)
+              //   console.log(elrond)
+              // console.log(atob(nft.uri))
             }
             setKill(true)
         }
@@ -65,7 +79,7 @@ function NFT(props) {
         {
           img?.animation_url 
           ? <video height={'100%'} src={img?.animation_url} autoPlay={true} loop={true} />
-          : <Image src={img.image} />
+          : <Image src={setupURI(img.image)} />
         }
       </div>
       <span className="checkNft">

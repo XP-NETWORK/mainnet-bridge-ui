@@ -28,7 +28,6 @@ export const chains = [
         key: 'Ethereum',
         text: 'Ethereum',
         value: 'Ethereum',
-        coming: true,
         image: { avatar: true, src: etherium },
     },
     {
@@ -67,7 +66,7 @@ export const chains = [
         key: 'Avalanche',
         text: 'Avalanche',
         value: 'Avalanche',
-        coming: true,
+        // coming: true,
         image: { avatar: true, src: avalanche },
     }
 ]
@@ -94,6 +93,7 @@ export const chainsConfig = {
         // rpc: 'https://delicate-proud-rain.ropsten.quiknode.pro/6a57d9cf10aa9d5af8a2c54151763e21d29136ac/',
         chainId: 1,
         rpc: 'https://rough-dawn-meadow.quiknode.pro/2629bf63052353892b121c240f57f6b19a74ac8c/',
+        tx: 'https://etherscan.io/tx/',
         token: 'ETH',
         img: etherium,
         chainData: ChainData.Ethereum,

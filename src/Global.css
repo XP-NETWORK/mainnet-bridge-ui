@@ -2078,7 +2078,6 @@ span.CloseModal {
   width: 100%;
   margin: 5px 0 5px 0;
   border-radius: 0px;
-  margin: 5px;
 }
 .animated-background-name {
   min-height: 10px;
@@ -2086,6 +2085,8 @@ span.CloseModal {
 }
 .container-of-nft-loader {
   width: 33.333%;
+  margin: 5px;
+
 }
 
 .ui.disabled.dropdown, .ui.dropdown .menu>.disabled.item {
