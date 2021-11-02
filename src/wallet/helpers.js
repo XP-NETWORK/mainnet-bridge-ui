@@ -5,6 +5,11 @@ import { createChainFactory } from "./connectors";
 import { ChainFactory } from "xp.network";
 import { ChainData } from './config'
 import { ExtensionProvider } from '@elrondnetwork/erdjs/out';
+export const moralisParams = {
+    exchangeRateUri: "https://testing-bridge.xp.network/exchange",
+    moralisServer: "https://bwyunctd0c2y.usemoralis.com:2053/server",
+    moralisAppId: "WvKR3tpq5MxUW5i747fgokkiDW0iJ58tsoVua0pZ"
+}
 export const getFromParams = async () => {
     const {from} = store.getState().general
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -59,7 +64,12 @@ export const getRPCFactory = async (chain) => {
     const f = await getFactoryParams(from)
     const t = await getFactoryParams(to)
     console.log(f, t)
-    return ChainFactory({ ...f, ...t});
+    return ChainFactory(
+        moralisParams,
+        {
+
+        ...f, ...t
+    });
 }
 
 export const getFactoryParams = async (chain) => {

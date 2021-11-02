@@ -2,7 +2,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import {ChainFactory} from "xp.network/dist"
 import { ChainData } from "./config";
 import {chainsConfig} from '../pages/TransferNFT/components/values'
-import { getFactoryParams, getFromParams } from "./helpers";
+import { getFactoryParams, getFromParams, moralisParams } from "./helpers";
 import {ethers} from 'ethers'
 import store from "../store/store";
 
@@ -17,7 +17,7 @@ export const injected = new InjectedConnector({
  * @returns a {@link ChainFactory}
  */
 export const createChainFactory = (params) => {
-  return ChainFactory(params);
+  return ChainFactory(moralisParams, params);
 };
 
 /**
@@ -42,7 +42,7 @@ export const transferNft = async (
     toInnerChain,
     fromInnerChain,
     nft,
-    sender,
+  sender,
     receiver
   );
 };
@@ -52,7 +52,7 @@ export const getFactory = async () => {
   const {from, to} = store.getState().general
     const fromParams = await getFromParams()
     const toParams = await getFactoryParams(to)
-    return ChainFactory({
+    return ChainFactory(moralisParams,{
       ...toParams,
       ...fromParams
     })
