@@ -14,6 +14,7 @@ import { isBase64 } from './values'
 export default function NFTs(props) {
 
     const {nfts} = useSelector(s => s.general)
+    console.log(nfts)
     return (
         <ul className="storeNtfList">
           {nfts.map((n, i) => <NFT factory={props.factory} nft={n} key={`${i}`} />)}

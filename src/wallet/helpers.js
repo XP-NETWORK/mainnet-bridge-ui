@@ -68,7 +68,6 @@ export const getRPCFactory = async (chain) => {
     return ChainFactory(
         moralisParams,
         {
-
         ...f, ...t
     });
 }
@@ -181,25 +180,25 @@ export const preloadItem = (item, type, setLoaded) => {
 }
 
 export const parseNFTS = async (nfts) => {
+    const { elrondWallet } = store.getState().general
+    console.log('Parse NFT Init', nfts)
     const { from, to } = store.getState().general
     const factory = await getRPCFactory()
-    console.log(factory)
     const fromChain = chainsConfig[from]
-    const toChain = chainsConfig[to]
     const inner = await factory.inner(fromChain.Chain);
-    const toChainInner = await factory.inner(toChain.Chain)
     const result = await Promise.all(nfts.map(async n => {
-        return await new Promise(async resolve => {
-            try {
-                console.log(inner, n)
-                const p = await factory.nftUri(inner, n)
-                const res = await axios.get(setupURI(p.uri))
-                if(res && res.data) {
-                    if(res.data.animation_url) preloadItem(res.data.animation_url, 'video', () => {})
-                    else preloadItem(res.data.image, 'image', () => {})
+    return await new Promise(async resolve => {
+        try {
+            console.log(inner, elrondWallet)
+            const p = await factory.nftUri(inner, n)
+            const res = await axios.get(setupURI(p.uri))
+            if(res && res.data) {
+                if(res.data.animation_url) preloadItem(res.data.animation_url, 'video', () => {})
+                else preloadItem(res.data.image, 'image', () => {})
                     resolve({...res.data, ...n})
                 } else resolve(undefined)
             } catch(err) {
+                console.log(err, '1231')
                 resolve(undefined)
             }
 

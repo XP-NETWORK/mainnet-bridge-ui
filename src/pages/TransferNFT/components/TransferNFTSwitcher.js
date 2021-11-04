@@ -95,6 +95,7 @@ const TransferNFTSwitcher = () => {
             console.log(fromChain, factory)
             const inner = await factory.inner(fromChain.Chain);
             const nfts = await factory.nftList(inner, testingAccount ? testingAccount : account)
+            console.log(nfts, 'Pre parse NFTS')
             const res = await parseNFTS(nfts)
             dispatch(setNFTs(res))
             setLoadingNFTs(false)
@@ -105,7 +106,8 @@ const TransferNFTSwitcher = () => {
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
         const nfts = await factory.nftList(inner, elrondWallet)
-        dispatch(setNFTs(nfts))
+        const res = await parseNFTS(nfts)
+        dispatch(setNFTs(res))
         setLoadingNFTs(false)
       }
 
