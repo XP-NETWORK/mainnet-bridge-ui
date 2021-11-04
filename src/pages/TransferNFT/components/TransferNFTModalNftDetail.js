@@ -35,36 +35,27 @@ const TransferNFTModalNftDetails = () => {
   useEffect(async () => {
     if(nftDetails) {
       setDetails(false)
-      const factory  = await getRPCFactory()
       const {uri} = nftDetails
-      const inner = await factory.inner(fromChain.Chain);
-      const p = await factory.nftUri(inner, nftDetails)
-      setChainId(p.chainId)
-      const res = await axios.get(setupURI(p.uri))
-      console.log(res.data)
-      if(res && res.data) setShow(res.data)
+      setChainId(nftDetails.native.chainId)
+      setShow(nftDetails)
     } else setShow(undefined)
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
-  console.log(show, nftDetails)
   return (
     <>
       <Modal
         show={nftDetails}
         onHide={handleClose}
-        className={details || onlyDetails ? "nftDetModal" : 'connectBridge nftSelectModal'}
+        className={"nftDetModal"}
       >
         <Modal.Body>
-          {
-            details || onlyDetails 
-            ? <div className="crossChainTab sendNFTBox">
+         <div className="crossChainTab sendNFTBox">
             <div className="tabTitle arrowTitle">
               <span className="CloseModal" onClick={handleClose}>
                 <Image src={Close} />
               </span>
               <span className="backBtn clickable" onClick={() => setDetails(false)}>
-                {onlyDetails ? '' : <Image src={arrow_back} /> }
               </span>
               <h3>NFT Details</h3>
             </div>
@@ -100,37 +91,15 @@ const TransferNFTModalNftDetails = () => {
                 {hasAttributes ? show.attributes.map((n,i) => <Attribute {...n} key={`attribute-${i}`}/>) : ''}
               </div>
             </div>
-          </div>
-            :
-            <div className="crossChainTab sendNFTBox">
-            <div className="tabTitle arrowTitle">
-              <span className="CloseModal" onClick={handleClose}>
-                <Image src={Close} />
-              </span>
-              <h3>{show?.name}</h3>
-            </div>
-            <div className="nftSelectCont">
-              {
-                          show?.animation_url 
-                          ? <video className="nft-sle-cas" src={show?.animation_url} autoPlay={true} loop={true} />
-                          : <Image className="nft-sle-cas" src={setupURI(show?.image)} fluid />
-              }
-              
-              <div className="steepBtn">
-                <a className="" onClick={() => {
+            {onlyDetails ? '' : <a className="" onClick={() => {
                   dispatch(setStep(2))
                   handleClose()
-                }} className="clickable bBlueBtn">
+                }} className="clickable bBlueBtn marginTopBtn">
                   Select this NFT
-                </a>
-                <a  className="BlueLineBtn clickable" onClick={() => setDetails(true)}>
-                  View Details
-                </a>
-              </div>
-            </div>
+                </a>}
           </div>
-          }
-
+              
+           
         </Modal.Body>
       </Modal>
     </>
@@ -143,7 +112,7 @@ export default TransferNFTModalNftDetails;
 function Attribute(props) {
   const { trait_type, display_type, value } = props
   return  <div className="nftDetContList ">
-  <div className="label">{trait_type}</div>
+  <div className="label">{ trait_type.charAt(0).toUpperCase() + trait_type.slice(1).toLowerCase()}</div>
   <div className="details">
     {
       display_type === 'date' ? moment(new Date(value * 1000)).format('MM-DD-YYYY') : value

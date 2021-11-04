@@ -48,13 +48,7 @@ const TransferNFTSend = () => {
     isApprovedForMinter()
     estimate()
     const s = setInterval(() => estimate(), 1000 * 30)
-    const factory = await getRPCFactory()
-    const inner = await factory.inner(chainId ? parseInt(chainId) : Chain.ELROND);
-    const uri = setupURI(await factory.nftUri(inner, nft).then(v => v.uri))
-    const res = await axios.get(uri);
-    console.log(res.data)
-    if(res && res.data) setShow(res.data)
-
+    setShow(nft)
     return () => clearInterval(s)
 
   },[nft])
@@ -191,7 +185,10 @@ const TransferNFTSend = () => {
         <h3>Send NFT</h3>
       </div>
       <div className="nftSelected">
-        <Image src={setupURI(show?.image)} />
+           {show?.animation_url 
+                ? <video src={show?.animation_url} autoPlay={true} loop={true} /> 
+                : <Image className="srcblockchainimg" src={blockchain?.image?.src} />
+                }
       </div>
       <div className="nftDetail">
         <ul>

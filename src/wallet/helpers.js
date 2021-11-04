@@ -10,6 +10,7 @@ export const moralisParams = {
     moralisServer: "https://bwyunctd0c2y.usemoralis.com:2053/server",
     moralisAppId: "WvKR3tpq5MxUW5i747fgokkiDW0iJ58tsoVua0pZ"
 }
+const axios = require('axios')
 export const getFromParams = async () => {
     const {from} = store.getState().general
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -72,7 +73,22 @@ export const getRPCFactory = async (chain) => {
     });
 }
 
-export const getFactoryParams = async (chain) => {
+export const getFullFactory = async () => {
+    const chains = Object.keys(ChainData)
+    const params = chains.map(n => getFactoryParams(n)).filter(n => n)
+    let o  = {}
+    params.map(n => { 
+        if(n) {
+            let keys = Object.keys(n)[0]
+            o = {...o, [keys]: n} 
+
+        }
+    })
+    console.log(o)
+    return ChainFactory(moralisParams, o)
+}
+
+export const getFactoryParams = (chain) => {
     if(chain === 'Ethereum') {
         return {
             ropstenParams: {
@@ -136,5 +152,59 @@ export const getChainId = () => {
 
 export const setupURI = (uri) => {
     if(uri && uri.includes('ipfs://')) return 'https://ipfs.io/' + uri.replace(':/', '')
+    else if(uri) return uri.replace('http://', 'https://')
     return uri
+}
+
+export const preloadItem = (item, type, setLoaded) => {
+    if(type === 'video') {
+        const vid = document.createElement('video')
+        vid.src = item
+        vid.style.opacity = '0'
+        vid.style.position = 'absolute'
+        vid.style.height = '0px'
+        vid.style.width = '0px'
+        document.body.appendChild(vid)
+        vid.play()
+        vid.onloadeddata = function () {
+            setLoaded(true)
+            vid.remove()
+        }
+    } else {
+        var img=new Image();
+        img.src=item;
+        img.onload= function() {
+            setLoaded(true)
+        }
+      
+    }
+}
+
+export const parseNFTS = async (nfts) => {
+    const { from, to } = store.getState().general
+    const factory = await getRPCFactory()
+    console.log(factory)
+    const fromChain = chainsConfig[from]
+    const toChain = chainsConfig[to]
+    const inner = await factory.inner(fromChain.Chain);
+    const toChainInner = await factory.inner(toChain.Chain)
+    const result = await Promise.all(nfts.map(async n => {
+        return await new Promise(async resolve => {
+            try {
+                console.log(inner, n)
+                const p = await factory.nftUri(inner, n)
+                const res = await axios.get(setupURI(p.uri))
+                if(res && res.data) {
+                    if(res.data.animation_url) preloadItem(res.data.animation_url, 'video', () => {})
+                    else preloadItem(res.data.image, 'image', () => {})
+                    resolve({...res.data, ...n})
+                } else resolve(undefined)
+            } catch(err) {
+                resolve(undefined)
+            }
+
+        })
+
+    }))
+    return result.filter(n => n)
 }

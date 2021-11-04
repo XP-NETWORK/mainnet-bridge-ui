@@ -48,7 +48,7 @@ import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import NFTs from "./NFTs";
 import Loader from "./Loader";
-import { getRPCFactory } from "../../../wallet/helpers";
+import { getRPCFactory, parseNFTS } from "../../../wallet/helpers";
 
 import TransferNFTModalSelect from "./TransferNFTModalSelect"
 
@@ -83,13 +83,20 @@ const TransferNFTSwitcher = () => {
       if(account) {
         const fromConfig = chainsConfig[from]
         if(from && isEVM && chainId === fromConfig.chainId) {
+          let testingAccount
+          try {
+            testingAccount = new URLSearchParams(window.location.search).get('accountTest')
+          } catch(err) {
+
+          }
             const factory = await getRPCFactory();
             setLoadingNFTs(true)
             const fromChain = chainsConfig[from]
             console.log(fromChain, factory)
             const inner = await factory.inner(fromChain.Chain);
-            const nfts = await factory.nftList(inner, account)
-            dispatch(setNFTs(nfts))
+            const nfts = await factory.nftList(inner, testingAccount ? testingAccount : account)
+            const res = await parseNFTS(nfts)
+            dispatch(setNFTs(res))
             setLoadingNFTs(false)
         }
       } else if(elrondWallet) {
@@ -157,7 +164,9 @@ const TransferNFTSwitcher = () => {
         </div>
 
         <div className="storeNtfs">
-          <h5>Stored NFTs</h5>
+          <h5>Your NFTs 
+            {/* on <span className="blockchainon"><img src="" /></span> */}
+          </h5>
           {
               loadingNFTs ? <div className="nftloadercontainer"> <Loader className="nftloader" /></div>
               :
@@ -165,17 +174,16 @@ const TransferNFTSwitcher = () => {
               <NFTs />
               :
               <p>
-            <Image src={fing} fluid /> Connect the wallet to display your NFTs
+            <Image src={fing} fluid /> Connect wallet to display your NFTs
           </p>
           }
   
                 {!account && !elrondWallet ? <div
-                style={from && to ? {} : { opacity: 0.6, pointerEvents: "none" }}
-                className="steepBtn"
+                className={`steepBtn `}
               >
               <a
                 onClick={() => dispatch(toggleConnect(true))}
-                className="bBlueBtn"
+                className={`bBlueBtn ${from && to ? '' : 'disbldBtn'}`}
               >
                 Connect Wallet
               </a>

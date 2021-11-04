@@ -601,7 +601,7 @@ ul.nftsStoreList li.active .ftsStoreName {
 }
 .bBlueBtn {
   background: #3e64ed;
-  border-radius: 10px;
+  border-radius: 6px;
   font-family: 'Inter';
   cursor: pointer;
   display: block;
@@ -1368,8 +1368,10 @@ li.sinStoreNtf.active .storeText {
   position: absolute;
   left: 35px;
 }
+.blockchainon {
 
-.nftSelected img {
+}
+.nftSelected img, .nftSelected video {
   display: block;
   max-width: 120px;
   margin: 0 auto;
@@ -2039,11 +2041,7 @@ span.CloseModal {
   background-color: #3e64ed;
 }
 
-.disbldBtn {
-  background-color: #E4E7F2;
-  color: rgba(4, 13, 39, 0.7);
-  pointer-events: none;
-}
+
 
 * {
   margin: 0;
@@ -2084,11 +2082,13 @@ span.CloseModal {
   margin-top: 10px;
 }
 .container-of-nft-loader {
-  width: 33.333%;
+  width: calc(33.333% - 10px);
   margin: 5px;
 
 }
-
+.marginTopBtn {
+  margin-top: 18px;
+}
 .ui.disabled.dropdown, .ui.dropdown .menu>.disabled.item {
   opacity: 1 !important;
   background-color: #E6E8EF !important;
@@ -2178,4 +2178,10 @@ span.CloseModal {
     width: 28px;
     height: 28px;
     margin-right: 8px;
+}
+
+.disbldBtn {
+  background-color: #E4E7F2;
+  color: rgba(4, 13, 39, 0.7);
+  pointer-events: none;
 }

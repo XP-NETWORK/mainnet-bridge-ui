@@ -8,13 +8,12 @@ import CheckCircle from "../../../assets/img/icons/check-circle-filled.svg";
 import axios from 'axios'
 import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
-import { getRPCFactory, setupURI } from '../../../wallet/helpers';
+import { getRPCFactory, preloadItem, setupURI } from '../../../wallet/helpers';
 import { isBase64 } from './values'
 
 export default function NFTs(props) {
 
     const {nfts} = useSelector(s => s.general)
-    console.log(JSON.stringify(nfts))
     return (
         <ul className="storeNtfList">
           {nfts.map((n, i) => <NFT factory={props.factory} nft={n} key={`${i}`} />)}
@@ -26,45 +25,14 @@ function NFT(props) {
     const {nft, factory} = props
     const [img, setImg] = useState()
     const dispatch = useDispatch()
+    const [graphicLoaded, setGraphicLoaded] = useState()
     const [killed, setKill] = useState()
     const {from, to} = useSelector(s => s.general)
     useEffect(async() => {
-        const factory = await getRPCFactory()
-        const fromChain = chainsConfig[from]
-        const toChain = chainsConfig[to]
-        const inner = await factory.inner(fromChain.Chain);
-        const toChainInner = await factory.inner(toChain.Chain)
-        try {
- 
-            const p = await factory.nftUri(inner, nft)
-            const res = await axios.get(setupURI(p.uri))
-            if(res && res.data) {
-              // if(res.data.animation_url) {
-              //   const vid = document.createElement('video')
-              //   vid.src = res.data.animation_url
-              //   console.log(vid)
-              //   document.body.createElement(vid)
-              //   console.log(vid)
-              //   vid.onload = function() {
-              //     console.log('aklsd')
-              //     setImg(res.data)
-              //   }
-              // } 
-              // else 
-              setImg(res.data)
-            }
-        } catch(err) {
-          console.log(nft.uri, 'hello')
-            if(isBase64(nft.uri)) {
-              // const elrond = await factory.inner(toChain.Chain)
-              // const decoded = await elrond.isWrappedNft(nft)
-              // console.log(decoded)
-              //   console.log(elrond)
-              // console.log(atob(nft.uri))
-            }
-            setKill(true)
-        }
-
+      const res = nft
+      if(res.animation_url) preloadItem(res.animation_url, 'video', setGraphicLoaded)
+      else preloadItem(res.image, 'image', setGraphicLoaded)
+      setImg(res)
     },[props.uri])
     const select = e => {
         dispatch(toggleNFTInfo(nft))
@@ -78,9 +46,11 @@ function NFT(props) {
       </Link>
       <div className="storeImg">
         {
+          graphicLoaded ?
           img?.animation_url 
-          ? <video height={'100%'} src={img?.animation_url} autoPlay={true} loop={true} />
+          ? <video src={img?.animation_url} autoPlay={true} loop={true} />
           : <Image src={setupURI(img.image)} />
+          : <div class="animated-background loaderplaceholder"></div>
         }
       </div>
       <span className="checkNft">
