@@ -12,6 +12,10 @@ import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
+
+import whiteClose from "../../../assets/img/icon/whiteClose.svg";
+import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
+
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
@@ -186,10 +190,10 @@ const TransferNFTModal = () => {
           : <div className="crossChainTab sendNFTBox">
             <div className="tabTitle arrowTitle">
               <span className="CloseModal" onClick={handleClose}>
-                <Image src={Close} />
+                  <Image src={whiteClose} />
               </span>
               <h3>
-                <Image src={ConnectBridge} />
+                  <Image src={WhiteContBrid} className="ConnectWall" />
                 Connect Wallet
               </h3>
             </div>

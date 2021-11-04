@@ -16,7 +16,7 @@ body {
 }
 
 .crossChainTab * {
-  font-family: 'Inconsolata', monospace !important;
+  /* font-family: 'Inconsolata', monospace !important; */
 }
 
 h1,
@@ -1372,7 +1372,7 @@ li.sinStoreNtf.active .storeText {
 
 .tabTitle.arrowTitle {
   position: relative;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .arrowTitle h3 {
@@ -1540,18 +1540,20 @@ span.CloseModal {
 .selsectBridge li {
   display: flex;
   align-items: center;
-  border: 1px solid #dee1ea;
+  border: 1px solid #414C72;
   border-radius: 10px;
   font-size: 16px;
   line-height: 126%;
-  color: #000;
+  color: #fff;
   padding: 17px 16px;
   cursor: pointer;
   margin-bottom: 8px;
+  letter-spacing: 0.03em;
 }
 
 .selsectBridge li a {
   display: contents;
+  color: #fff;
 }
 
 .imgw {
@@ -1572,7 +1574,7 @@ span.CloseModal {
 
 .selsectBridge li:hover,
 .selsectBridge li.active {
-  background: #f7f8fd;
+  background: #2F374D;
 }
 
 .selsectBridge li:last-child {
@@ -2120,6 +2122,9 @@ span.CloseModal {
 .modalSelectPopupSize .modal-content{
   border-radius: 10px !important;
   overflow: hidden;
+  background: linear-gradient(133.69deg, #6F5860 -40.65%, #2C313E -18.47%, #1D2743 123.56%), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
+  box-shadow: 0px 4px 34px rgba(4, 8, 14, 0.15);
+  border-radius: 20px;
 }
 .modalSelectButtonChoose,
 .modalSelectButton{
@@ -2159,25 +2164,26 @@ span.CloseModal {
 .modalSelectOptions{
   display: flex;
   align-items: center;
-  height: 64px;
+  height: 52px;
   cursor: pointer;
+  padding: 0 40px;
+
 }
 
 .modalSelectOptions:hover{
-  background: rgba(243, 244, 250, 0.6);
+  background: #2F374D;
 }
 
 .modalSelectOptionsImage{
   width: 32px;
   height: 32px;
-  margin-inline-start: 16px;
 }
 
 .modalSelectOptionsText{
-  font-weight: 500;
-  font-size: 18px;
-  color: #040D27;
-  margin-inline-start: 18px;
+  font-size: 16px;
+  line-height: 126%;
+  color: #fff;
+  margin-left: 26px;
 }
 
 .modalSelectButtonChooseImg{
@@ -2282,6 +2288,13 @@ h2 {
     font-size: 16px;
     line-height: 20px;
     padding: 16px 60px 16px 16px;
+    position: fixed;
+    z-index: 111;
+    left: 50%;
+    bottom: 40px;    
+    width: 95vw;
+    transform: translate(-50%);
+    max-width: 570px;
 }
 
 .closeAlert {
@@ -2294,4 +2307,100 @@ h2 {
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.modal-dialog.modalSelectPopupSize {
+    max-width: 360px !important;
+    width: 100% !important;
+}
+
+.closModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 58px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 126%;
+    color: #fff;
+    position: relative;
+}
+
+.closeModal {
+    display: flex;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    right: 36px;
+    cursor: pointer;
+}
+
+
+.modal-dialog.modalSelectPopupSize {
+    max-width: 360px !important;
+    width: 100% !important;
+}
+
+.modalSelectPopupSize .closModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 58px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 126%;
+    color: #fff;
+    position: relative;
+}
+
+span.closeModal {
+    display: flex;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    right: 36px;
+}
+
+.seleChainOption {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 22px;
+}
+
+.seleChainOption .modalSelectOptions {
+    order: 1;
+}
+
+.seleChainOption .modalSelectOptions.comingUpChain {
+    order: 2;
+}
+
+
+.modalSelectOptionsText  .comingSoon {
+  display: none;
+}
+
+.comingUpChain .comingSoon {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: #3E64ED;
+    margin-left: 5px;
+    background: #283154;
+    border-radius: 4px;
+    padding: 4px 7px;
+}
+
+.ConnectWall {
+    position: absolute;
+    left: 0;
+}
+
+.crossChainTab.sendNFTBox .CloseModal {
+    right: 5px;
 }
