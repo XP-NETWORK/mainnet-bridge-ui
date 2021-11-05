@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./layout/NavBar";
 import TransferNFT from "./pages/TransferNFT/TransferNFT";
 import "./Global.css";
-import "./Global-responsive.css";
 import { getFactory } from "./wallet/connectors";
 import { useEffect } from "react";
 import { Chain } from "xp.network/dist/consts";

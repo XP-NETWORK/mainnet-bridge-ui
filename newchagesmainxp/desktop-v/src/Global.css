@@ -2566,3 +2566,19 @@ span.closeModal {
 .crossChainTab.sendNFTBox {
     max-width: 832px;
 }
+
+
+@media (max-width:767px) {
+  .sendNftContBox {
+      flex-direction: column;
+  }
+
+  .sendNftContBox> div {
+      width: 100%;
+      padding: 0;
+  }
+
+  .nftSelected {
+      margin-bottom: 20px;
+  }
+}
