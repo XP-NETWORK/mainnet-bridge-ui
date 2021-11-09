@@ -10,6 +10,7 @@ import ftsStoreimg from "../../../assets/img/ftsStoreimg.svg";
 import etherium from "../../../assets/images/Etherium.svg";
 import fing from "../../../assets/img/fing.png";
 import heco from "../../../assets/images/HECO.svg";
+import xdai from "../../../assets/images/xdai.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
 import { ChainData } from "../../../wallet/config";
@@ -40,7 +41,7 @@ export const chains = [
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
-        coming: true,
+        // coming: true,
         image: { avatar: true, src: tron },
     },
     {
@@ -48,6 +49,12 @@ export const chains = [
         text: 'Polygon',
         value: 'Polygon',
         image: { avatar: true, src: polygon },
+    },
+    {
+        key: 'xDai',
+        text: 'xDai',
+        value: 'xDai',
+        image: { avatar: true, src: xdai },
     },
     {
         key: 'Heco',
@@ -82,7 +89,7 @@ export const chainsConfig = {
         type: 'TRON',
         chainId: 0x9,
         token: 'TRX', 
-        rpc: 'https://api.shasta.trongrid.io/',
+        rpc: 'https://api.trongrid.io/',
         img: tron,
         chainData: ChainData.Tron,
         Chain: Chain.TRON
@@ -123,6 +130,16 @@ export const chainsConfig = {
         Chain: Chain.POLYGON,
         img: polygon,
         chainData: ChainData.Polygon
+    },
+    xDai: {
+        type: EVM,
+        token: 'XDAI',
+        tx: 'https://polygonscan.com/tx/',
+        chainId: 100,
+        rpc: 'https://wandering-wispy-lake.xdai.quiknode.pro/0ba55a1ce5cfbed132c1f91eef80958173559918/',
+        Chain: Chain.XDAI,
+        img: polygon,
+        chainData: ChainData.xDai
     },
     Fantom: {
         type: EVM,
@@ -186,6 +203,10 @@ export const internalNonce = {
     6: {
         title: 'Avalanche',
         ...chainsConfig.Avalanche
+    },
+    14: {
+        title: 'xDai',
+        ...chainsConfig.xDai
     }
 
 }
@@ -211,6 +232,7 @@ export const coins = [
     "CELO", // 8
     "ONE", // 9
     "ONG", // 10
+    "XDAI"
   ];
 export const CHAIN_INFO = {
     Elrond: { nonce: 2, native: "EGLD", decimals: 1e18 },
@@ -303,5 +325,14 @@ export const CHAIN_INFO = {
       blockExplorerUrls: "https://explorer.ont.io/testnet/tx",
       contract: "0xdceB7a6b2d2cC149aA74E049231c94D072eDF3E8",
     },
+    xDai: {
+        native: coins[11],
+        nonce: 14,
+        decimals: 1e18,
+        rpcUrl: "https://rpc.xdaichain.com/",
+        chainId: 100,
+        blockExplorerUrls: "https://blockscout.com/xdai/mainnet/",
+        contract: "0xdceB7a6b2d2cC149aA74E049231c94D072eDF3E8",
+    }
   };
   

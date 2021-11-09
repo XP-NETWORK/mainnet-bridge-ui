@@ -18,6 +18,9 @@ const generalSlice = createSlice({
     setElrondWallet(state, action) {
       state.elrondWallet = action.payload
     },
+    setTronWallet(state, action) {
+      state.tronWallet = action.payload
+    },
     toggleError(state,action) {
       state.error = action.payload
     },
@@ -56,6 +59,7 @@ export const { toggleNFTInfo,
     setFrom, 
     toggleNFTInfoOnlyDetails, 
     toggleConnect, 
+    setTronWallet,
     setSuccess,
     setNFTs, 
     setElrondWallet,

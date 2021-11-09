@@ -101,6 +101,7 @@ const TransferNFTSend = () => {
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
     const fee = await factory.estimateFees(fromChain, toChain, nft, account ? account : '0xadFF46B0064a490c1258506d91e4325A277B22aE')
+    console.log(factory, 'aksdakd')
     setBNFee(fee.multipliedBy(1.8))
     const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
     setFees(await Web3Utils.fromWei(bign , 'ether'))

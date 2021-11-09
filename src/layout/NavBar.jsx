@@ -30,12 +30,12 @@ const NavBar = () => {
     active,
     error,
   } = useWeb3React();
-  const {elrondWallet} = useSelector(s => s.general)
+  const {elrondWallet, tronWallet} = useSelector(s => s.general)
   const dispatch = useDispatch()
   const disconnect = () => {
     dispatch(toggleDisconnect(true))
   }
-  const wallet = account ? account : elrondWallet ? elrondWallet : '';
+  const wallet = account ? account : elrondWallet ? elrondWallet : tronWallet ? tronWallet : ''
   const walletString = wallet
     ? `${wallet.substring(0, 6)}...${wallet.substring(wallet.length - 4)}`
     : "";

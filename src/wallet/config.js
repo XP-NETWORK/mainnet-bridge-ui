@@ -29,12 +29,16 @@ export const ChainData = {
   },
   Tron: {
     provider: "TronWeb",
-    middleware_uri: "string",
-    erc1155_addr: "string",
-    minter_addr: "string",
-    erc721_addr: "string",
-    validators: "string[]",
-    nonce: "number",
+    middleware_uri: "",
+    erc1155_addr: "TNaaHWF5Ukg3RYcTiyXaKQTomY2vzCorwU",
+    minter_addr: "TEy4j2qXAAMKhGToG4kpjgiuJ7pH3Xwqch",
+    erc721_addr: "TVBKPUPrZ7tSEEFYNH1GemvysJrHUQajHG",
+    validators: [  
+      'TYiLyTA6oPrUpyPp8yS5X8dmAnS4xYLnnF',
+      'TYiLyTA6oPrUpyPp8yS5X8dmAnS4xYLnnF',
+      'TS8Yj9NW81EvwEAAdnvu7d1naU1BdK1bQJ',
+    ],
+    nonce: 0x9,
   },
   Avalanche: {
     provider: "JsonRpcProvider",
@@ -55,7 +59,7 @@ export const ChainData = {
   Fantom: {
     provider: "JsonRpcProvider",
     minter_addr: "0x5B916EFb0e7bc0d8DdBf2d6A9A7850FdAb1984C4",
-    erc1155_addr: "0xe12B16FFBf7D79eb72016102F3e3Ae6fe03fCA56",
+    erc1155_addr: " ",
     erc721_addr: "0xe12B16FFBf7D79eb72016102F3e3Ae6fe03fCA56",
     validators:EVM_VALIDATORS,
     nonce: 0x8,
@@ -91,6 +95,14 @@ export const ChainData = {
     erc721_addr: "0x09F4e56187541f2bC660B0810cA509D2f8c65c96",
     validators: EVM_VALIDATORS,
     nonce: 5,
+  },
+  xDai: {
+    provider: "JsonRpcProvider",
+    minter_addr: "0x14fb9d669d4ddf712f1c56Ba7C54FF82D9be6377",
+    erc1155_addr: "0x8B2957DbDC69E158aFceB9822A2ff9F2dd5BcD65",
+    erc721_addr: "0x8B2957DbDC69E158aFceB9822A2ff9F2dd5BcD65",
+    validators: EVM_VALIDATORS,
+    nonce: 14,
   },
 };
 

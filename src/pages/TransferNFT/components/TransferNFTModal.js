@@ -16,7 +16,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setElrondWallet, setFrom, toggleConnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setFrom, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { getFactory, injected } from "../../../wallet/connectors";
@@ -103,7 +103,12 @@ const TransferNFTModal = () => {
 
   async function connectTronlink() {
       try {
-        await window.tronWeb.request({ method: "tron_requestAccounts" });
+        const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
+        if(accounts && accounts.code === 200) {
+          const publicAddress = window.tronWeb.defaultAddress.base58
+          dispatch(setTronWallet(publicAddress))
+          handleClose()
+        }
       } catch(err) {
           console.log(err)
       }

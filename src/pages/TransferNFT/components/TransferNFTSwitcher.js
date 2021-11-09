@@ -11,7 +11,7 @@ import heco from "../../../assets/images/HECO.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
 import {ethers} from 'ethers'
-
+import axios from 'axios'
 import selectnft_1 from "../../../assets/img/selectnft/selectnft_1.png";
 import selectnft_2 from "../../../assets/img/selectnft/selectnft_2.png";
 import selectnft_3 from "../../../assets/img/selectnft/selectnft_3.png";
@@ -53,11 +53,11 @@ import { getRPCFactory, parseNFTS } from "../../../wallet/helpers";
 import TransferNFTModalSelect from "./TransferNFTModalSelect"
 
 const TransferNFTSwitcher = () => {
-  const { to, from, nft, nfts, elrondWallet } = useSelector((s) => s.general);
+  const { to, from, nft, nfts, elrondWallet, tronWallet } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
   const [loadingNFTs, setLoadingNFTs] = useState(false)
-
+  console.log(tronWallet)
   const [users, setUsers] = useState({
     activeMark: null,
   });
@@ -80,6 +80,7 @@ const TransferNFTSwitcher = () => {
   const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   useEffect(async () => {
+    console.log(account , 'askldsalk12123')
       if(account) {
         const fromConfig = chainsConfig[from]
         if(from && isEVM && chainId === fromConfig.chainId) {
@@ -92,10 +93,12 @@ const TransferNFTSwitcher = () => {
             const factory = await getRPCFactory();
             setLoadingNFTs(true)
             const fromChain = chainsConfig[from]
-            console.log(fromChain, factory)
+            console.log(fromChain, factory, fromChain.Chain, 'alds;lads')
             const inner = await factory.inner(fromChain.Chain);
+            console.log(inner)
             const nfts = await factory.nftList(inner, testingAccount ? testingAccount : account)
             console.log(nfts, 'Pre parse NFTS')
+
             const res = await parseNFTS(nfts)
             dispatch(setNFTs(res))
             setLoadingNFTs(false)
@@ -105,13 +108,18 @@ const TransferNFTSwitcher = () => {
         setLoadingNFTs(true)
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
-        const nfts = await factory.nftList(inner, elrondWallet)
+        console.log(inner)
+        const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
         const res = await parseNFTS(nfts)
         dispatch(setNFTs(res))
         setLoadingNFTs(false)
+      } else if(tronWallet) {
+        console.log('yoyoma')
+        const factory = await getRPCFactory();
+        console.log(factory)
       }
 
-  },[account, from, chainId, elrondWallet])
+  },[account, from, chainId, elrondWallet, tronWallet])
 
   const next = () => {
       dispatch(setStep(2))
@@ -119,7 +127,6 @@ const TransferNFTSwitcher = () => {
 
   console.log("from: ",from);
   console.log("to: ",to);
-
   return (
     <Fragment>
       <div className="crossChainTab">
@@ -180,7 +187,7 @@ const TransferNFTSwitcher = () => {
           </p>
           }
   
-                {!account && !elrondWallet ? <div
+                {!account && !elrondWallet && !tronWallet ? <div
                 className={`steepBtn `}
               >
               <a

@@ -4,9 +4,10 @@ import store from '../store/store'
 import { createChainFactory } from "./connectors";
 import { ChainFactory } from "xp.network";
 import { ChainData } from './config'
+import TronWeb from 'tronweb'
 import { ExtensionProvider } from '@elrondnetwork/erdjs/out';
 export const moralisParams = {
-    exchangeRateUri: "https://testing-bridge.xp.network/exchange",
+    exchangeRateUri: "https://testing-bridge.xp.network/exchange/",
     moralisServer: "https://bwyunctd0c2y.usemoralis.com:2053/server",
     moralisAppId: "WvKR3tpq5MxUW5i747fgokkiDW0iJ58tsoVua0pZ"
 }
@@ -37,6 +38,14 @@ export const getFromParams = async () => {
               }
         }
     }  
+    else if(from === 'xDai') {
+        return {
+            xDaiParams: {
+                ...ChainData.xDai,
+                provider
+              }
+        }
+    }  
     else if(from === 'Fantom') {
         return {
             fantomParams: {
@@ -57,6 +66,14 @@ export const getFromParams = async () => {
                 ...ChainData.Elrond,
               }
         }
+    } else if(from === 'Tron') {
+        return {
+            tronParams: {
+                ...ChainData.Tron,
+                provider: new TronWeb(window.tronWeb)
+                
+            }
+        }
     }
 }
 
@@ -64,7 +81,7 @@ export const getRPCFactory = async (chain) => {
     const {from, to} = store.getState().general
     const f = await getFactoryParams(from)
     const t = await getFactoryParams(to)
-    console.log(f, t)
+    console.log(f, t, 'aslsad')
     return ChainFactory(
         moralisParams,
         {
@@ -125,10 +142,30 @@ export const getFactoryParams = (chain) => {
               }
         }
     } 
+    else if(chain === 'xDai') {
+        return {
+            xDaiParams: {
+                ...ChainData.xDai,
+                provider: new ethers.providers.JsonRpcProvider(chainsConfig.xDai.rpc)
+              }
+        }
+    }
     else if(chain === 'Elrond') {
         return {
             elrondParams: {
                 ...ChainData.Elrond,
+            }
+        }
+    } else if(chain === 'Tron') {
+        return {
+            tronParams: {
+                ...ChainData.Tron,
+                provider: new TronWeb({
+                    fullNode: 'https://api.tron.grid.io',
+                    solidityNode: 'https://api.tron.grid.io'
+                  }
+                )
+                
             }
         }
     }
@@ -181,12 +218,12 @@ export const preloadItem = (item, type, setLoaded) => {
 
 export const parseNFTS = async (nfts) => {
     const { elrondWallet } = store.getState().general
-    console.log('Parse NFT Init', nfts)
     const { from, to } = store.getState().general
     const factory = await getRPCFactory()
     const fromChain = chainsConfig[from]
     const inner = await factory.inner(fromChain.Chain);
     const result = await Promise.all(nfts.map(async n => {
+        console.log(n)
     return await new Promise(async resolve => {
         try {
             console.log(inner, elrondWallet)

@@ -1295,10 +1295,18 @@ ul.ms-options {
 .storeNtfList::-webkit-scrollbar-thumb:hover {
   background: #dadeee !important;
 }
-
+.storeImg {
+  max-height: 108px;
+  width: 108px;
+  height: 108px;
+  overflow: hidden;
+}
 .storeImg img, .storeImg video {
   display: block;
+  border-radius: 4px;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 span.checkNft {
@@ -1322,7 +1330,7 @@ span.checkNft {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
+  width: 100px;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }

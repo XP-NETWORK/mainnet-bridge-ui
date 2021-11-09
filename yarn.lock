@@ -5579,14 +5579,7 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
 
 "crypto-exchange-rate@git+https://github.com/xp-network/exchange-rate#master-dist":
   version "1.0.0"
-  uid "88beed89f97b1ddd957d4ec78bb5bbfbf350ce73"
   resolved "git+https://github.com/xp-network/exchange-rate#88beed89f97b1ddd957d4ec78bb5bbfbf350ce73"
-  dependencies:
-    axios "^0.21.1"
-
-"crypto-exchange-rate@https://github.com/xp-network/exchange-rate#master-dist":
-  version "1.0.0"
-  resolved "https://github.com/xp-network/exchange-rate#88beed89f97b1ddd957d4ec78bb5bbfbf350ce73"
   dependencies:
     axios "^0.21.1"
 
@@ -15866,12 +15859,12 @@ xmlhttprequest@1.8.0:
 
 "xp.network@git+https://github.com/xp-network/xpjs#bleeding-edge":
   version "0.0.1"
-  resolved "git+https://github.com/xp-network/xpjs#51b41cca799daa4c3a523fea04fc165202a52bf9"
+  resolved "git+https://github.com/xp-network/xpjs#aaba63f44ebcd8ce1ce9a784f449a5280c3ba425"
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
     axios "^0.21.1"
     bignumber.js "^9.0.1"
-    crypto-exchange-rate "https://github.com/xp-network/exchange-rate#master-dist"
+    crypto-exchange-rate "git+https://github.com/xp-network/exchange-rate#master-dist"
     ethers "5.4.4"
     js-base64 "^3.6.1"
     socket.io-client "^4.1.3"
