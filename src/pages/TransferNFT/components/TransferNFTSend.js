@@ -188,7 +188,7 @@ const TransferNFTSend = () => {
       <div className="nftSelected">
            {show?.animation_url 
                 ? <video src={show?.animation_url} autoPlay={true} loop={true} /> 
-                : <Image className="srcblockchainimg" src={blockchain?.image?.src} />
+                : <Image className="" src={show?.image} />
                 }
       </div>
       <div className="nftDetail">

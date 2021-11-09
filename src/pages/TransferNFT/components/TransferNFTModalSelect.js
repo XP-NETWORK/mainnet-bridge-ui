@@ -56,7 +56,7 @@ const TransferNFTModalSelect = (props) => {
         keyboard={true}
         dialogClassName="modalSelectPopupSize"
       >
-        <Modal.Body>
+        <Modal.Body className="modalselector">
           {options
             ? options.map((n) => {
                 const { image, text, key, value, coming } = n;

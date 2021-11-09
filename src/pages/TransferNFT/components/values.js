@@ -11,6 +11,9 @@ import etherium from "../../../assets/images/Etherium.svg";
 import fing from "../../../assets/img/fing.png";
 import heco from "../../../assets/images/HECO.svg";
 import xdai from "../../../assets/images/xdai.svg";
+import solana from "../../../assets/images/solana.svg";
+import algorand from "../../../assets/images/algorand.svg";
+import cardano from "../../../assets/images/cardano.svg";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
 import { ChainData } from "../../../wallet/config";
@@ -18,6 +21,19 @@ import { Chain } from "xp.network/dist/consts";
 export const EVM = "EVM";
 export const ELROND = "Elrond";
 export const chains = [
+
+    {
+        key: 'Ethereum',
+        text: 'Ethereum',
+        value: 'Ethereum',
+        image: { avatar: true, src: etherium },
+    },
+    {
+        key: 'BSC',
+        text: 'BSC',
+        value: 'BSC',
+        image: { avatar: true, src: binance },
+    },
     {
         key: ELROND,
         text: ELROND,
@@ -25,11 +41,29 @@ export const chains = [
         // coming: true,
         image: { avatar: true, src: enrollIco },
     },
+
+
     {
-        key: 'Ethereum',
-        text: 'Ethereum',
-        value: 'Ethereum',
-        image: { avatar: true, src: etherium },
+        key: 'Polygon',
+        text: 'Polygon',
+        value: 'Polygon',
+        image: { avatar: true, src: polygon },
+    },
+
+
+
+    {
+        key: 'Avalanche',
+        text: 'Avalanche',
+        value: 'Avalanche',
+        // coming: true,
+        image: { avatar: true, src: avalanche },
+    },
+    {
+        key: 'xDai',
+        text: 'xDai',
+        value: 'xDai',
+        image: { avatar: true, src: xdai },
     },
     {
         key: 'Fantom',
@@ -41,20 +75,29 @@ export const chains = [
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
-        // coming: true,
+        coming: true,
         image: { avatar: true, src: tron },
     },
     {
-        key: 'Polygon',
-        text: 'Polygon',
-        value: 'Polygon',
-        image: { avatar: true, src: polygon },
+        key: 'Solana',
+        text: 'Solana',
+        value: 'Solana',
+        coming: true,
+        image: { avatar: true, src: solana },
     },
     {
-        key: 'xDai',
-        text: 'xDai',
-        value: 'xDai',
-        image: { avatar: true, src: xdai },
+        key: 'Cardano',
+        text: 'Cardano',
+        value: 'Cardano',
+        coming: true,
+        image: { avatar: true, src: cardano },
+    },
+    {
+        key: 'Algorand',
+        text: 'Algorand',
+        value: 'Algorand',
+        coming: true,
+        image: { avatar: true, src: algorand },
     },
     {
         key: 'Heco',
@@ -63,19 +106,6 @@ export const chains = [
         coming: true,
         image: { avatar: true, src: heco },
     },
-    {
-        key: 'BSC',
-        text: 'BSC',
-        value: 'BSC',
-        image: { avatar: true, src: binance },
-    },
-    {
-        key: 'Avalanche',
-        text: 'Avalanche',
-        value: 'Avalanche',
-        // coming: true,
-        image: { avatar: true, src: avalanche },
-    }
 ]
 
 export const chainsConfig = {
@@ -134,11 +164,11 @@ export const chainsConfig = {
     xDai: {
         type: EVM,
         token: 'XDAI',
-        tx: 'https://polygonscan.com/tx/',
+        tx: 'https://blockscout.com/xdai/mainnet/tx/',
         chainId: 100,
         rpc: 'https://wandering-wispy-lake.xdai.quiknode.pro/0ba55a1ce5cfbed132c1f91eef80958173559918/',
         Chain: Chain.XDAI,
-        img: polygon,
+        img: xdai,
         chainData: ChainData.xDai
     },
     Fantom: {

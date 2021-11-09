@@ -41,6 +41,7 @@ const TransferNFTModalNftDetails = () => {
     } else setShow(undefined)
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
+  console.log(blockchain, chainId, 'hello312')
   const hasAttributes = show ? show.attributes && show.attributes : false
   return (
     <>
@@ -111,11 +112,16 @@ export default TransferNFTModalNftDetails;
 
 function Attribute(props) {
   const { trait_type, display_type, value } = props
+  console.log(props)
   return  <div className="nftDetContList ">
   <div className="label">{ trait_type.charAt(0).toUpperCase() + trait_type.slice(1).toLowerCase()}</div>
   <div className="details">
     {
-      display_type === 'date' ? moment(new Date(value * 1000)).format('MM-DD-YYYY') : value
+      display_type === 'date' 
+      ? moment(new Date(value * 1000)).format('MM-DD-YYYY') 
+      : display_type === 'boolean' ?
+      value === true ? 'True' : 'False'
+      : value
     }
   </div>
 </div>
