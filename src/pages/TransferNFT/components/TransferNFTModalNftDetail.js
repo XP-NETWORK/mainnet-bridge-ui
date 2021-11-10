@@ -36,14 +36,12 @@ const TransferNFTModalNftDetails = () => {
       setDetails(false)
       if(nftDetails) {
         const factory = await getRPCFactory()
-        const {uri, native} = nftDetails
-        const unparsed = unparsedNFTs.filter(n => {
-          return n.native.tokenId === native.tokenId && n.native.contract === native.contract
-        })[0]
-        const inner = await factory.inner(fromChain.Chain);
-        const p = await factory.nftUri(inner, unparsed)
-        if(p) setChainId(p.chainId)
-        else setChainId(nftDetails.native.chainId)
+        const {native} = nftDetails
+  
+        // const p = await factory.nftUri(inner, unparsed)
+        // if(p) setChainId(p.chainId)
+        // else 
+        setChainId(nftDetails.native.chainId)
         setShow(nftDetails)
       }
   }, [nftDetails])

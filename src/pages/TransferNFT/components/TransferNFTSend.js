@@ -66,6 +66,7 @@ const TransferNFTSend = () => {
               const factory = await getFactory()
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
+              console.log(toChain,'12312')
               const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
               const txid = await factory.transferNft(
                 fromChain,
@@ -85,8 +86,14 @@ const TransferNFTSend = () => {
         // }
       }
     } catch(err) {
+      if(err && err.data && err.data.code === 3) {
+        if(err.data.message.includes('contract not whitelisted')) {
+          dispatch(toggleError({message: 'NFT is not whitelisted', code: 3}))
+        }
+      } else {
+        dispatch(toggleError(err))
+      }
       setLoading(false)
-      dispatch(toggleError(err))
       console.log(err.message)
       console.log(err)
     }

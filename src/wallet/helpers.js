@@ -162,8 +162,8 @@ export const getFactoryParams = (chain) => {
             tronParams: {
                 ...ChainData.Tron,
                 provider: new TronWeb({
-                    fullNode: 'https://api.tron.grid.io',
-                    solidityNode: 'https://api.tron.grid.io'
+                    fullNode: 'https://api.trongrid.io',
+                    solidityNode: 'https://api.trongrid.io'
                   }
                 )
                 
@@ -228,8 +228,8 @@ export const parseNFTS = async (nfts) => {
     return await new Promise(async resolve => {
         try {
             console.log(inner, elrondWallet)
-            const p = await factory.nftUri(inner, n)
-            const res = await axios.get(setupURI(p.uri))
+            // const p = await factory.nftUri(inner, n)
+            const res = await axios.get(setupURI(n.uri))
             if(res && res.data) {
                 if(res.data.animation_url) preloadItem(res.data.animation_url, 'video', () => {})
                 else preloadItem(res.data.image, 'image', () => {})
