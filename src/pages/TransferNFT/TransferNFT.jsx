@@ -15,6 +15,7 @@ import TransferNFTModalNftSelecNftList from "./components/TransferNFTModalNftSel
 import TransferNFTModalNftSelect from "./components/TransferNFTModalSelect";
 import { useSelector } from "react-redux";
 import TransferNFTModalError from "./components/TransferNFTError";
+import TransferNFTSend2 from "./components/TransferNFTSend2";
 const TransferNFT = () => {
     const {step} = useSelector(s => s.general)
 
@@ -31,6 +32,7 @@ const TransferNFT = () => {
         <TransferNFTModalError />
         <TransferNFTModal />
         <TransferNFTModalNftDetail />
+        <TransferNFTSend2 />
       </Container>
     </div>
   );

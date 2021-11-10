@@ -12,6 +12,7 @@ import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
 import Warn from "../../../assets/img/warningsvg.png";
+import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
@@ -57,7 +58,9 @@ const TransferNFTModalSelect = (props) => {
         dialogClassName="modalSelectPopupSize"
       >
         <Modal.Body>
-          {options
+          <div className="closModal" >Select Chain <span className="closeModal" onClick={handleClose}><Image src={whiteClose} /></span></div>
+          <div className="seleChainOption">
+            {options
             ? options.map((n) => {
                 const { image, text, key, value, coming } = n;
                 return (
@@ -70,11 +73,12 @@ const TransferNFTModalSelect = (props) => {
                       alt={key}
                       className="modalSelectOptionsImage"
                     />
-                    <div className="modalSelectOptionsText">{text} {coming ? ' - Coming up' : ''}</div>
+                    <div className="modalSelectOptionsText">{text} <span className="comingSoon">{coming ? 'Coming soon' : ''}</span></div>
                   </div>
                 );
               })
             : ""}
+          </div>
         </Modal.Body>
       </Modal>
     </Fragment>
