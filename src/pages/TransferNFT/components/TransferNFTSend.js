@@ -28,7 +28,7 @@ import { ExtensionProvider } from "@elrondnetwork/erdjs/out";
 const Web3Utils = require('web3-utils');
 
 const TransferNFTSend = () => {
-  const {nft, to, from, elrondWallet} = useSelector(s => s.general)
+  const {nft, to, from, elrondWallet, tronWallet} = useSelector(s => s.general)
   const {account, library} = useWeb3React( )
   const [error, setError] = useState()
   const [loadingApproval, setLoadingApproval] = useState()
@@ -100,8 +100,8 @@ const TransferNFTSend = () => {
     const factory = await getRPCFactory()
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
-    const fee = await factory.estimateFees(fromChain, toChain, nft, account ? account : '0xadFF46B0064a490c1258506d91e4325A277B22aE')
-    console.log(factory, 'aksdakd')
+    const wallet = account ? account : tronWallet ? tronWallet : elrondWallet ? elrondWallet : '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+    const fee = await factory.estimateFees(fromChain, toChain, nft, wallet)
     setBNFee(fee.multipliedBy(1.8))
     const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
     setFees(await Web3Utils.fromWei(bign , 'ether'))

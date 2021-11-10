@@ -104,6 +104,7 @@ const TransferNFTModal = () => {
   async function connectTronlink() {
       try {
         const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
+        console.log(accounts)
         if(accounts && accounts.code === 200) {
           const publicAddress = window.tronWeb.defaultAddress.base58
           dispatch(setTronWallet(publicAddress))
@@ -210,7 +211,7 @@ const TransferNFTModal = () => {
                 <Link to="#">
                   {" "}
                   <span className="imgw">
-                    <Image src={Ledger} />
+                    <Image src={WalletConnect2} />
                   </span>{" "}
                   Elrond Wallet{" "}
                 </Link>
@@ -233,12 +234,12 @@ const TransferNFTModal = () => {
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              <li style={{ opacity: 0.6, pointerEvents: "none" }}>
+              {/* <li style={{ opacity: 0.6, pointerEvents: "none" }}>
                 <Link to="#">
                   {" "}
                   <Image src={WalletConnect2} /> WalletConnect{" "}
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>}
         </Modal.Body>

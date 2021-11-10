@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setFrom,
   setNFTs,
+  setUnParsedNFTs,
   setStep,
   setTo,
   toggleConnect,
@@ -101,9 +102,10 @@ const TransferNFTSwitcher = () => {
 
             const res = await parseNFTS(nfts)
             dispatch(setNFTs(res))
+            dispatch(setUnParsedNFTs(nfts))
             setLoadingNFTs(false)
         }
-      } else if(elrondWallet) {
+      } else if(elrondWallet || tronWallet) {
         const factory = await getRPCFactory();
         setLoadingNFTs(true)
         const fromChain = chainsConfig[from]
@@ -112,6 +114,8 @@ const TransferNFTSwitcher = () => {
         const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
         const res = await parseNFTS(nfts)
         dispatch(setNFTs(res))
+        console.log(nfts)
+        dispatch(setUnParsedNFTs(nfts))
         setLoadingNFTs(false)
       } else if(tronWallet) {
         console.log('yoyoma')

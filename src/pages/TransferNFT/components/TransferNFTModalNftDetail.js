@@ -29,19 +29,25 @@ const TransferNFTModalNftDetails = () => {
   const [details, setDetails] = useState(false)
   const [chainId, setChainId] = useState()
   const handleClose = () => dispatch(toggleNFTInfo(undefined))
-  const { nftDetails, onlyDetails, from } = useSelector(s => s.general)
+  const { nftDetails, onlyDetails, from, unparsedNFTs } = useSelector(s => s.general)
   const fromChain = chainsConfig[from]
 
-  useEffect(async () => {
-    if(nftDetails) {
+  useEffect(async() => {
       setDetails(false)
-      const {uri} = nftDetails
-      setChainId(nftDetails.native.chainId)
-      setShow(nftDetails)
-    } else setShow(undefined)
+      if(nftDetails) {
+        const factory = await getRPCFactory()
+        const {uri, native} = nftDetails
+        const unparsed = unparsedNFTs.filter(n => {
+          return n.native.tokenId === native.tokenId && n.native.contract === native.contract
+        })[0]
+        const inner = await factory.inner(fromChain.Chain);
+        const p = await factory.nftUri(inner, unparsed)
+        if(p) setChainId(p.chainId)
+        else setChainId(nftDetails.native.chainId)
+        setShow(nftDetails)
+      }
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
-  console.log(blockchain, chainId, 'hello312')
   const hasAttributes = show ? show.attributes && show.attributes : false
   return (
     <>
@@ -114,7 +120,11 @@ function Attribute(props) {
   const { trait_type, display_type, value } = props
   console.log(props)
   return  <div className="nftDetContList ">
-  <div className="label">{ trait_type.charAt(0).toUpperCase() + trait_type.slice(1).toLowerCase()}</div>
+  <div className="label">{ 
+  trait_type ?
+  trait_type.split('_').map(n =>  n.charAt(0).toUpperCase() + n.slice(1).toLowerCase()).join(' ')
+  : '-'
+  }</div>
   <div className="details">
     {
       display_type === 'date' 

@@ -41,6 +41,9 @@ const generalSlice = createSlice({
         state.nftDetails = action.payload
         state.onlyDetails = true
     },
+    setUnParsedNFTs(state, action) {
+      state.unparsedNFTs = action.payload
+    },
     setStep(state, action) {
         state.step = action.payload
     },
@@ -62,6 +65,7 @@ export const { toggleNFTInfo,
     setTronWallet,
     setSuccess,
     setNFTs, 
+    setUnParsedNFTs,
     setElrondWallet,
     setNFT, 
     setStep,
