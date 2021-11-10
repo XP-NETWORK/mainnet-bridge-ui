@@ -12,6 +12,10 @@ import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
+
+import whiteClose from "../../../assets/img/icon/whiteClose.svg";
+import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
+
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
@@ -44,6 +48,8 @@ const TransferNFTModal = () => {
   const [switchNetwork, setSwitchNetwork] = useState(false)
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
+  const fromConfig = chainsConfig[from]
+
   async function connect() {
     try {
         await activate(injected);
@@ -114,18 +120,7 @@ const TransferNFTModal = () => {
           console.log(err)
       }
   }
-  useEffect(() => {
-      console.log(chainId, isConnectOpen)
-    if(chainId && isConnectOpen) {
-        const fromConfig = chainsConfig[from]
-        const chainsMatch = chainId === fromConfig.chainId
-        if(chainsMatch) handleClose()
-        else {
-            setSwitchNetwork(true)
-        }
-    }
 
-  },[chainId])
   const switchChain = async () => {
     const info = CHAIN_INFO[from];
             console.log(from, info, CHAIN_INFO)
@@ -150,9 +145,8 @@ const TransferNFTModal = () => {
             console.log(library)
   }
   useEffect(() => {
-      if(chainId) {
-          console.log(active)
-      }
+    const chainsMatch = chainId === fromConfig?.chainId
+    if(chainsMatch) setSwitchNetwork(false)
   }, [chainId]);
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
@@ -170,9 +164,9 @@ const TransferNFTModal = () => {
                     <div className="crossChainTab sendNFTBox">
                     <div className="tabTitle arrowTitle">
                       <span className="CloseModal" onClick={handleClose}>
-                        <Image src={Close} />
+                        <Image src={whiteClose} />
                       </span>
-                      <h3>Wrong Network</h3>
+                      <h3>Warning</h3>
                     </div>
                     <div className="warModaCont">
                       <Image src={Warn} />
@@ -183,19 +177,19 @@ const TransferNFTModal = () => {
                         XP.network bridge requires you to connect to the {from} Mainnet
                       </p>
                     </div>
-                    <div className="steepBtn">
-                      <a onClick={switchChain} className="bBlueBtn clickable">
-                        Switch to Mainnet
+                    <div style={{width: '100%'}} className="steepBtn">
+                      <a onClick={switchChain} style={{width: '100%'}} className="bBlueBtn clickable">
+                        Connect to Mainnet
                       </a>
                     </div>
                   </div>
           : <div className="crossChainTab sendNFTBox">
             <div className="tabTitle arrowTitle">
               <span className="CloseModal" onClick={handleClose}>
-                <Image src={Close} />
+                  <Image src={whiteClose} />
               </span>
               <h3>
-                <Image src={ConnectBridge} />
+                  <Image src={WhiteContBrid} className="ConnectWall" />
                 Connect Wallet
               </h3>
             </div>

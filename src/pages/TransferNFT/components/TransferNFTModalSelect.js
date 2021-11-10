@@ -10,8 +10,10 @@ import MetaMask from "../../../assets/img/icons/MetaMask.svg";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
+import TriangelDonw from "../../../assets/img/icons/triang_down.svg";
 
 import Warn from "../../../assets/img/warningsvg.png";
+import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
@@ -24,9 +26,12 @@ import {
 import { useWeb3React } from "@web3-react/core";
 
 const TransferNFTModalSelect = (props) => {
-  const { value, options, onChange, disabled, placeholder } = props;
+  const { value, options, onChange, disabled, placeholder, classNameCont } = props;
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    console.log('1231kl')
+    setShow(false)
+  }
   const handleShow = () => setShow(true);
 
   const chooseValue = (e) => {
@@ -39,25 +44,35 @@ const TransferNFTModalSelect = (props) => {
 
   return (
     <Fragment>
+         <div  onClick={handleShow} className={`crosChainSelect ${classNameCont ? classNameCont : ''}`}>
+                    <div className="chainSelect">
+                      <SelectItem>
       {value ? (
-              <div className={disabled ? "modalSelectButtonChoose modalSelectButtonChooseDisable " : "modalSelectButtonChoose"}  onClick={handleShow}>
+                 
+              <div  className={disabled ? "modalSelectButtonChoose modalSelectButtonChooseDisable " : "modalSelectButtonChoose"} >
                 <img className="modalSelectButtonChooseImg" src={selectChoose.image.src} alt={selectChoose.key}/>
               <div className="modalSelectButtonPlaceHolder">{value}</div>
             </div>
       ) : (
-        <div className={disabled ? " modalSelectButton modalSelectButtonChooseDisable" : "modalSelectButton"} onClick={handleShow}>
+        <div   className={disabled ? " modalSelectButton modalSelectButtonChooseDisable" : "modalSelectButton"}>
           <div className="modalSelectButtonPlaceHolder">{placeholder}</div>
         </div>
+   
       )}
-
+     </SelectItem>
+                <Image src={TriangelDonw} />
+              </div>
+            </div>
       <Modal
         show={show}
         onHide={handleClose}
         keyboard={true}
         dialogClassName="modalSelectPopupSize"
       >
-        <Modal.Body className="modalselector">
-          {options
+        <Modal.Body>
+          <div className="closModal" >Select Chain <span className="closeModal" onClick={handleClose}><Image src={whiteClose} /></span></div>
+          <div className="seleChainOption">
+            {options
             ? options.map((n) => {
                 const { image, text, key, value, coming } = n;
                 return (
@@ -70,11 +85,12 @@ const TransferNFTModalSelect = (props) => {
                       alt={key}
                       className="modalSelectOptionsImage"
                     />
-                    <div className="modalSelectOptionsText">{text} {coming ? ' - Coming up' : ''}</div>
+                    <div className="modalSelectOptionsText">{text} <span className="comingSoon">{coming ? 'Coming soon' : ''}</span></div>
                   </div>
                 );
               })
             : ""}
+          </div>
         </Modal.Body>
       </Modal>
     </Fragment>

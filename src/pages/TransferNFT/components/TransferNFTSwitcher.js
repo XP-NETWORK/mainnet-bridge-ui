@@ -25,6 +25,25 @@ import user4 from "../../../assets/images/users/u4.svg";
 import user5 from "../../../assets/images/users/u5.svg";
 import checkmarkicon from "../../../assets/images/checkmark.svg";
 
+
+import TriangelDonw from "../../../assets/img/icons/triang_down.svg";
+import Updown from "../../../assets/img/icon/updown.svg";
+import UpdownPn from "../../../assets/img/icon/updown.png";
+import WhiArrRig from "../../../assets/img/icon/whiArrowR.svg";
+import whiteClose from "../../../assets/img/icon/whiteClose.svg";
+import Inf from "../../../assets/img/icon/inf.svg";
+import BridgeSu1 from "../../../assets/img/bridges/bridgeSuport-1.svg";
+import BridgeSu2 from "../../../assets/img/bridges/bridgeSuport-2.svg";
+import BridgeSu3 from "../../../assets/img/bridges/bridgeSuport-3.svg";
+import BridgeSu4 from "../../../assets/img/bridges/bridgeSuport-4.svg";
+import BridgeSu5 from "../../../assets/img/bridges/bridgeSuport-5.svg";
+import BridgeSu6 from "../../../assets/img/bridges/bridgeSuport-6.svg";
+import BridgeSu7 from "../../../assets/img/bridges/bridgeSuport-7.svg";
+import BridgeSu8 from "../../../assets/img/bridges/bridgeSuport-8.svg";
+import BridgeSu9 from "../../../assets/img/bridges/bridgeSuport-9.svg";
+import BridgeSu10 from "../../../assets/img/bridges/bridgeSuport-10.svg";
+
+
 import arrow_back from "../../../assets/img/icons/arrow_back.svg";
 import closeBl from "../../../assets/img/icons/closeBl.svg";
 import wroSeImg from "../../../assets/img/logos/wroSeImg.png";
@@ -129,56 +148,47 @@ const TransferNFTSwitcher = () => {
       dispatch(setStep(2))
   }
 
+  const openModal = (e, id) => {
+    console.log(e)
+    document.getElementById(id).click()
+  }
+
   console.log("from: ",from);
   console.log("to: ",to);
   return (
     <Fragment>
-      <div className="crossChainTab">
-        <div className="tabTitle">
-          <h3>Select Chain and NFT</h3>
-        </div>
-        <div className="crosChainSelectBox">
-          <div className="crosChainSelect">
-            <div className="chainFrom">From</div>
-            <div className="chainSelect">
-              <SelectItem>
-                <TransferNFTModalSelect
-                  placeholder="Select Chain"
-                  // fluid
-                  disabled={account ? true : false}
-                  // selection
-                  value={from}
-                  onChange={onChangeFrom}
-                  options={chains}
-                />
-              </SelectItem>
-            </div>
+      
+      <section>
+        <div className="crossChainTab">
+          <div className="tabTitle">
+            <h3>Transfer NFT’s between blockchains</h3>
+            <p className="">It is a long established fact that a reader will be distracted by the readable content.</p>
           </div>
-          <span className="fromToArrow">
-            {" "}
-            <Image src={FromToArrow} />
-          </span>
-          <div style={{marginTop: '8px'}} className="crosChainSelect">
-            <div className="chainFrom">Send To</div>
-            <div className="chainSelect">
-              <SelectItem>
-                <TransferNFTModalSelect
-                  placeholder="Select Chain"
-                  // fluid
-                  disabled={account ? true : false}
-                  onChange={onChangeTo}
-                  value={to}
-                  // selection
-                  options={chains.filter((n) => n.text !== from)}
-                />
-              </SelectItem>
-            </div>
+          <div className="crosChainSelectBox">
+                  <TransferNFTModalSelect
+                    placeholder="Select departure chain"
+                    disabled={account ? true : false}
+                    value={from}
+                    onChange={onChangeFrom}
+                    options={chains}
+                  />
+            <span className="fromToArrow">
+              <Image src={Updown} />
+            </span>
+                  <TransferNFTModalSelect
+                    placeholder="Select destination chain"
+                    classNameCont="selecDest"
+                    disabled={account ? true : false}
+                    onChange={onChangeTo}
+                    value={to}
+                    options={chains.filter((n) => n.text !== from)}
+                  />
+        
           </div>
-        </div>
 
-        <div className="storeNtfs">
-          <h5>Your NFTs 
-            {/* on <span className="blockchainon"><img src="" /></span> */}
+          <div className="contiBridge">
+            {/* <h5>Your NFTs 
+            on <span className="blockchainon"><img src="" /></span>
           </h5>
           {
               loadingNFTs ? <div className="nftloadercontainer"> <Loader className="nftloader" /></div>
@@ -189,20 +199,50 @@ const TransferNFTSwitcher = () => {
               <p>
             <Image src={fing} fluid /> Connect wallet to display your NFTs
           </p>
-          }
-  
-                {!account && !elrondWallet && !tronWallet ? <div
-                className={`steepBtn `}
-              >
-              <a
-                onClick={() => dispatch(toggleConnect(true))}
-                className={`bBlueBtn ${from && to ? '' : 'disbldBtn'}`}
-              >
-                Connect Wallet
-              </a>
-              </div> : '' }
+          } */}
+
+            {!account && !elrondWallet ?
+              <div className={`steepBtn `} >
+                <a
+                  onClick={() => dispatch(toggleConnect(true))}
+                  className={`bBlueBtn ${from && to ? '' : 'disbldBtn'}`}
+                >
+                  Continue bridging  <Image src={WhiArrRig} />
+                </a>
+              </div> : ''}
+          </div>
         </div>
-      </div>
+        <div className="bridgeSupport">
+          <div className="whatIt">
+            <Image src={Inf} />  What it NFT
+          </div>
+          <h2>XP.bridge supports</h2>
+          <ul className="supportList">
+            <li className="singleSupport"><Image src={BridgeSu1} /></li>
+            <li className="singleSupport"><Image src={BridgeSu2} /></li>
+            <li className="singleSupport"><Image src={BridgeSu3} /></li>
+            <li className="singleSupport"><Image src={BridgeSu4} /></li>
+            <li className="singleSupport"><Image src={BridgeSu5} /></li>
+            <li className="singleSupport"><Image src={BridgeSu6} /></li>
+            <li className="singleSupport"><Image src={BridgeSu7} /></li>
+            <li className="singleSupport"><Image src={BridgeSu8} /></li>
+            <li className="singleSupport"><Image src={BridgeSu9} /></li>
+            <li className="singleSupport"><Image src={BridgeSu10} /></li>
+          </ul>
+          <div className="blockChainComson">
+            + More blockchain coming soon...
+          </div>
+          <div className="worningAlert">
+            <div className="alertText">
+              Select Departure Chain and Destiantion to continue briging
+              <span className="closeAlert">
+                <Image src={whiteClose} />
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
     </Fragment>
   );
 };
