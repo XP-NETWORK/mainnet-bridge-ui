@@ -2848,3 +2848,13 @@ span.backBtn img {
 .nftactions img:first-child {
   margin-right: 20px;
 }
+
+.card {
+  text-align: center;
+  /* background: unset !important; */
+  border: unset !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center
+}

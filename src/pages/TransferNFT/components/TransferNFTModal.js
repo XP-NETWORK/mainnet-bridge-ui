@@ -11,12 +11,12 @@ import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
-
-
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
+import maiarIcon from "../../../assets/images/maiarIcon.png";
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import SelectItem from "../../../UIElemnts/SelectItem";
+import * as Dapp from "@elrondnetwork/dapp";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +44,7 @@ const TransferNFTModal = () => {
   } = useWeb3React();
 
   const dispatch = useDispatch();
+  const [onMaiarConnect, setOnMaiarConnect] = useState('')
 
   const { isConnectOpen, from, elrondWallet } = useSelector((s) => s.general);
   const [switchNetwork, setSwitchNetwork] = useState(false)
@@ -187,31 +188,40 @@ const TransferNFTModal = () => {
         keyboard={false}
         className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
+        { onMaiarConnect ? 
+        <Dapp.Pages.WalletConnect
+          callbackRoute="/"
+          logoutRoute="/"
+          title="Maiar Login"
+          lead="Scan the QR code using Maiar"
+        /> 
+        :
         <Modal.Body>
           { switchNetwork ? 
-                    <div className="crossChainTab sendNFTBox">
-                    <div className="tabTitle arrowTitle">
-                      <span className="CloseModal" onClick={handleClose}>
-                        <Image src={whiteClose} />
-                      </span>
-                      <h3>Warning</h3>
-                    </div>
-                    <div className="warModaCont">
-                      <Image src={Warn} />
-                      <h3>
-                        Switch to {from} Mainnet
-                      </h3>
-                      <p className="">
-                        XP.network bridge requires you to connect to the {from} Mainnet
-                      </p>
-                    </div>
-                    <div style={{width: '100%'}} className="steepBtn">
-                      <a onClick={switchChain} style={{width: '100%'}} className="bBlueBtn clickable">
-                        Connect to Mainnet
-                      </a>
-                    </div>
-                  </div>
-          : <div className="crossChainTab sendNFTBox">
+          <div className="crossChainTab sendNFTBox">
+            <div className="tabTitle arrowTitle">
+              <span className="CloseModal" onClick={handleClose}>
+                <Image src={whiteClose} />
+              </span>
+              <h3>Warning</h3>
+            </div>
+            <div className="warModaCont">
+              <Image src={Warn} />
+              <h3>
+                Switch to {from} Mainnet
+              </h3>
+              <p className="">
+                XP.network bridge requires you to connect to the {from} Mainnet
+              </p>
+            </div>
+            <div style={{width: '100%'}} className="steepBtn">
+              <a onClick={switchChain} style={{width: '100%'}} className="bBlueBtn clickable">
+                Connect to Mainnet
+              </a>
+            </div>
+          </div>
+          : 
+          <div className="crossChainTab sendNFTBox">
             <div className="tabTitle arrowTitle">
               <span className="CloseModal" onClick={handleClose}>
                   <Image src={whiteClose} />
@@ -228,7 +238,6 @@ const TransferNFTModal = () => {
                   <Image src={MetaMask} /> MetaMask{" "}
                 </Link>
               </li>
-
               <li className="" style={isELROND ? {} : OFF} onClick={connectToElrond}>
                 <Link to="#">
                   {" "}
@@ -256,17 +265,27 @@ const TransferNFTModal = () => {
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              {/* <li style={{ opacity: 0.6, pointerEvents: "none" }}>
+              <li onClick={() => setOnMaiarConnect(true)}>
                 <Link to="#">
                   {" "}
-                  <Image src={WalletConnect2} /> WalletConnect{" "}
+                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> WalletConnect{" "}
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>}
         </Modal.Body>
+        } 
+        
       </Modal>
     </>
   );
 };
 export default TransferNFTModal;
+
+
+<Dapp.Pages.WalletConnect
+  callbackRoute="/"
+  logoutRoute="/" /* redirect after logout */
+  title="Maiar Login"
+  lead="Scan the QR code using Maiar"
+/>

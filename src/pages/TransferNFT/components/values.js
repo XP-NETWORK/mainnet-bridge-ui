@@ -14,6 +14,7 @@ import xdai from "../../../assets/images/xdai.svg";
 import solana from "../../../assets/images/solana.svg";
 import algorand from "../../../assets/images/algorand.svg";
 import cardano from "../../../assets/images/cardano.svg";
+import * as Dapp from "@elrondnetwork/dapp";
 import leftArrow from "../../../assets/images/leftArrow.svg";
 import rightArrow from "../../../assets/images/rightArrow.svg";
 import { ChainData } from "../../../wallet/config";
@@ -370,3 +371,17 @@ export const CHAIN_INFO = {
     }
   };
   
+
+
+export const walletConnectBridge = "https://bridge.walletconnect.org";
+export const walletConnectDeepLink = "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/";
+
+export const network: Dapp.NetworkType = {
+  id: "testnet",
+  name: "Testnet",
+  egldLabel: "xEGLD",
+  walletAddress: "https://testnet-wallet.elrond.com/dapp/init",
+  apiAddress: "https://testnet-api.elrond.com",
+  gatewayAddress: "https://testnet-gateway.elrond.com",
+  explorerAddress: "http://testnet-explorer.elrond.com/",
+};

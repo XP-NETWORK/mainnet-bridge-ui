@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./layout/NavBar";
 import TransferNFT from "./pages/TransferNFT/TransferNFT";
+import * as Dapp from "@elrondnetwork/dapp";
 import "./Global.css";
 import "./Global-responsive.css";
 import { getFactory } from "./wallet/connectors";
@@ -34,6 +35,18 @@ return (
         </header>
         <Switch>
           <Route exact path={"/"} component={TransferNFT} />
+          <Route
+                path="/walletconnect" /* must correspond to walletConnectRoute */
+                component={() => (
+                  <Dapp.Pages.WalletConnect
+                    callbackRoute="/"
+                    logoutRoute="/" /* redirect after logout */
+                    title="Maiar Login"
+                    lead="Scan the QR code using Maiar"
+                  />
+                )}
+                exact={true}
+              />
         </Switch>
       </Router>
     </div>
