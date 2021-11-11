@@ -35,6 +35,7 @@ const NavBar = () => {
     active,
     error,
   } = useWeb3React();
+
   const {elrondWallet, tronWallet} = useSelector(s => s.general)
   const dispatch = useDispatch()
   const disconnect = () => {

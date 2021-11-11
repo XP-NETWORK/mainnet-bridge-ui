@@ -15,7 +15,7 @@ import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
-
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
@@ -27,8 +27,8 @@ import { getFactory, injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
-
 import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
+
 
 const TransferNFTModal = () => {
   const {
@@ -36,6 +36,7 @@ const TransferNFTModal = () => {
     library,
     chainId,
     account,
+    user,
     activate,
     deactivate,
     active,
@@ -103,9 +104,27 @@ const TransferNFTModal = () => {
       // cancelled
       console.log(err)
     }
-
-   
   }
+
+  const onWalletConnect = async () => {
+    const { rpc, chainId } = chainsConfig[from]
+    console.log(rpc);
+    console.log(chainId);
+    try {
+        const walletconnect = new WalletConnectConnector({ 
+          rpc: {
+            [chainId]: rpc
+          },
+            chainId,
+            qrcode: true,
+        })
+        walletconnect.networkId = chainId
+        await activate(walletconnect, undefined, true)
+        console.log("walletconnect", walletconnect);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   async function connectTronlink() {
       try {
@@ -159,6 +178,7 @@ const TransferNFTModal = () => {
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };
+  console.log(account ,'123819')
   return (
     <>
       <Modal
@@ -230,7 +250,7 @@ const TransferNFTModal = () => {
                   <Image src={Trezor} /> Trezor{" "}
                 </Link>
               </li>
-              <li style={{ opacity: 0.6, pointerEvents: "none" }}>
+              <li onClick={() => onWalletConnect()}>
                 <Link to="#">
                   {" "}
                   <Image src={WalletConnect} /> WalletConnect{" "}
