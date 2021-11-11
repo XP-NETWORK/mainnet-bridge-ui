@@ -130,18 +130,20 @@ const TransferNFTSwitcher = () => {
         setLoadingNFTs(true)
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
-        console.log(inner)
-        const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
-        console.log(nfts)
-        const res = await parseNFTS(nfts)
-        dispatch(setNFTs(res))
-        console.log(nfts)
-        dispatch(setUnParsedNFTs(nfts))
-        setLoadingNFTs(false)
-      } else if(tronWallet) {
-        console.log('yoyoma')
-        const factory = await getRPCFactory();
-        console.log(factory)
+        console.log(inner, 'inner')
+        try {
+          console.log(elrondWallet ? elrondWallet : tronWallet)
+          const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
+          console.log(nfts)
+          const res = await parseNFTS(nfts)
+          dispatch(setNFTs(res))
+          console.log(nfts)
+          dispatch(setUnParsedNFTs(nfts))
+          setLoadingNFTs(false)
+        } catch(err) {
+          console.log(err, 'listnft err')
+        }
+
       }
 
   },[account, from, chainId, elrondWallet, tronWallet])

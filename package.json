@@ -28,7 +28,7 @@
     "web-vitals": "^1.1.2",
     "web3-utils": "^1.6.0",
     "xp.network": "git+https://github.com/xp-network/xpjs#bleeding-edge",
-    "xpnet-nft-list": "git+https://github.com/xp-network/nft-list-backend#bleeding-edge"
+    "xpnet-nft-list": "^0.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

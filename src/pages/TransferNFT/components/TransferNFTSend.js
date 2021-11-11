@@ -113,9 +113,11 @@ const TransferNFTSend = () => {
     const toChain = await factory.inner(toChainConfig.Chain)
     const wallet = 
     toEVM() && elrondWallet ? '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+      : to === 'Tron' && elrondWallet ? 'TCCKoPRcYoCGkxVThCaY9vRPaKiTjE4x1C' 
     : account ? account 
     : tronWallet ? tronWallet 
     : elrondWallet ? elrondWallet : '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+    console.log(wallet ,'adskldsalkdaskldsal')
     const fee = await factory.estimateFees(fromChain, toChain, nft, wallet)
     setBNFee(fee.multipliedBy(1.1))
     const bign = fee.multipliedBy(1.1).decimalPlaces(0).toString()
