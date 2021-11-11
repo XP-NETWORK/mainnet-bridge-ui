@@ -3,6 +3,10 @@
         flex-direction: column;
     }
 
+.modalSelectPopupSize{
+    margin-top: 0px !important;
+}
+
     .sendNftContBox> div {
         width: 100%;
         padding: 0;

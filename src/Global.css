@@ -1,5 +1,5 @@
 /*Fonts*/
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
 /* 
 font-family: 'Inconsolata', monospace;
@@ -8,7 +8,7 @@ font-family: 'Inter', sans-serif;
 
 html,
 body {
-  font-family: 'Inter', sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 body {
@@ -29,19 +29,20 @@ h5 {
   padding: 16px !important;
 }
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
-.basicNav a, .tabNavResponsive a {
-    font-size: 15px;
-    line-height: 126%;
-    letter-spacing: 0.03em;
-    color: #040D27;
-    opacity: 0.9;
-    display: inline-block;
-    padding: 0.50rem 0.75rem;
-    margin-right: 0.5rem;
-    border-radius: 10px;
-    transition: 300ms ease-in-out color, background-color;
+.basicNav a,
+.tabNavResponsive a {
+  font-size: 15px;
+  line-height: 126%;
+  letter-spacing: 0.03em;
+  color: #040d27;
+  opacity: 0.9;
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.5rem;
+  border-radius: 10px;
+  transition: 300ms ease-in-out color, background-color;
 }
 
 .basicNav a:hover,
@@ -291,7 +292,6 @@ body {
   line-height: 126%;
 }
 
-
 h1,
 h2,
 h3,
@@ -385,10 +385,19 @@ section.crossChainSec {
   display: flex;
   flex-direction: column;
   margin-bottom: 35px;
-  background: linear-gradient(133.69deg, #6F5860 -40.65%, #2C313E 16.8%, #1D2743 123.56%), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
+  background: linear-gradient(
+      133.69deg,
+      #6f5860 -40.65%,
+      #2c313e 16.8%,
+      #1d2743 123.56%
+    ),
+    linear-gradient(
+      308.78deg,
+      rgba(167, 177, 255, 0.12) -24.07%,
+      rgba(123, 255, 239, 0.55) 285.12%
+    );
   box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.05);
   border-radius: 20px;
-
 }
 
 .crosChainSelectBox .crosChainSelect .ui.active.selection.dropdown {
@@ -396,19 +405,22 @@ section.crossChainSec {
 }
 
 .tabTitle h3 {
+  
   text-align: center;
   color: #fff;
   font-weight: 500;
-  font-size: 22px;
-  line-height: 126%;
+  font-size: 18px;
 
+  line-height: 126%;
+  font-family: "Inter", sans-serif !important;
+  white-space: nowrap;
 }
 .tabTitle p {
-    font-size: 14px;
-    line-height: 156%;
-    letter-spacing: 0.03em;
-    color: #A1A8C5;
-    text-align: center;
+  font-size: 14px;
+  line-height: 156%;
+  letter-spacing: 0.03em;
+  color: #a1a8c5;
+  text-align: center;
 }
 .closeWor {
   display: block;
@@ -420,6 +432,7 @@ section.crossChainSec {
 }
 
 .tabTitle {
+  margin-top: 10px;
   padding: 18px 0px;
   position: relative;
 }
@@ -447,13 +460,13 @@ section.crossChainSec {
   justify-content: space-between;
   position: relative;
   z-index: 11;
-  border: 1px solid #D6DBEB;
-  background: #FAFBFF;
+  border: 1px solid #d6dbeb;
+  background: #fafbff;
   border-radius: 10px;
 }
 
 .crosChainSelect.selecDest {
-  border-top:1px solid #D6DBEB ;
+  border-top: 1px solid #d6dbeb;
 }
 
 .ui.dropdown > .text,
@@ -476,10 +489,10 @@ section.crossChainSec {
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0.05em;
-  color: #3E64ED;
-  background: #1F2A54;
+  color: #3e64ed;
+  background: #1f2a54;
   border-radius: 4px;
-  margin:0 0 0 5px;
+  margin: 0 0 0 5px;
   padding: 3px 4px;
 }
 
@@ -609,8 +622,9 @@ span.ftsStoreLine {
   display: block;
   margin-top: 3px;
 }
-.ui.dropdown > .text, .visible.menu .item {
-    font-size: 14px;
+.ui.dropdown > .text,
+.visible.menu .item {
+  font-size: 14px;
 }
 ul.nftsStoreList li.active .ftsStoreName {
   color: #040d27;
@@ -620,13 +634,13 @@ ul.nftsStoreList li.active .ftsStoreName {
   margin-top: 24px;
 }
 .bBlueBtn .lds-ellipsis {
-    transform: scale(0.4);
-    margin-top: -50px;
-    height: 30px;
+  transform: scale(0.4);
+  margin-top: -50px;
+  height: 30px;
 }
 .bBlueBtn {
-  background: #3E64ED;
-  font-family: 'Inter';
+  background: #3e64ed;
+  font-family: "Inter";
   cursor: pointer;
   display: block;
   width: 100%;
@@ -641,12 +655,12 @@ ul.nftsStoreList li.active .ftsStoreName {
   border-radius: 6px;
 }
 .blockchain-img {
-    width: 24px;
-    margin-right: 8px;
+  width: 24px;
+  margin-right: 8px;
 }
 .bBlueBtn:hover {
-    background-color: #5479FF;
-    color: #fff;
+  background-color: #5479ff;
+  color: #fff;
 }
 
 .steepLines {
@@ -996,10 +1010,10 @@ ul.ms-options {
 }
 .chainSelect {
   width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 4px 12px;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  justify-content: space-between;
 }
 .crosChainSelect:nth-child(2) {
   margin-top: 8px;
@@ -1273,10 +1287,9 @@ ul.ms-options {
   margin-bottom: 4px;
 }
 .nftcontainer {
-  border: 1px solid #D6DBEB;
+  border: 1px solid #d6dbeb;
   padding: 0px 4px;
   border-radius: 10px;
-
 }
 .nft-top {
   display: flex;
@@ -1285,7 +1298,6 @@ ul.ms-options {
   align-items: center;
 }
 .nftson {
-
 }
 .nftson img {
   width: 22px;
@@ -1321,7 +1333,6 @@ ul.ms-options {
 .ui.selection.active.dropdown .menu::-webkit-scrollbar-thumb,
 .storeNtfList::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.22) !important;
-  
 }
 
 /* Handle on hover */
@@ -1336,7 +1347,8 @@ ul.ms-options {
   height: 120px;
   overflow: hidden;
 }
-.storeImg img, .storeImg video {
+.storeImg img,
+.storeImg video {
   display: block;
   width: 100%;
   height: 100%;
@@ -1411,9 +1423,9 @@ li.sinStoreNtf.active .storeText {
   left: 0px;
 }
 .blockchainon {
-
 }
-.nftSelected img, .nftSelected video {
+.nftSelected img,
+.nftSelected video {
   display: block;
   max-width: 120px;
   margin: 0 auto;
@@ -1421,24 +1433,25 @@ li.sinStoreNtf.active .storeText {
 }
 
 .nftSelected {
-    width: 49%;
-    flex-shrink: 0;
+  width: 49%;
+  flex-shrink: 0;
 }
 
 .sendNftContBox {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .sendNftCont {
-    width: 51%;
-    padding-left: 23px;
+  width: 51%;
+  padding-left: 23px;
 }
 
-.nftSelected img, .nftSelected video {
-    display: block;
-    width: 100%;
-    max-width: 100%;
+.nftSelected img,
+.nftSelected video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
 }
 
 .nftDetail ul li {
@@ -1447,8 +1460,8 @@ li.sinStoreNtf.active .storeText {
   height: 40px;
   align-items: center;
   font-size: 14px;
-line-height: 126%;
-color: #fff;
+  line-height: 126%;
+  color: #fff;
 }
 
 .nftDetail ul {
@@ -1456,29 +1469,29 @@ color: #fff;
 }
 
 .destiAddress {
-  background: #2C3349;
+  background: #2c3349;
   border-radius: 6px;
   padding: 8px 16px 16px 16px;
   margin-bottom: 8px;
 }
 
 .nftDetail {
-    background: #2C3349;
-    border-radius: 6px;
-    padding: 8px 16px 2px 16px;
+  background: #2c3349;
+  border-radius: 6px;
+  padding: 8px 16px 2px 16px;
 }
 
 .nftDetailView {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 28px;
-    color: #808DBD;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 28px;
+  color: #808dbd;
 }
 
 .viewNft {
-    color: #3E64ED;
+  color: #3e64ed;
 }
 
 .nftSelect img {
@@ -1487,38 +1500,37 @@ color: #fff;
   margin-right: 16px;
 }
 .nftselect-blockchain-name {
-    margin-top: -1px;
+  margin-top: -1px;
 }
 .inpDestiAdd input {
   font-size: 14px;
   line-height: 22px;
-  color: #808DBD;
-  background: #232B41;
-  border: 1px solid #D6DBEB;
+  color: #808dbd;
+  background: #232b41;
+  border: 1px solid #d6dbeb;
   box-sizing: border-box;
   border-radius: 4px;
   padding: 10px 12px;
   flex-grow: 1;
   height: 42px;
-  
 }
 .inpDestiAdd input::placeholder {
-  color: #040D28;
+  color: #040d28;
 
-opacity: 0.5;
+  opacity: 0.5;
 }
 
 .inpDestiAdd {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .destiTitle {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 28px;
-    color: #808DBD;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 28px;
+  color: #808dbd;
 }
 
 .approveRequ {
@@ -1528,7 +1540,7 @@ opacity: 0.5;
   margin: 0;
   display: flex;
   align-items: center;
-  color: #808DBD;
+  color: #808dbd;
 }
 
 .approveRequ img {
@@ -1537,37 +1549,37 @@ opacity: 0.5;
 }
 
 .feesTitle {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 28px;
-    color: #808DBD;
-    background: #2C3349;
-    border-radius: 6px;
-    margin-top: 8px;
-    padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 28px;
+  color: #808dbd;
+  background: #2c3349;
+  border-radius: 6px;
+  margin-top: 8px;
+  padding: 8px 16px;
 }
 
 .sendNftBtn .grayBtn {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .disable .grayBtn {
-    background: #4A5372;
-    color: #222B42;
-    pointer-events: none;
+  background: #4a5372;
+  color: #222b42;
+  pointer-events: none;
 }
 
 .disable .bBlueBtn {
-    background: #4A5372;
-    color: #222B42;
-    pointer-events: none;
+  background: #4a5372;
+  color: #222b42;
+  pointer-events: none;
 }
 
 .npnetFee {
-    color: #fff;
+  color: #fff;
 }
 
 .approveRequ a {
@@ -1580,76 +1592,79 @@ opacity: 0.5;
 }
 
 .approvebox {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    margin: 8px 0;
-    background: #2C3349;
-    border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  margin: 8px 0;
+  background: #2c3349;
+  border-radius: 6px;
 }
 
 .approvebox:hover {
-  outline: 1px solid #3E64ED;
+  outline: 1px solid #3e64ed;
 }
 
 .approveCheck {
-    width: 98px;
-    flex-shrink: 0;
-    margin-left: 5px;
+  width: 98px;
+  flex-shrink: 0;
+  margin-left: 5px;
 }
 
 .approveCheck input {
-    display: none;
+  display: none;
 }
 
 .approveCheck label {
-    width: 98px;
-    height: 34px;
-    background: #222B42;
-    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
-    border-radius: 56px;
-    margin: 0;
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 4px 8px 4px 6px;
-    color: #808DBD;
-    cursor: pointer;
+  width: 98px;
+  height: 34px;
+  background: #222b42;
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 56px;
+  margin: 0;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4px 8px 4px 6px;
+  color: #808dbd;
+  cursor: pointer;
 }
 
 .checkIcon {
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
-    display: flex;
-    width: 26px;
-    height: 26px;
-    background: #fff;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    align-items: center;
-    justify-content: center;
-    transition: .2s ease all;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  display: flex;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease all;
 }
 
 .checkIcon:after {
   content: url(./assets/img/icon/checkBlack.svg);
 }
 
-.approveCheck label:after {content: "Approve";line-height: 1;}
+.approveCheck label:after {
+  content: "Approve";
+  line-height: 1;
+}
 
 .approveCheck input:checked + label {
-    background: #10B67A;
-    box-shadow: inset 0px 1px 2px rgba(9, 18, 30, 0.35);
-    border-radius: 56px;
-    color: #fff;
-    justify-content: flex-start;
+  background: #10b67a;
+  box-shadow: inset 0px 1px 2px rgba(9, 18, 30, 0.35);
+  border-radius: 56px;
+  color: #fff;
+  justify-content: flex-start;
 }
 
 .approveCheck input:checked + label .checkIcon {
-    left: 67px;
+  left: 67px;
 }
 
 .approveCheck input:checked + label .checkIcon:after {
@@ -1668,16 +1683,16 @@ opacity: 0.5;
   font-size: 16px;
   line-height: 126%;
   letter-spacing: 0.03em;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 14px 10px;
   text-align: center;
-  background: #4A5372;
+  background: #4a5372;
   border-radius: 6px;
 }
 
 .grayBtn:hover {
-    color: #fff;
-    background: #576183;
+  color: #fff;
+  background: #576183;
 }
 
 .sendNFTBox .grayBtn {
@@ -1685,11 +1700,11 @@ opacity: 0.5;
 }
 
 .steepBtn.dualBtn {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.steepBtn.dualBtn> * {
+.steepBtn.dualBtn > * {
   width: 49%;
   max-width: 49%;
   flex-shrink: 0;
@@ -1722,7 +1737,7 @@ span.CloseModal {
 .selsectBridge li {
   display: flex;
   align-items: center;
-  border: 1px solid #414C72;
+  border: 1px solid #414c72;
   border-radius: 10px;
   font-size: 16px;
   line-height: 126%;
@@ -1756,7 +1771,7 @@ span.CloseModal {
 
 .selsectBridge li:hover,
 .selsectBridge li.active {
-  background: #2F374D;
+  background: #2f374d;
 }
 
 .selsectBridge li:last-child {
@@ -1817,10 +1832,10 @@ span.CloseModal {
 }
 
 .successTagList {
-  background: #2C3349;
-  border-radius: 6px;    
-  padding: 8px 16px;   
-  border: 0;    
+  background: #2c3349;
+  border-radius: 6px;
+  padding: 8px 16px;
+  border: 0;
   margin-bottom: 8px;
 }
 
@@ -1833,7 +1848,7 @@ span.CloseModal {
   font-weight: 400;
   font-size: 14px;
   line-height: 126%;
-  color: #808DBD;
+  color: #808dbd;
 }
 
 .succTagName,
@@ -1843,10 +1858,10 @@ span.CloseModal {
 }
 
 .succTagName {
-  color: #808DBD;
+  color: #808dbd;
 }
 span.succTagStat.statComp {
-  color: #10B67A;
+  color: #10b67a;
 }
 .succTagStat {
   color: #fff;
@@ -1917,9 +1932,9 @@ span.succTagStat.statComp {
 }
 .nftDetImg {
   max-height: 332px;
-
 }
-.nftDetImg img, .nftDetImg video {
+.nftDetImg img,
+.nftDetImg video {
   display: block;
   height: 100%;
   object-fit: fill;
@@ -1938,7 +1953,7 @@ span.succTagStat.statComp {
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  color: #6F7BA5;
+  color: #6f7ba5;
   margin-bottom: 10px;
 }
 
@@ -1947,12 +1962,12 @@ span.succTagStat.statComp {
   font-size: 14px;
   line-height: 160%;
   word-break: break-all;
-  color: #040D28;
+  color: #040d28;
 }
 
 .nftDetContList {
   margin-bottom: 8px;
-  background: #F7F8FD;
+  background: #f7f8fd;
   border-radius: 6px;
   padding: 8px 12px;
 }
@@ -1969,7 +1984,8 @@ span.succTagStat.statComp {
 }
 
 .warModaCont h3 {
-  margin: 0 0 12px 0;font-weight: 600;
+  margin: 0 0 12px 0;
+  font-weight: 600;
   font-size: 18px;
   line-height: 126%;
   color: #fff;
@@ -1986,8 +2002,8 @@ span.succTagStat.statComp {
   margin: 0 auto;
 }
 .nft-sle-cas {
-    width: 100%;
-    border-radius: 16px;
+  width: 100%;
+  border-radius: 16px;
 }
 .BlueLineBtn {
   border-radius: 10px;
@@ -2003,7 +2019,7 @@ span.succTagStat.statComp {
   border: 1px solid #3e64ed;
 }
 .srcblockchainimg {
-    width: 22px;
+  width: 22px;
 }
 .steepBtn .BlueLineBtn {
   margin-top: 10px;
@@ -2237,15 +2253,14 @@ span.succTagStat.statComp {
   margin: auto;
   height: 40px;
 }
-.nftloader div, .nftloader .lds-ellipsis div{
+.nftloader div,
+.nftloader .lds-ellipsis div {
   background-color: #3e64ed;
 }
 
-
-
 * {
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 .loader-container {
   margin: 0 auto;
@@ -2254,12 +2269,16 @@ span.succTagStat.statComp {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 @keyframes placeholder {
-    0% { background-position: -600px 0 }
-    100% { background-position: 600px 0 }
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
 }
 
 .animated-background {
@@ -2284,59 +2303,69 @@ span.succTagStat.statComp {
 .container-of-nft-loader {
   width: calc(33.333% - 10px);
   margin: 5px;
-
 }
 .marginTopBtn {
   margin-top: 18px;
 }
-.ui.disabled.dropdown, .ui.dropdown .menu>.disabled.item {
+.ui.disabled.dropdown,
+.ui.dropdown .menu > .disabled.item {
   opacity: 1 !important;
-  background-color: #E6E8EF !important;
+  background-color: #e6e8ef !important;
 }
 
 .ui.disabled.fluid.selection.dropdown {
-  background-color: #E6E8EF !important;
+  background-color: #e6e8ef !important;
   box-shadow: none !important;
 }
 
-.modalSelectPopupSize{
+.modalSelectPopupSize {
+  margin-top: 160px !important;
   width: 286px !important;
-
 }
 .modalselector {
   height: 500px;
   overflow: scroll;
   overflow-x: hidden;
 }
-.modalSelectPopupSize .modal-body{
+.modalSelectPopupSize .modal-body {
   padding: 0px;
 }
 
-.modalSelectPopupSize .modal-content{
+.modalSelectPopupSize .modal-content {
+  height: 508px !important;
   border-radius: 10px !important;
   overflow: hidden;
-  background: linear-gradient(133.69deg, #6F5860 -40.65%, #2C313E -18.47%, #1D2743 123.56%), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
+  background: linear-gradient(
+      133.69deg,
+      #6f5860 -40.65%,
+      #2c313e -18.47%,
+      #1d2743 123.56%
+    ),
+    linear-gradient(
+      308.78deg,
+      rgba(167, 177, 255, 0.12) -24.07%,
+      rgba(123, 255, 239, 0.55) 285.12%
+    );
   box-shadow: 0px 4px 34px rgba(4, 8, 14, 0.15);
   border-radius: 20px;
 }
 .modalSelectButtonChoose,
-.modalSelectButton{
+.modalSelectButton {
   height: 44px;
   max-width: 100%;
   min-width: unset;
-  width: 100% ;
+  width: 100%;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.modalSelectButtonChooseDisable{
+.modalSelectButtonChooseDisable {
   opacity: 0.6;
   pointer-events: none;
 }
 
-.modalSelectButton::before{
- 
+.modalSelectButton::before {
   content: url("./assets/img/icons/binance.svg");
   border-radius: 50%;
   overflow: hidden;
@@ -2346,69 +2375,66 @@ span.succTagStat.statComp {
 }
 
 .crosChainSelect.selecDest .modalSelectButton::before {
- 
   content: url("./assets/img/icon/selectDest.svg");
 }
 
-.modalSelectButtonPlaceHolder{
+.modalSelectButtonPlaceHolder {
   font-size: 16px;
   line-height: 126%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.modalSelectOptions{
+.modalSelectOptions {
   display: flex;
   align-items: center;
   height: 52px;
   cursor: pointer;
   padding: 0 40px;
-
 }
 
-.modalSelectOptions:hover{
-  background: #2F374D;
+.modalSelectOptions:hover {
+  background: #2f374d;
 }
 
-.modalSelectOptionsImage{
+.modalSelectOptionsImage {
   width: 26px;
   height: 26px;
 }
 
-.modalSelectOptionsText{
+.modalSelectOptionsText {
   font-size: 16px;
   line-height: 126%;
   color: #fff;
   margin-left: 26px;
 }
 
-.modalSelectButtonChooseImg{
+.modalSelectButtonChooseImg {
   border-radius: 50%;
-    overflow: hidden;
-    width: 28px;
-    height: 28px;
-    margin-right: 16px;
+  overflow: hidden;
+  width: 28px;
+  height: 28px;
+  margin-right: 16px;
 }
 
 .disbldBtn {
-  background: #DCE0ED;
-  color: #222B42;
+  background: #dce0ed;
+  color: #222b42;
   pointer-events: none;
 }
 
 .bBlueBtn.disbldBtn img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 a.bBlueBtn.disbldBtn img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .navTriger {
-    display: block;
-    padding: 10px 0;
-    cursor: pointer;
-    opacity: 0.6;
-    pointer-events: none;
+  display: block;
+  padding: 10px 0;
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 .mainContainer.container {
@@ -2416,188 +2442,189 @@ a.bBlueBtn.disbldBtn img {
 }
 
 .bridgeSupport {
-    max-width: 570px;
-    margin: 0 auto;
-    text-align: center;
-    padding-bottom: 75px;
+  max-width: 570px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 75px;
 }
 
 .whatIt {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    line-height: 126%;
-    color: #AAB4D7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 126%;
+  color: #aab4d7;
 }
 
 .whatIt img {
-    display: block;
-    margin-right: 9px;
+  display: block;
+  margin-right: 9px;
 }
 
 h2 {
-    margin: 0;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 126%;
-    letter-spacing: 0.03em;
-    color: #FFFFFF;
+  margin: 0;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 126%;
+  letter-spacing: 0.03em;
+  color: #ffffff;
 }
 
 .bridgeSupport .whatIt {
-    margin-bottom: 67px;
+  margin-bottom: 67px;
 }
 
 .supportList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 auto;
-    margin-top: 50px;
-    padding: 0;
-    max-width: 514px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 0;
+  max-width: 514px;
 }
 
 .singleSupport {
-    margin-bottom: 34px;
-    flex-shrink: 0;
-    width: 20%;
-    padding: 0 29px;
+  margin-bottom: 34px;
+  flex-shrink: 0;
+  width: 20%;
+  padding: 0 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .blockChainComson {
-    padding-top: 10px;
-    font-size: 14px;
-    line-height: 126%;
-    color: #AAB4D7;
-    margin-bottom: 85px;
+  padding-top: 10px;
+  font-size: 14px;
+  line-height: 126%;
+  color: #aab4d7;
+  margin-bottom: 85px;
 }
 
 .alertText {
-    background: #181B23;
-    border-radius: 12px;
-    color: #fff;
-    position: relative;
-    text-align: left;
-    font-size: 16px;
-    line-height: 20px;
-    padding: 16px 60px 16px 16px;
-    position: fixed;
-    z-index: 111;
-    left: 50%;
-    bottom: 40px;    
-    width: 95vw;
-    transform: translate(-50%);
-    max-width: 570px;
+  background: #181b23;
+  border-radius: 12px;
+  color: #fff;
+  position: relative;
+  text-align: left;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 16px 60px 16px 16px;
+  position: fixed;
+  z-index: 111;
+  left: 50%;
+  bottom: 40px;
+  width: 95vw;
+  transform: translate(-50%);
+  max-width: 570px;
 }
 
 .closeAlert {
-    position: absolute;
-    top: 14px;
-    bottom: 14px;
-    padding: 0 16px;
-    right: 0;
-    border-left: 1px solid rgb(255 255 255 / 40%);
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  padding: 0 16px;
+  right: 0;
+  border-left: 1px solid rgb(255 255 255 / 40%);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .modal-dialog.modalSelectPopupSize {
-    max-width: 360px !important;
-    width: 100% !important;
+  max-width: 360px !important;
+  width: 100% !important;
 }
 
 .closModal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 58px;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 126%;
-    color: #fff;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 126%;
+  color: #fff;
+  position: relative;
 }
 
 .closeModal {
-    display: flex;
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    align-items: center;
-    justify-content: center;
-    right: 36px;
-    cursor: pointer;
+  display: flex;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  right: 36px;
+  cursor: pointer;
 }
 
-
 .modal-dialog.modalSelectPopupSize {
-    max-width: 360px !important;
-    width: 100% !important;
+  max-width: 360px !important;
+  width: 100% !important;
 }
 
 .modalSelectPopupSize .closModal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 58px;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 126%;
-    color: #fff;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 126%;
+  color: #fff;
+  position: relative;
 }
 
 span.closeModal {
-    display: flex;
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    align-items: center;
-    justify-content: center;
-    right: 36px;
+  display: flex;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  right: 24px;
 }
 
 .seleChainOption {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 22px;
 }
 
 .seleChainOption .modalSelectOptions {
-    order: 1;
+  order: 1;
 }
 
 .seleChainOption .modalSelectOptions.comingUpChain {
-    order: 2;
+  order: 2;
 }
 
-
-.modalSelectOptionsText  .comingSoon {
+.modalSelectOptionsText .comingSoon {
   display: none;
 }
 
 .comingUpChain .comingSoon {
-    display: inline-block;
-    font-size: 12px;
-    line-height: 1;
-    letter-spacing: 0.05em;
-    color: #3E64ED;
-    margin-left: 5px;
-    background: #283154;
-    border-radius: 4px;
-    padding: 4px 7px;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: #3e64ed;
+  margin-left: 5px;
+  background: #283154;
+  border-radius: 4px;
+  padding: 4px 7px;
 }
 
 .ConnectWall {
-    position: absolute;
-    left: 0;
+  position: absolute;
+  left: 0;
 }
 
 .crossChainTab.sendNFTBox .CloseModal {
-    right: 5px;
+  right: 5px;
 }
 
 .detailBtn {
@@ -2605,7 +2632,7 @@ span.closeModal {
 }
 
 .crossChainTab.sendNFTBox {
-    max-width: 832px;
+  max-width: 832px;
 }
 .crossChainTab.sendNFTBox.successboxi {
   max-width: 435px;
@@ -2616,11 +2643,24 @@ Light Css Start
 ========================================================= */
 
 .navBrand.light {
-    display: block;
+  display: block;
 }
 
 .lightM {
-    display: block;
+  display: block;
+}
+
+.navbar-mene-poopup {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.menuAreamenuArea {
+  position: relative;
+}
+
+.menuArea {
+  position: relative;
 }
 
 .light {
@@ -2629,148 +2669,153 @@ Light Css Start
 }
 
 .lightCroseChi a {
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 126%;
-    color: rgb(4 13 39 / 90%);
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 126%;
+  color: rgb(4 13 39 / 90%);
 }
 
 .lightCroseChi a span {
-    font-size: 14px;
-    line-height: 126%;
-    color: #3E64ED;
-    letter-spacing: 0.05em;
-    background: #DFE4F7;
-    border-radius: 4px;
-    line-height: 1;
-    padding: 3px 4px;
-    display: inline-block;
-    margin-left: 5px;
+  font-size: 14px;
+  line-height: 126%;
+  color: #3e64ed;
+  letter-spacing: 0.05em;
+  background: #dfe4f7;
+  border-radius: 4px;
+  line-height: 1;
+  padding: 3px 4px;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .crossChainTab {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
-    box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.05);
-    border-radius: 20px;
+  background: linear-gradient(0deg, #ffffff, #ffffff),
+    linear-gradient(
+      308.78deg,
+      rgba(167, 177, 255, 0.12) -24.07%,
+      rgba(123, 255, 239, 0.55) 285.12%
+    );
+  box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.05);
+  border-radius: 20px;
 }
 
 .tabTitle h3 {
-    color: #040D27;
+  color: #040d27;
 }
 
 .tabTitle p {
-    color: #040D27;
+  color: #040d27;
 }
 
 .modalSelectButtonPlaceHolder {
-    color: #040D27;
+  color: #040d27;
 }
 
 .whatIt {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .bridgeSupport h2 {
-    color: #040D27;
+  color: #040d27;
+  font-family: "Inter", sans-serif !important;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .blockChainComson {
-    color: #040D27;
+  color: #040d27;
 }
 .modal-open {
 }
 
 .modal-open .modal {
-    /* backdrop-filter: blur(9px); */
+  /* backdrop-filter: blur(9px); */
 }
 
 .modalSelectPopupSize .modal-content {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), linear-gradient(308.78deg, rgba(167, 177, 255, 0.12) -24.07%, rgba(123, 255, 239, 0.55) 285.12%);
-    box-shadow: 0px 4px 44px;
+  background: linear-gradient(0deg, #ffffff, #ffffff),
+    linear-gradient(
+      308.78deg,
+      rgba(167, 177, 255, 0.12) -24.07%,
+      rgba(123, 255, 239, 0.55) 285.12%
+    );
+  /* box-shadow: 0px 4px 44px; */
 }
 
 .modalSelectPopupSize .closModal {
-    color: #040D28;
+  color: #040d28;
 }
 
 span.closeModal img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .modalSelectOptionsText {
-    color: #040D27;
+  color: #040d27;
 }
 
 .modalSelectOptions.comingUpChain img {
-    opacity: .4;
+  opacity: 0.4;
 }
 
 .modalSelectOptions.comingUpChain {
-    color: rgb(4 13 39 / 40%);
+  color: rgb(4 13 39 / 40%);
 }
 
 .comingUpChain .comingSoon {
-    color: #3E64ED;
-    background: #DFE4F6;
+  color: #3e64ed;
+  background: #dfe4f6;
 }
 
 .modalSelectOptions:hover {
-    background: #f8f8f8;
+  background: #f8f8f8;
 }
 
 img.ConnectWall {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 span.CloseModal img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .selsectBridge li a {
-    color: #040D28;
+  color: #040d28;
 }
 
 .selsectBridge li {
-    border: 1px solid #D6DBEB;
+  border: 1px solid #d6dbeb;
 }
 
-.selsectBridge li:hover, .selsectBridge li.active {
-    background: rgb(235 235 235 / 38%);
+.selsectBridge li:hover,
+.selsectBridge li.active {
+  background: rgb(235 235 235 / 38%);
 }
 
 span.backBtn img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
-
-
-
-
-
-
-
-
-
 .destiAddress {
-    background: #F7F8FD;
+  background: #f7f8fd;
 }
 
 .destiTitle {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .inpDestiAdd input {
-    background: #FEFEFE;
-    border: 1px solid #D6DBEB;
-    color: rgb(4 13 40 / 50%);
+  background: #fefefe;
+  border: 1px solid #d6dbeb;
+  color: rgb(4 13 40 / 50%);
 }
 
 .nftDetail {
-    background: #F7F8FD;
+  background: #f7f8fd;
 }
 
 .nftDetailView {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .viewNft {
@@ -2778,68 +2823,68 @@ span.backBtn img {
 }
 
 .nftDetail ul li {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .nftDetail ul li span:last-child {
-    color: #040D28;
+  color: #040d28;
 }
 
 .feesTitle {
-    background: #F7F8FD;
-    color: #6F7BA5;
+  background: #f7f8fd;
+  color: #6f7ba5;
 }
 
 .npnetFee {
-    color: #040D28;
+  color: #040d28;
 }
 
 .approvebox {
-    background: #F7F8FD;
+  background: #f7f8fd;
 }
 
 .approveRequ {
-    color: #040D28;
+  color: #040d28;
 }
 
 .approveCheck label {
-    background: #DCE0ED;
-    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.05);
-    color: #040D28;
+  background: #dce0ed;
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.05);
+  color: #040d28;
 }
 
 .checkIcon:after {
-    content: url(./assets/img/icon/checkLight.svg);
+  content: url(./assets/img/icon/checkLight.svg);
 }
 
 .sendNftBtn.disable .bBlueBtn {
-    background: #DCE0ED;
-    color: rgb(4 13 40 / 50%);
+  background: #dce0ed;
+  color: rgb(4 13 40 / 50%);
 }
 
 .warModaCont h3 {
-    color: #040D28;
+  color: #040d28;
 }
 
 .warModaCont p {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .grayBtn {
-    background: #F9F9FB;
-    color: rgb(4 13 40 / 50%);
+  background: #f9f9fb;
+  color: rgb(4 13 40 / 50%);
 }
 
 .successTagList {
-    background: #F7F8FD;
+  background: #f7f8fd;
 }
 
 .succTagName {
-    color: #6F7BA5;
+  color: #6f7ba5;
 }
 
 .succTagStat {
-    color: #040D28;
+  color: #040d28;
 }
 .nftactions {
   opacity: 0.6;
@@ -2847,4 +2892,99 @@ span.backBtn img {
 
 .nftactions img:first-child {
   margin-right: 20px;
+}
+.swap-arrow {
+  width: 26px;
+  height: 26px;
+  background: white;
+  position: absolute;
+  border: 1px solid #d6dbeb;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swap-arrow:hover {
+  border: none;
+  background: #3e64ed;
+}
+
+.swap-arrow:hover .swap-arrow-only {
+  fill: white;
+}
+
+.swap-arrow-only {
+  fill: #3e64ed;
+}
+
+/* width */
+#nice-scroll-modal::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+#nice-scroll-modal::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+#nice-scroll-modal::-webkit-scrollbar-thumb {
+  background: #dcddef;
+  border-radius: 40px;
+  border: 5px solid #fff;
+}
+
+/* Handle on hover */
+#nice-scroll-modal::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+.inner-modal-continuer {
+  height: 400px;
+  overflow: auto;
+}
+
+.navabar-pop-up-menu {
+  position: absolute;
+  right: 0px;
+  width: 218px;
+  height: 246px;
+  background: linear-gradient(0deg, #ffffff, #ffffff),
+    linear-gradient(
+      308.78deg,
+      rgba(167, 177, 255, 0.12) -24.07%,
+      rgba(123, 255, 239, 0.55) 285.12%
+    );
+  box-shadow: 0px 4px 14px rgba(47, 61, 84, 0.05);
+  border-radius: 20px;
+  z-index: 999;
+}
+
+.navabar-pop-up{
+  padding: 23px 0px;
+}
+
+.navbar-pop-up-row {
+  font-family: "Inter", sans-serif !important;
+  font-size: 14px;
+  color: #040d27;
+  padding-left: 20px;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-pop-up-row img {
+  margin-inline-end: 20px;
+}
+
+.navbar-pop-up-row:hover{
+  background: #F7F8FD;
 }

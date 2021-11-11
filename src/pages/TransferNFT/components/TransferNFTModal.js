@@ -52,12 +52,14 @@ const TransferNFTModal = () => {
   const fromConfig = chainsConfig[from]
 
   async function connect() {
-    try {
-        await activate(injected);
-    } catch (ex) {
-      console.log(ex);
+        try {
+          await activate(injected);
+        } catch (ex) {
+          console.log(ex);
+        }
+        // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
+  
     }
-  }
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
@@ -102,6 +104,8 @@ const TransferNFTModal = () => {
       }
     } catch(err) {
       // cancelled
+      window.open('https://getmaiar.com/defi', '_blank');
+
       console.log(err)
     }
   }

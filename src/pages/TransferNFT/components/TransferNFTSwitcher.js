@@ -27,7 +27,7 @@ import checkmarkicon from "../../../assets/images/checkmark.svg";
 
 
 import TriangelDonw from "../../../assets/img/icons/triang_down.svg";
-import Updown from "../../../assets/images/swap.svg";
+import { ReactComponent as  ArrowSwapOnly} from "../../../assets/images/arrowSwapOnly.svg";
 import UpdownPn from "../../../assets/img/icon/updown.png";
 import WhiArrRig from "../../../assets/img/icon/whiArrowR.svg";
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
@@ -159,6 +159,17 @@ const TransferNFTSwitcher = () => {
   const onNFTPage = loadingNFTs || nfts
   console.log("from: ",from);
   console.log("to: ",to);
+
+
+  const swapChins = () => {
+    if(from && to){
+    let fromValue = from;
+    let toValue = to;
+    dispatch(setTo(fromValue));
+    dispatch(setFrom(toValue));
+    }
+  }
+
   return (
     <Fragment>
       
@@ -176,8 +187,8 @@ const TransferNFTSwitcher = () => {
                     onChange={onChangeFrom}
                     options={chains}
                   />
-            <span className="fromToArrow">
-              <Image src={Updown} />
+            <span className="swap-arrow" onClick={swapChins}>
+              <ArrowSwapOnly className="swap-arrow-only"/>
             </span>
                   <TransferNFTModalSelect
                     placeholder="Select destination chain"

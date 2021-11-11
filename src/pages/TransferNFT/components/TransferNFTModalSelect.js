@@ -71,7 +71,8 @@ const TransferNFTModalSelect = (props) => {
       >
         <Modal.Body>
           <div className="closModal" >Select Chain <span className="closeModal" onClick={handleClose}><Image src={whiteClose} /></span></div>
-          <div className="seleChainOption">
+          <div id="nice-scroll-modal" className="inner-modal-continuer">
+          <div className="seleChainOption" >
             {options
             ? options.map((n) => {
                 const { image, text, key, value, coming } = n;
@@ -90,6 +91,7 @@ const TransferNFTModalSelect = (props) => {
                 );
               })
             : ""}
+          </div>
           </div>
         </Modal.Body>
       </Modal>
