@@ -101,7 +101,6 @@ const TransferNFTSwitcher = () => {
   const isEVM = chainsConfig[from] ? chainsConfig[from].type === EVM : "";
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   useEffect(async () => {
-    console.log(account , 'askldsalk12123')
       if(account) {
         const fromConfig = chainsConfig[from]
         if(from && isEVM && chainId === fromConfig.chainId) {
@@ -130,12 +129,9 @@ const TransferNFTSwitcher = () => {
         setLoadingNFTs(true)
         const fromChain = chainsConfig[from]
         const inner = await factory.inner(fromChain.Chain);
-        console.log(inner)
         const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
-        console.log(nfts)
         const res = await parseNFTS(nfts)
         dispatch(setNFTs(res))
-        console.log(nfts)
         dispatch(setUnParsedNFTs(nfts))
         setLoadingNFTs(false)
       } else if(tronWallet) {

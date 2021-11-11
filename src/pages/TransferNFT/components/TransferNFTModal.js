@@ -28,6 +28,7 @@ import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
+import white_arrow_back from "../../../assets/img/icon/white_arrow_back_black.svg"
 
 
 const TransferNFTModal = () => {
@@ -51,6 +52,7 @@ const TransferNFTModal = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
+  const maiarAddress = Dapp.useContext().address
 
   async function connect() {
     try {
@@ -59,6 +61,14 @@ const TransferNFTModal = () => {
       console.log(ex);
     }
   }
+
+  useEffect(() => {
+    if(maiarAddress && from === 'Elrond'){
+      setOnMaiarConnect(false)
+      dispatch(setElrondWallet(maiarAddress))
+      handleClose()
+    }
+  }, [maiarAddress])
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
@@ -180,6 +190,10 @@ const TransferNFTModal = () => {
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   console.log(account ,'123819')
+
+
+
+
   return (
     <>
       <Modal
@@ -189,12 +203,15 @@ const TransferNFTModal = () => {
         className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
         { onMaiarConnect ? 
-        <Dapp.Pages.WalletConnect
+        <div className="maiarModal">
+          <Dapp.Pages.WalletConnect
           callbackRoute="/"
           logoutRoute="/"
           title="Maiar Login"
           lead="Scan the QR code using Maiar"
-        /> 
+        />
+        <div onClick={() => setOnMaiarConnect(false)}>Back</div>
+        </div>
         :
         <Modal.Body>
           { switchNetwork ? 
@@ -268,7 +285,7 @@ const TransferNFTModal = () => {
               <li onClick={() => setOnMaiarConnect(true)}>
                 <Link to="#">
                   {" "}
-                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> WalletConnect{" "}
+                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
                 </Link>
               </li>
             </ul>
