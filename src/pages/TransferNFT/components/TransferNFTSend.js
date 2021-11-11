@@ -19,11 +19,15 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-import { getFromParams, getRPCFactory, isEVM, setupURI } from "../../../wallet/helpers";
+import { getFromParams, getRPCFactory, isEVM, setupURI, toEVM } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
 import { BigNumber } from "bignumber.js";
+import WhiteBackArr from '../../../assets/img/icon/white_arrow_back.svg';
+import whiteClose from '../../../assets/img/icon/whiteClose.svg';
+import SendNft from '../../../assets/img/sendNft.png';
 import web3 from 'web3'
+import Inf from "../../../assets/img/icon/inf.svg";
 import { ExtensionProvider } from "@elrondnetwork/erdjs/out";
 const Web3Utils = require('web3-utils');
 
@@ -107,10 +111,14 @@ const TransferNFTSend = () => {
     const factory = await getRPCFactory()
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
-    const wallet = account ? account : tronWallet ? tronWallet : elrondWallet ? elrondWallet : '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+    const wallet = 
+    toEVM() && elrondWallet ? '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+    : account ? account 
+    : tronWallet ? tronWallet 
+    : elrondWallet ? elrondWallet : '0xadFF46B0064a490c1258506d91e4325A277B22aE'
     const fee = await factory.estimateFees(fromChain, toChain, nft, wallet)
-    setBNFee(fee.multipliedBy(1.8))
-    const bign = fee.multipliedBy(1.8).decimalPlaces(0).toString()
+    setBNFee(fee.multipliedBy(1.1))
+    const bign = fee.multipliedBy(1.1).decimalPlaces(0).toString()
     setFees(await Web3Utils.fromWei(bign , 'ether'))
     } catch(err) {
       console.log(err,' alldlkskld')
@@ -185,83 +193,171 @@ const TransferNFTSend = () => {
   console.log(nft)
   const cont = contract ? `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}` :  tokenIdentifier
   return (
+  
     <div className="crossChainTab sendNFTBox">
-      <div className="tabTitle arrowTitle">
-        <span onClick={() => dispatch(setStep(1))} className="backBtn clickable">
-          <Image src={arrow_back} />
-        </span>
+    <div className="tabTitle arrowTitle">
+        <span className="" onClick={() => dispatch(setStep(1))} className="backBtn clickable"><Image src={WhiteBackArr}/></span>
         <h3>Send NFT</h3>
-      </div>
-      <div className="nftSelected">
-           {show?.animation_url 
-                ? <video src={show?.animation_url} autoPlay={true} loop={true} /> 
-                : <Image className="" src={show?.image} />
-                }
-      </div>
-      <div className="nftDetail">
-        <ul>
-          <li>
-            <span>Name</span> <span>{name ? name : show?.name}</span>
-          </li>
-          <li>
-            <span>Contract address</span> <span>{cont}</span>
-          </li>
-        </ul>
-        <a onClick={() => dispatch(toggleNFTInfoOnlyDetails(nft))} className="viewNft clickable">
-          View Full NFT Information
-          <Image src={RightBlue} className="viewArrow" />
-        </a>
-      </div>
-      <div className="destiAddress">
-        <div className="destiTitle">
-          <span>Destination address</span>
-          <span className="nftSelect">
-            <Image className="srcblockchainimg" src={blockchain?.image?.src} />
-            <p className="nftselect-blockchain-name">{blockchain?.text}</p>
-          </span>
-        </div>
-        <div className="inpDestiAdd">
-          <input value={receiver} type="text" onChange={e => setReceiver(e.target.value)} placeholder="Paste destination address" />
-          {error ? <p>{error}</p> : ''}
-        </div>
-      </div>
-      <div className="feesArea">
-        <div className="feesTitle">
-          <span>Gas Fees</span>
-          <span>{fees ? `${fees} ${fromChainConfig?.token}` : 'Calculating fees'}</span>
-        </div>
-        {/* <p className="approveRequ">
-          XP.network requires approval
-          <Link to="#link" className="infMark">
-            <span className="infBox">
-              We'd like to make sure you really want to send the NFT and pay the
-              associated fees.
-            </span>
-            <Image src={InfG} />
-          </Link>
-        </p> */}
-      </div>
-      {!preCheckApproved ? <div className="steepBtn">
-        {isEVM() || elrondWallet
-        ? <>
-          <a onClick={approve} style={{display: isApproved  ? 'none' : '' }}  className="bBlueBtn">
-            {loadingApproval ? <Loader /> : 'Approve'}
-          </a>
-          <a style={{display: isApproved ? '' : 'none' }} className="approved">
-            <Image src={CheckBlue} /> Approved
-          </a>
-        </> 
-        :''}
-        
-        <a onClick={send} style={{ marginTop: isApproved ? '' : '10px' }} className={`bBlueBtn clickable ${isApproved ? '' : 'disbldBtn'}`}>
-          {
-            loading ? <Loader  /> : 'Send NFT'
-          }
-        </a>
-      </div> : 
-        <Loader className="nftloader" />
-      }
+        {/* <span className="CloseModal"><Image src={whiteClose} /></span> */}
     </div>
+    <div className="sendNftContBox">
+        <div className="nftSelected">
+            {show?.animation_url 
+               ? <video src={setupURI(show?.animation_url)} autoPlay={true} loop={true} /> 
+                : <Image className="" src={setupURI(show?.image)} />
+                } 
+        </div>
+        <div className="sendNftCont">
+            <div className="destiAddress">
+                <div className="destiTitle">
+                    Destination address
+                </div>
+                <div className="inpDestiAdd">
+                    <span className="nftSelect"><Image src={ blockchain?.image?.src} /></span> 
+                    <input value={receiver} type="text" onChange={e => setReceiver(e.target.value)} placeholder="Paste destination address" />
+                    {error ? <p>{error}</p> : ''}
+                </div>
+            </div>
+            <div className="nftDetail">
+                <div className="nftDetailView">
+                    NFT Details
+                    <a onClick={() => dispatch(toggleNFTInfoOnlyDetails(nft))}className="viewNft">View All Details</a>
+                </div>
+                <ul>
+                    <li><span>Name</span> <span>{name ? name : show?.name}</span></li>
+                    <li><span>Contract address</span> <span>{cont}</span></li>
+                </ul>
+            </div>
+            <div className="feesTitle">
+                <span>Fees</span>
+                <span className="npnetFee">{fees ? `${fees} ${fromChainConfig?.token}` : 'Calculating fees'}</span>
+            </div>
+            <div className="approvebox">
+                <p className="approveRequ">
+                    <Image src={Inf} /> XP.network requires approval
+                </p>
+                <div className="approveCheck">
+                    <input 
+                      style={loadingApproval 
+                        ? { opacity: 0.6, pointerEvents: 'none' } 
+                        : {}
+                      }
+                      onClick={approve} 
+                      checked={isApproved} 
+                      type="checkbox" 
+                      id="apprCheck" 
+                    />
+                    <label htmlFor="apprCheck">
+                        <span className="checkIcon"></span>
+                    </label>
+                </div>
+            </div>
+            {/* <p className="approveRequ">
+                XP.network requires approval
+                <Link to="#link" className="infMark">
+                    <span className="infBox">
+                        We'd like to make sure you really want to send the NFT and pay the associated fees.
+                    </span>
+                    <Image src={InfG} />
+                </Link>
+            </p> */}
+            {/* <div className="steepBtn">
+                <Link to="#link" className="bBlueBtn">
+                    Approve
+                </Link>
+                <Link to="#link" className="approved">
+                    <Image src={CheckBlue} /> CheckBlue
+                </Link>
+            </div> */}
+            <div className={`sendNftBtn ${isApproved ? '' : 'disable'}`}>
+                <a onClick={send} className="bBlueBtn"> 
+                  {
+                  loading ? <Loader  /> : 'Send NFT'
+                  }
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
   );
 };
 export default TransferNFTSend;
+
+
+  // <div className="crossChainTab sendNFTBox">
+    //   <div className="tabTitle arrowTitle">
+    //     <span onClick={() => dispatch(setStep(1))} className="backBtn clickable">
+    //       <Image src={arrow_back} />
+    //     </span>
+    //     <h3>Send NFT</h3>
+    //   </div>
+    //   <div className="nftSelected">
+    //        {show?.animation_url 
+    //             ? <video src={show?.animation_url} autoPlay={true} loop={true} /> 
+    //             : <Image className="" src={show?.image} />
+    //             }
+    //   </div>
+    //   <div className="nftDetail">
+    //     <ul>
+    //       <li>
+    //         <span>Name</span> <span>{name ? name : show?.name}</span>
+    //       </li>
+    //       <li>
+    //         <span>Contract address</span> <span>{cont}</span>
+    //       </li>
+    //     </ul>
+    //     <a onClick={() => dispatch(toggleNFTInfoOnlyDetails(nft))} className="viewNft clickable">
+    //       View Full NFT Information
+    //       <Image src={RightBlue} className="viewArrow" />
+    //     </a>
+    //   </div>
+    //   <div className="destiAddress">
+    //     <div className="destiTitle">
+    //       <span>Destination address</span>
+    //       <span className="nftSelect">
+    //         <Image className="srcblockchainimg" src={blockchain?.image?.src} />
+    //         <p className="nftselect-blockchain-name">{blockchain?.text}</p>
+    //       </span>
+    //     </div>
+    //     <div className="inpDestiAdd">
+    //       <input value={receiver} type="text" onChange={e => setReceiver(e.target.value)} placeholder="Paste destination address" />
+    //       {error ? <p>{error}</p> : ''}
+    //     </div>
+    //   </div>
+    //   <div className="feesArea">
+    //     <div className="feesTitle">
+    //       <span>Gas Fees</span>
+    //       <span>{fees ? `${fees} ${fromChainConfig?.token}` : 'Calculating fees'}</span>
+    //     </div>
+    //     {/* <p className="approveRequ">
+    //       XP.network requires approval
+    //       <Link to="#link" className="infMark">
+    //         <span className="infBox">
+    //           We'd like to make sure you really want to send the NFT and pay the
+    //           associated fees.
+    //         </span>
+    //         <Image src={InfG} />
+    //       </Link>
+    //     </p> */}
+    //   </div>
+    //   {!preCheckApproved ? <div className="steepBtn">
+    //     {isEVM() || elrondWallet
+    //     ? <>
+    //       <a onClick={approve} style={{display: isApproved  ? 'none' : '' }}  className="bBlueBtn">
+    //         {loadingApproval ? <Loader /> : 'Approve'}
+    //       </a>
+    //       <a style={{display: isApproved ? '' : 'none' }} className="approved">
+    //         <Image src={CheckBlue} /> Approved
+    //       </a>
+    //     </> 
+    //     :''}
+        
+    //     <a onClick={send} style={{ marginTop: isApproved ? '' : '10px' }} className={`bBlueBtn clickable ${isApproved ? '' : 'disbldBtn'}`}>
+    //       {
+    //         loading ? <Loader  /> : 'Send NFT'
+    //       }
+    //     </a>
+    //   </div> : 
+    //     <Loader className="nftloader" />
+    //   }
+    // </div>

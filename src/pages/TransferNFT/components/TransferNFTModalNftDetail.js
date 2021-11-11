@@ -47,6 +47,8 @@ const TransferNFTModalNftDetails = () => {
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
+  console.log(nftDetails)
+  const cantSend = nftDetails?.cantSend
   return (
     <>
       <Modal
@@ -86,21 +88,15 @@ const TransferNFTModalNftDetails = () => {
                     {show?.description}
                   </div>
                 </div>
-                <div className="nftDetContList ">
-                  <div className="label">Original Blockchain</div>
-                  <div className="details">
-                  <Image className="blockchain-img" src={blockchain?.img} />
-                  {blockchain?.title}
-                  </div>
-                </div>
+            
                 {hasAttributes ? show.attributes.map((n,i) => <Attribute {...n} key={`attribute-${i}`}/>) : ''}
               </div>
             </div>
             {onlyDetails ? '' : <a className="" onClick={() => {
                   dispatch(setStep(2))
                   handleClose()
-                }} className="clickable bBlueBtn marginTopBtn">
-                  Select this NFT
+                }} className={`clickable bBlueBtn marginTopBtn ${cantSend ? 'disbldBtn' : ''}`}>
+                  Send NFT
                 </a>}
           </div>
               

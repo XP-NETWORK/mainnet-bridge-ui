@@ -6,7 +6,7 @@ import Close from "../../../assets/img/icons/closeBl.svg";
 import Success from "../../../assets/img/icons/success.png";
 import SuccessGreen from "../../../assets/img/icons/check_circle_green.svg";
 import Avax from "../../../assets/img/icons/avax.svg";
-import Copy from "../../../assets/img/icons/file_copy.svg";
+import Copy from "../../../assets/images/copytx.svg";
 import moment from 'moment'
 import {ethers} from 'ethers'
 import { Link, NavLink } from "react-router-dom";
@@ -26,10 +26,10 @@ const TransferNFTSuccess = () => {
   const fromChainConfig = chainsConfig[from]
   const toChainConfig = chainsConfig[to]
   useEffect(async () => {
-  const factory = await getRPCFactory()
-  const inner = await factory.inner(fromChainConfig.Chain);
-    const p = await factory.nftUri(inner, nft)
-    setChainId(p.chainId)
+    const factory = await getRPCFactory()
+    const inner = await factory.inner(fromChainConfig.Chain);
+    const p = nft
+    setChainId(p.native.chainId)
     const res = await axios.get(p.uri)
     if(res && res.data) setShow(res.data)
   }, [])
@@ -39,7 +39,7 @@ const TransferNFTSuccess = () => {
     setTimeout(() => setCopy(false), 2000)
   }
   return (
-    <div className="crossChainTab sendNFTBox">
+    <div className="crossChainTab sendNFTBox successboxi">
       <div className="tabTitle arrowTitle">
         <span className="CloseModal">
           <Image onClick={() => window.location.reload()} src={Close} />
@@ -116,11 +116,11 @@ const TransferNFTSuccess = () => {
                 {`${txid.substring(0, 6)}...${txid.substring(txid.length - 4)}`}{" "}
                 <span className="copyText">
                 <CopyToClipboard 
-                text={txid}
-                onCopy={copy}
+                  text={txid}
+                  onCopy={copy}
                 >
                   <Image src={Copy} className="ml5 clickable" />
-              </CopyToClipboard>
+                  </CopyToClipboard>
                 </span>
               </span>
             </li>

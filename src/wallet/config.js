@@ -11,11 +11,11 @@ const EVM_VALIDATORS = [
 export const ChainData = {
   Elrond: {
     node_uri: "https://elrondnode.xp.network/proxy/",
-    minter_address: "erd1qqqqqqqqqqqqqpgqe4hsht34ut085demqk2g2llcznankw84p7tqx5s9ce",
-    esdt_swap_address: "erd1qqqqqqqqqqqqqpgqkkcsf8aky3vn057086cgnps768ann7nfp7tqxppx53",
-    esdt: "XPNET-0e265d",
-    esdt_nft: "XPNFT-9d19d5",
-    esdt_swap: "WEGLD-6823c1",
+    minter_address: "erd1qqqqqqqqqqqqqpgq98ufyktqukxqw79f7n22sr3u6n05u7d7p7tqmzhv32",
+    esdt_swap_address: "erd1qqqqqqqqqqqqqpgqgc9vfqcdqw0ucu602elf0lt4tysfmxpep7tqhrrr9x",
+    esdt: "XPNET-738176",
+    esdt_nft: "XPNFT-676422",
+    esdt_swap: "WEGLD-071de0",
     validators: [
       'erd1lwyjz0adjd3vqpcjqs5rntw6sxzf9pvqussadygy2u76mz9ap7tquc0z5s',
       'erd1tzc9qltpntlgnpetrz58llqsg93dnxety54umln0kuq2k6dajf6qk796wh',
@@ -29,13 +29,13 @@ export const ChainData = {
   },
   Tron: {
     provider: "TronWeb",
-    middleware_uri: "",
+    middleware_uri: "http://159.89.24.202:6644",
     erc1155_addr: "TNaaHWF5Ukg3RYcTiyXaKQTomY2vzCorwU",
     minter_addr: "TEy4j2qXAAMKhGToG4kpjgiuJ7pH3Xwqch",
     erc721_addr: "TVBKPUPrZ7tSEEFYNH1GemvysJrHUQajHG",
     validators: [  
       'TYiLyTA6oPrUpyPp8yS5X8dmAnS4xYLnnF',
-      'TYiLyTA6oPrUpyPp8yS5X8dmAnS4xYLnnF',
+      'TQhChoFuCZfwAnu68tUPzD4C3QoGLPiwSx',
       'TS8Yj9NW81EvwEAAdnvu7d1naU1BdK1bQJ',
     ],
     nonce: 0x9,

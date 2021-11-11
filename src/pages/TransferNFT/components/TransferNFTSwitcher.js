@@ -27,7 +27,7 @@ import checkmarkicon from "../../../assets/images/checkmark.svg";
 
 
 import TriangelDonw from "../../../assets/img/icons/triang_down.svg";
-import Updown from "../../../assets/img/icon/updown.svg";
+import Updown from "../../../assets/images/swap.svg";
 import UpdownPn from "../../../assets/img/icon/updown.png";
 import WhiArrRig from "../../../assets/img/icon/whiArrowR.svg";
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
@@ -73,6 +73,7 @@ import { getRPCFactory, parseNFTS } from "../../../wallet/helpers";
 import TransferNFTModalSelect from "./TransferNFTModalSelect"
 
 const TransferNFTSwitcher = () => {
+  const [hideAlert, setHideAlert] = useState(false)
   const { to, from, nft, nfts, elrondWallet, tronWallet } = useSelector((s) => s.general);
   const dispatch = useDispatch();
   const { account, chainId, library } = useWeb3React();
@@ -131,6 +132,7 @@ const TransferNFTSwitcher = () => {
         const inner = await factory.inner(fromChain.Chain);
         console.log(inner)
         const nfts = await factory.nftList(inner, elrondWallet ? elrondWallet : tronWallet)
+        console.log(nfts)
         const res = await parseNFTS(nfts)
         dispatch(setNFTs(res))
         console.log(nfts)
@@ -152,19 +154,19 @@ const TransferNFTSwitcher = () => {
     console.log(e)
     document.getElementById(id).click()
   }
-
+  const onNFTPage = loadingNFTs || nfts
   console.log("from: ",from);
   console.log("to: ",to);
   return (
     <Fragment>
       
       <section>
-        <div className="crossChainTab">
+        <div style={{minHeight: window.innerWidth <=600 ? '140px' : ''}} className="crossChainTab">
           <div className="tabTitle">
-            <h3>Transfer NFT’s between blockchains</h3>
-            <p className="">It is a long established fact that a reader will be distracted by the readable content.</p>
+            <h3>{onNFTPage ? 'Select NFT' : `Transfer NFT’s between blockchains`}</h3>
+            {onNFTPage ? <div></div> : <p className=""></p>}
           </div>
-          <div className="crosChainSelectBox">
+          {window.innerWidth <=600 ? <p style={{width: '100%', textAlign: 'center'}}>The XP.bridge is currently only supported on desktop</p> : onNFTPage ? '' :  <div className="crosChainSelectBox">
                   <TransferNFTModalSelect
                     placeholder="Select departure chain"
                     disabled={account ? true : false}
@@ -184,24 +186,19 @@ const TransferNFTSwitcher = () => {
                     options={chains.filter((n) => n.text !== from)}
                   />
         
-          </div>
-
-          <div className="contiBridge">
-            {/* <h5>Your NFTs 
-            on <span className="blockchainon"><img src="" /></span>
-          </h5>
+          </div>}
           {
               loadingNFTs ? <div className="nftloadercontainer"> <Loader className="nftloader" /></div>
               :
               nfts ? 
               <NFTs />
               :
-              <p>
-            <Image src={fing} fluid /> Connect wallet to display your NFTs
-          </p>
-          } */}
+              ''
+          }
+          <div className="contiBridge">
+         
 
-            {!account && !elrondWallet ?
+            {window.innerWidth <=600  ? '' : !account && !elrondWallet ?
               <div className={`steepBtn `} >
                 <a
                   onClick={() => dispatch(toggleConnect(true))}
@@ -214,11 +211,10 @@ const TransferNFTSwitcher = () => {
         </div>
         <div className="bridgeSupport">
           <div className="whatIt">
-            <Image src={Inf} />  What it NFT
+            <Image src={Inf} />  What is NFT
           </div>
           <h2>XP.bridge supports</h2>
           <ul className="supportList">
-            <li className="singleSupport"><Image src={BridgeSu1} /></li>
             <li className="singleSupport"><Image src={BridgeSu2} /></li>
             <li className="singleSupport"><Image src={BridgeSu3} /></li>
             <li className="singleSupport"><Image src={BridgeSu4} /></li>
@@ -228,15 +224,16 @@ const TransferNFTSwitcher = () => {
             <li className="singleSupport"><Image src={BridgeSu8} /></li>
             <li className="singleSupport"><Image src={BridgeSu9} /></li>
             <li className="singleSupport"><Image src={BridgeSu10} /></li>
+            <li className="singleSupport"><Image src={BridgeSu1} /></li>
           </ul>
           <div className="blockChainComson">
             + More blockchain coming soon...
           </div>
-          <div className="worningAlert">
+          <div style={{display: hideAlert || (account || elrondWallet || tronWallet) ? 'none' : ''}} className="worningAlert">
             <div className="alertText">
-              Select Departure Chain and Destiantion to continue briging
+              Select Departure Chain and Destiantion to continue bridging
               <span className="closeAlert">
-                <Image src={whiteClose} />
+                <Image onClick={e => setHideAlert(true)} src={whiteClose} />
               </span>
             </div>
           </div>

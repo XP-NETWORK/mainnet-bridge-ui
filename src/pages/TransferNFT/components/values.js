@@ -237,6 +237,10 @@ export const internalNonce = {
     14: {
         title: 'xDai',
         ...chainsConfig.xDai
+    },
+    9: {
+        title: 'Tron',
+        ...chainsConfig.Tron
     }
 
 }

@@ -10,15 +10,32 @@ import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
 import { getRPCFactory, preloadItem, setupURI } from '../../../wallet/helpers';
 import { isBase64 } from './values'
+import List from '../../../assets/images/list.svg'
+import Expand from '../../../assets/images/expand.svg'
 
 export default function NFTs(props) {
 
-    const {nfts} = useSelector(s => s.general)
-    console.log(nfts)
+    const {nfts, from} = useSelector(s => s.general)
+    const placeholders = new Array(nfts.length % 3 === 0 ? 0 : nfts.length % 3 === 2 ? 1 : 2).fill(0)
+    const chain = chainsConfig[from]
     return (
+      <div className="nftcontainer">
+        <div className="nft-top">
+          <div className="nftson">
+            NFTs on <img src={chain.img} /> {from}
+          </div>
+          <div className="nftactions">
+            <img src={List} />
+            <img src={Expand} />
+          </div>
+        </div>
         <ul className="storeNtfList">
           {nfts.map((n, i) => <NFT factory={props.factory} nft={n} key={`${i}`} />)}
+          {placeholders.map(n => <li className="placeholdernfts"></li>)}
         </ul>
+        
+      </div>
+
     )
 }
 
@@ -31,8 +48,14 @@ function NFT(props) {
     const {from, to} = useSelector(s => s.general)
     useEffect(async() => {
       const res = nft
-      if(res.animation_url) preloadItem(res.animation_url, 'video', setGraphicLoaded)
-      else preloadItem(res.image, 'image', setGraphicLoaded)
+      try {
+        if(res.animation_url) preloadItem(setupURI(res.animation_url), 'video', setGraphicLoaded)
+        else preloadItem(setupURI(res.image), 'image', setGraphicLoaded)
+      } catch(err) {
+        console.log(err)
+        setGraphicLoaded(true)
+      }
+//
       setImg(res)
     },[props.uri])
     const select = e => {
@@ -58,9 +81,10 @@ function NFT(props) {
         <Image src={CheckCircle} />
       </span>
     </div>
-    <p className="storeText">{img.name}</p>
+    {/* <p className="storeText">{img.name}</p> */}
   </li> : <div className="container-of-nft-loader">
   <div class="animated-background"></div>
   <div class="animated-background animated-background-name"></div>
   </div>
 }
+

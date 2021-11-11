@@ -15863,8 +15863,8 @@ xmlhttprequest@1.8.0:
   integrity sha1-Z/4HXFwk/vOfnWX197f+dRcZaPw=
 
 "xp.network@git+https://github.com/xp-network/xpjs#bleeding-edge":
-  version "0.0.1"
-  resolved "git+https://github.com/xp-network/xpjs#d3c976f47acc763e6d1da2112be9c968b600a2ec"
+  version "0.0.2"
+  resolved "git+https://github.com/xp-network/xpjs#6a4fbd463d0c190d18a533d168268b1e5adb4777"
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
     axios "^0.21.1"
@@ -15876,8 +15876,24 @@ xmlhttprequest@1.8.0:
     tronstation "^1.0.1"
     tronweb "^4.0.0"
     validator "git+https://github.com/xp-network/Migration-validator#web3-new"
-    xpnet-nft-list "git+https://github.com/xp-network/nft-list-backend#bleeding-edge"
+    xpnet-nft-list "0.1.4"
     xpnet-web3-contracts "git+https://github.com/xp-network/XP.network-HECO-Migration#dist"
+
+xpnet-nft-list@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/xpnet-nft-list/-/xpnet-nft-list-0.1.4.tgz#7429577720b9d6fa858bd303f617dce0f7bc1a7c"
+  integrity sha512-2MxhfyFX/7jgg5mcrd8ZBUSh1FNfXaNiU2/Pfq8+o4NBeDNdLN9bMLD5tIxdArhXYGOsLfxGsGzRVaMTUoO1IA==
+  dependencies:
+    "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
+    "@supercharge/promise-pool" "^1.9.0"
+    axios "^0.23.0"
+    cors "^2.8.5"
+    dotenv "^10.0.0"
+    ethers "^5.5.1"
+    express "^4.17.1"
+    js-base64 "^3.7.2"
+    moralis "^0.0.116"
+    tronweb "^4.0.0"
 
 "xpnet-nft-list@git+https://github.com/xp-network/nft-list-backend#bleeding-edge":
   version "0.0.1"

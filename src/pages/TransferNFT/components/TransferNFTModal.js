@@ -120,7 +120,19 @@ const TransferNFTModal = () => {
           console.log(err)
       }
   }
+  useEffect(() => {
+      console.log(chainId, isConnectOpen)
+    if(chainId && isConnectOpen) {
+        const chainsMatch = chainId === fromConfig.chainId
+        if(chainsMatch) {
+          handleClose()
+        }
+        else {
+            setSwitchNetwork(true)
+        }
+    }
 
+  },[chainId])
   const switchChain = async () => {
     const info = CHAIN_INFO[from];
             console.log(from, info, CHAIN_INFO)
@@ -144,10 +156,6 @@ const TransferNFTModal = () => {
             }
             console.log(library)
   }
-  useEffect(() => {
-    const chainsMatch = chainId === fromConfig?.chainId
-    if(chainsMatch) setSwitchNetwork(false)
-  }, [chainId]);
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };

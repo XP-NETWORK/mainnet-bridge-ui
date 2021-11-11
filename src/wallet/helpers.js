@@ -177,6 +177,12 @@ export const isEVM = () => {
     return chainsConfig[from] ? chainsConfig[from].type === EVM : "";
 }
 
+export const toEVM = () => {
+    const {to} = store.getState().general
+    return chainsConfig[to] ? chainsConfig[to].type === EVM : "";
+}
+
+
 export const isTronLink = () => {
     const {from} = store.getState().general
     return from === 'Tron'
@@ -227,7 +233,6 @@ export const parseNFTS = async (nfts) => {
         console.log(n)
     return await new Promise(async resolve => {
         try {
-            console.log(inner, elrondWallet)
             // const p = await factory.nftUri(inner, n)
             const res = await axios.get(setupURI(n.uri))
             if(res && res.data) {
@@ -236,8 +241,29 @@ export const parseNFTS = async (nfts) => {
                     resolve({...res.data, ...n})
                 } else resolve(undefined)
             } catch(err) {
-                console.log(err, '1231')
-                resolve(undefined)
+                if(err) {
+                    console.log(n)
+                    try {
+                        const res = await axios.post('https://wnfts.xp.network/get-uri', { blockchain: from, uri: n.uri, contract: n.native.contract ? n.native.contract: 'alsa' })
+                        if(res.data) {
+                            try {
+                                const {uri} = res.data
+                                const result = await axios.get(setupURI(uri?.uri))
+                                console.log(result)
+                                resolve({...result.data, ...n, cantSend: true})
+                            } catch(err) {
+                                resolve(undefined)
+                            }
+                 
+                        } else {
+                            resolve(undefined)
+    
+                        }
+                    } catch (err) {
+                        resolve(undefined)
+                    }
+
+                }
             }
 
         })
