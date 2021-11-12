@@ -28,6 +28,7 @@ import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
+import { getAddEthereumChain } from "../../../wallet/chains";
 
 
 const TransferNFTModal = () => {
@@ -53,6 +54,9 @@ const TransferNFTModal = () => {
 
   async function connect() {
         try {
+          if(!window.ethereum && window.innerWidth <= 600)  {
+            window.open(`https://metamask.app.link/dapp/${window.location.host}/`)
+          }
           await activate(injected);
         } catch (ex) {
         }
@@ -155,9 +159,7 @@ const TransferNFTModal = () => {
   },[chainId])
   const switchChain = async () => {
     const info = CHAIN_INFO[from];
-            console.log(from, info, CHAIN_INFO)
             const chainId = `0x${info.chainId.toString(16)}`;
-            console.log(chainId)
             try {
               await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
@@ -165,9 +167,24 @@ const TransferNFTModal = () => {
               })
             } catch(err) {
                 try {
+                    const toHex = (num) => {
+                      return '0x'+num.toString(16)
+                    }
+                  const chain = getAddEthereumChain()[parseInt(chainId).toString()]
+                  const params = {
+                    chainId: toHex(chain.chainId), // A 0x-prefixed hexadecimal string
+                    chainName: chain.name,
+                    nativeCurrency: {
+                      name: chain.nativeCurrency.name,
+                      symbol: chain.nativeCurrency.symbol, // 2-6 characters long
+                      decimals: chain.nativeCurrency.decimals,
+                    },
+                    rpcUrls: chain.rpc,
+                    blockExplorerUrls: [ ((chain.explorers && chain.explorers.length > 0 && chain.explorers[0].url) ? chain.explorers[0].url : chain.infoURL) ]
+                  }
                     await window.ethereum.request({
                         method: "wallet_addEthereumChain",
-                        params: { ...info  },
+                        params: [params, account],
                       })
                 } catch(err) {
                     console.log(err)
