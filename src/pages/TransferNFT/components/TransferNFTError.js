@@ -39,9 +39,8 @@ const TransferNFTModalError = () => {
     <>
       <Modal
         show={error}
+        animation={false}
         onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
         className="connectBridge warningModal"
       >
         <Modal.Body>
@@ -62,7 +61,7 @@ const TransferNFTModalError = () => {
                 Code: {error?.code}
               </p>
             </div>
-            <div className="steepBtn">
+            <div className="steepBtn oneBtn">
            
               <a className="grayBtn clickable" onClick={handleClose}>
                 Close

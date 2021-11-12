@@ -6,8 +6,8 @@ const XpModal = (props) => {
     <Modal
       show={props.show}
       onHide={props.handleClose}
-      backdrop="static"
-      keyboard={false}
+      animation={false}
+      keyboard={true}
       className={props.className}
     >
       {props.children}

@@ -23,7 +23,7 @@ const TransferNFTModalSelectNft = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -32,8 +32,8 @@ const TransferNFTModalSelectNft = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
+        animation={false}
+        keyboard={true}
         className="connectBridge nftSelectModal"
       >
         <Modal.Body>

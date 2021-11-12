@@ -93,6 +93,10 @@ h5 {
 }
 
 @media (max-width: 576px) {
+  .navabar-pop-up-menu {
+    right: auto;
+    transform: translateX(32%);
+  }
   .basicNav {
     margin-top: 12px;
   }
@@ -341,6 +345,7 @@ ul {
   align-items: center;
   font-weight: normal;
   font-size: 14px;
+  margin-right: 40px;
   line-height: 126%;
   color: #040d27;
   border: 1px solid #d9dfed;
@@ -653,6 +658,7 @@ ul.nftsStoreList li.active .ftsStoreName {
   padding: 14px 10px;
   text-align: center;
   border-radius: 6px;
+  transition: .17s all;
 }
 .blockchain-img {
   width: 24px;
@@ -1290,6 +1296,7 @@ ul.ms-options {
   border: 1px solid #d6dbeb;
   padding: 0px 4px;
   border-radius: 10px;
+  min-height: 408px;
 }
 .nft-top {
   display: flex;
@@ -1686,13 +1693,20 @@ li.sinStoreNtf.active .storeText {
   color: #ffffff;
   padding: 14px 10px;
   text-align: center;
-  background: #4a5372;
+  background: #DCE0ED;
   border-radius: 6px;
-}
+  color: #040D28;
 
+opacity: 0.5;
+}
+.oneBtn a {
+  width: 100%;
+}
 .grayBtn:hover {
-  color: #fff;
-  background: #576183;
+  color: #040D28;
+
+opacity: 0.5;
+  /* background: #576183; */
 }
 
 .sendNFTBox .grayBtn {
@@ -2035,7 +2049,6 @@ span.succTagStat.statComp {
 }
 
 .nftlistSelectContainer .sinStoreNtf {
-  width: 14.2857%;
 }
 
 .nftlistSelectContainer .storeNtfList {
@@ -2434,7 +2447,6 @@ a.bBlueBtn.disbldBtn img {
   display: block;
   padding: 10px 0;
   cursor: pointer;
-  opacity: 0.6;
 }
 
 .mainContainer.container {
@@ -2729,7 +2741,7 @@ Light Css Start
 }
 
 .modal-open .modal {
-  /* backdrop-filter: blur(9px); */
+  backdrop-filter: blur(9px);
 }
 
 .modalSelectPopupSize .modal-content {
@@ -2871,8 +2883,6 @@ span.backBtn img {
 }
 
 .grayBtn {
-  background: #f9f9fb;
-  color: rgb(4 13 40 / 50%);
 }
 
 .successTagList {
@@ -2887,11 +2897,11 @@ span.backBtn img {
   color: #040d28;
 }
 .nftactions {
-  opacity: 0.6;
+  /* opacity: 0.6; */
 }
 
 .nftactions img:first-child {
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .swap-arrow {
   width: 26px;
@@ -2905,6 +2915,7 @@ span.backBtn img {
   transform: translate(-50%, -50%);
   cursor: pointer;
   display: flex;
+  transition: all .1s;
   align-items: center;
   justify-content: center;
 }
@@ -2987,4 +2998,24 @@ span.backBtn img {
 
 .navbar-pop-up-row:hover{
   background: #F7F8FD;
+}
+.doubleButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.doubleButton a {
+
+  width: 49%;
+}
+
+.nftSendImage img, .nftSendImage video {
+
+}
+.expandedNFTs {
+  min-width: 100%;
+  height: auto;
+  display: flex;
+  max-height: auto;
+  flex-wrap: wrap;
 }

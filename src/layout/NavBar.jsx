@@ -85,28 +85,30 @@ const NavBar = () => {
             </div>
 
             <div className="headerright">
+            {wallet ? (
+                <a onClick={disconnect} className="conWallBtn clickable">
+                  {walletString} <Image src={GreenDot} fluid />
+                </a>
+              ) : (
+                ''
+              )}
+
+
+
               <div className="menuArea dark">
                 {/* <span className="navTriger darkM"> <Image src={Menu} /></span> */}
                 <div className="navTriger lightM" onClick={openModal}><Image src={MenuLight} /></div>
                 {modalIsOpen ? <div className="navabar-pop-up-menu" ref={ref}>
                   <div className="navabar-pop-up">
-                  <div className="navbar-pop-up-row"><img src={MarkSvg} alt={'mark'}/>About</div>
-                  <div className="navbar-pop-up-row"><img src={yellSvg} alt={"yell"}/> FAQs</div>
-                  <div className="navbar-pop-up-row"><img src={BookSvg} alt={"book"}/> Docs</div>
-                  <div className="navbar-pop-up-row"><img src={VideoSvg} alt={"video"}/>Video Tutorial</div>
-                  <div className="navbar-pop-up-row"><img src={globSvg} alt={"glob"}/>Xp.network website</div>
+                  <div style={{opacity: 0.6, pointerEvents: 'none'}}  className="navbar-pop-up-row"><img src={MarkSvg} alt={'mark'}/>About</div>
+                  <div style={{opacity: 0.6, pointerEvents: 'none'}}  className="navbar-pop-up-row"><img src={yellSvg} alt={"yell"}/> FAQs</div>
+                  <div onClick={() => window.open('https://docs.xp.network')} className="navbar-pop-up-row"><img src={BookSvg} alt={"book"}/> Docs</div>
+                  <div style={{opacity: 0.6, pointerEvents: 'none'}} className="navbar-pop-up-row"><img src={VideoSvg} alt={"video"}/>Video Tutorial</div>
+                  <div onClick={() => window.open('https://xp.network')} className="navbar-pop-up-row"><img src={globSvg} alt={"glob"}/>Xp.network website</div>
                   </div>
                 </div> : ''}
               </div>
-              {/* {wallet ? (
-                <a onClick={disconnect} className="conWallBtn clickable">
-                  {walletString} <Image src={GreenDot} fluid />
-                </a>
-              ) : (
-                <a className="linkNoConne">
-                  <Image src={RedCircle} fluid /> Wallet not connected
-                </a>
-              )} */}
+ 
             </div>
           </div>
         </div>

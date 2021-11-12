@@ -26,7 +26,7 @@ const TransferNFT = () => {
         {/* <TransferNFTStorage/> */}
         {step === 2 ? <TransferNFTSend/> : ''}
         {step === 3 ? <TransferNFTSuccess /> : ''}
-        {/* <TransferNFTModalNftSelecNftList /> */}
+        <TransferNFTModalNftSelecNftList />
         {/* <TransferNFTModalSelectNft /> */}
         <TransferNFTModalWarning />
         <TransferNFTModalError />

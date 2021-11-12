@@ -46,9 +46,9 @@ const TransferNFTModalWarning = () => {
     <>
       <Modal
         show={disconnectOpen}
+        animation={false}
+        keyboard={true}
         onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
         className="connectBridge warningModal"
       >
         <Modal.Body>
@@ -69,12 +69,12 @@ const TransferNFTModalWarning = () => {
                 Cancel
               </p>
             </div>
-            <div className="steepBtn">
-              <a onClick={disconnect} className="bBlueBtn clickable">
-                Disconnect Wallet
-              </a>
+            <div className="steepBtn doubleButton">
               <a className="grayBtn clickable" onClick={handleClose}>
                 Cancel
+              </a>
+              <a onClick={disconnect} className="bBlueBtn clickable">
+                Disconnect Wallet
               </a>
             </div>
           </div>

@@ -70,7 +70,6 @@ const TransferNFTSend = () => {
               const factory = await getFactory()
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
-              console.log(toChain,'12312')
               const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
               const txid = await factory.transferNft(
                 fromChain,
@@ -117,13 +116,12 @@ const TransferNFTSend = () => {
     : account ? account 
     : tronWallet ? tronWallet 
     : elrondWallet ? elrondWallet : '0xadFF46B0064a490c1258506d91e4325A277B22aE'
-    console.log(wallet ,'adskldsalkdaskldsal')
     const fee = await factory.estimateFees(fromChain, toChain, nft, wallet)
     setBNFee(fee.multipliedBy(1.1))
     const bign = fee.multipliedBy(1.1).decimalPlaces(0).toString()
     setFees(await Web3Utils.fromWei(bign , 'ether'))
     } catch(err) {
-      console.log(err,' alldlkskld')
+      console.log(err)
     }
 
   }
@@ -175,7 +173,7 @@ const TransferNFTSend = () => {
         const checkIsApproved = await fromChain.isApprovedForMinter(nft, signer)
         setIsApproved(checkIsApproved)
       } catch(err) {
-        console.log(err, 'adsklalsdkaklsdasdkl')
+        console.log(err)
         if(elrondWallet){
 
         } else
@@ -203,7 +201,7 @@ const TransferNFTSend = () => {
         {/* <span className="CloseModal"><Image src={whiteClose} /></span> */}
     </div>
     <div className="sendNftContBox">
-        <div className="nftSelected">
+        <div className="nftSelected nftSendImage">
             {show?.animation_url 
                ? <video src={setupURI(show?.animation_url)} autoPlay={true} loop={true} /> 
                 : <Image className="" src={setupURI(show?.image)} />

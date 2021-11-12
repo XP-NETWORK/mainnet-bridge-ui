@@ -6,7 +6,7 @@ import TransferNFTModalNftSelecNftList from './TransferNFTModalNftSelecNftList'
 import Inf from "../../../assets/img/icons/inf.png";
 import CheckCircle from "../../../assets/img/icons/check-circle-filled.svg";
 import axios from 'axios'
-import { setNFT, toggleNFTInfo } from '../../../store/reducers/generalSlice';
+import { setNFT, toggleExpandNFTs, toggleNFTInfo } from '../../../store/reducers/generalSlice';
 import { chainsConfig } from './values';
 import { getRPCFactory, preloadItem, setupURI } from '../../../wallet/helpers';
 import { isBase64 } from './values'
@@ -14,7 +14,7 @@ import List from '../../../assets/images/list.svg'
 import Expand from '../../../assets/images/expand.svg'
 
 export default function NFTs(props) {
-
+  const dispatch = useDispatch()
     const {nfts, from} = useSelector(s => s.general)
     const placeholders = new Array(nfts.length % 3 === 0 ? 0 : nfts.length % 3 === 2 ? 1 : 2).fill(0)
     const chain = chainsConfig[from]
@@ -25,8 +25,8 @@ export default function NFTs(props) {
             NFTs on <img src={chain.img} /> {from}
           </div>
           <div className="nftactions">
-            <img src={List} />
-            <img src={Expand} />
+            {/* <img src={List} /> */}
+            <img onClick={() => dispatch(toggleExpandNFTs(true))} src={Expand} />
           </div>
         </div>
         <ul className="storeNtfList">
@@ -39,7 +39,7 @@ export default function NFTs(props) {
     )
 }
 
-function NFT(props) {
+export function NFT(props) {
     const {nft, factory} = props
     const [img, setImg] = useState()
     const dispatch = useDispatch()

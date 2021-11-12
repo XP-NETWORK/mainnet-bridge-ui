@@ -53,6 +53,9 @@ const generalSlice = createSlice({
     setSuccess(state, action) {
         state.txid = action.payload.txid
         state.receiver = action.payload.receiver
+    },
+    toggleExpandNFTs(state,action) {
+      state.expandNFTs = action.payload
     }
   },
 });
@@ -60,6 +63,7 @@ const generalSlice = createSlice({
 export const { toggleNFTInfo, 
     setTo, 
     setFrom, 
+    toggleExpandNFTs,
     toggleNFTInfoOnlyDetails, 
     toggleConnect, 
     setTronWallet,

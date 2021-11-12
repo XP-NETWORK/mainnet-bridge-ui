@@ -18,7 +18,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setStep, toggleNFTInfo } from "../../../store/reducers/generalSlice";
+import { setStep, toggleExpandNFTs, toggleNFTInfo } from "../../../store/reducers/generalSlice";
 import axios from 'axios'
 import { ChainFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
@@ -52,6 +52,7 @@ const TransferNFTModalNftDetails = () => {
   return (
     <>
       <Modal
+        animation={false}
         show={nftDetails}
         onHide={handleClose}
         className={"nftDetModal"}
@@ -95,6 +96,7 @@ const TransferNFTModalNftDetails = () => {
             {onlyDetails ? '' : <a className="" onClick={() => {
                   dispatch(setStep(2))
                   handleClose()
+                  dispatch(toggleExpandNFTs(false))
                 }} className={`clickable bBlueBtn marginTopBtn ${cantSend ? 'disbldBtn' : ''}`}>
                   Send NFT
                 </a>}

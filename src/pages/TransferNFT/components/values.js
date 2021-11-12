@@ -75,7 +75,7 @@ export const chains = [
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
-        // coming: true,
+        coming: true, 
         image: { avatar: true, src: tron },
     },
     {

@@ -55,7 +55,6 @@ const TransferNFTModal = () => {
         try {
           await activate(injected);
         } catch (ex) {
-          console.log(ex);
         }
         // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
   
@@ -67,9 +66,7 @@ const TransferNFTModal = () => {
       await instance.init()
       await instance.login()
       const { account } = instance
-      console.log(elrondWallet)
       if(elrondWallet) {
-        console.log('kldklads')
         const factory = await getFactory()
         const fromChain = await factory.inner(chainsConfig.Elrond.Chain)
         // const ticker = await fromChain.issueESDTNft(
@@ -182,13 +179,12 @@ const TransferNFTModal = () => {
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };
-  console.log(account ,'123819')
   return (
     <>
       <Modal
+        animation={false}
         show={isConnectOpen}
         onHide={handleClose}
-        keyboard={false}
         className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
         <Modal.Body>
@@ -254,7 +250,10 @@ const TransferNFTModal = () => {
                   <Image src={Trezor} /> Trezor{" "}
                 </Link>
               </li>
-              <li onClick={() => onWalletConnect()}>
+              <li 
+              style={{ opacity: 0.6, pointerEvents: "none" }}
+              // onClick={() => onWalletConnect()}
+              >
                 <Link to="#">
                   {" "}
                   <Image src={WalletConnect} /> WalletConnect{" "}

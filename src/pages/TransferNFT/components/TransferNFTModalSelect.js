@@ -29,7 +29,6 @@ const TransferNFTModalSelect = (props) => {
   const { value, options, onChange, disabled, placeholder, classNameCont } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => {
-    console.log('1231kl')
     setShow(false)
   }
   const handleShow = () => setShow(true);
@@ -66,6 +65,7 @@ const TransferNFTModalSelect = (props) => {
       <Modal
         show={show}
         onHide={handleClose}
+        animation={false}
         keyboard={true}
         dialogClassName="modalSelectPopupSize"
       >
