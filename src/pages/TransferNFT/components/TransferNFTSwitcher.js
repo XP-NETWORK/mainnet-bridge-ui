@@ -174,12 +174,16 @@ const TransferNFTSwitcher = () => {
     <Fragment>
       
       <section>
-        <div style={{minHeight: window.innerWidth <=600 ? '140px' : ''}} className="crossChainTab">
+        <div 
+        // style={{minHeight: window.innerWidth <=600 ? '140px' : ''}} 
+        className="crossChainTab">
           <div className="tabTitle">
             <h3>{onNFTPage ? 'Select NFT' : `Transfer NFT’s between blockchains`}</h3>
             {onNFTPage ? <div></div> : <p className=""></p>}
           </div>
-          {window.innerWidth <=600 ? <p style={{width: '100%', textAlign: 'center'}}>The XP.bridge is currently only supported on desktop</p> : onNFTPage ? '' :  <div className="crosChainSelectBox">
+          {
+          // window.innerWidth <=600 ? <p style={{width: '100%', textAlign: 'center'}}>The XP.bridge is currently only supported on desktop</p> : 
+          onNFTPage ? '' :  <div className="crosChainSelectBox">
                   <TransferNFTModalSelect
                     placeholder="Select departure chain"
                     disabled={account ? true : false}
@@ -211,7 +215,9 @@ const TransferNFTSwitcher = () => {
           <div className="contiBridge">
          
 
-            {window.innerWidth <=600  ? '' : !account && !elrondWallet ?
+            {
+            // window.innerWidth <=600  ? '' : 
+            !account && !elrondWallet ?
               <div className={`steepBtn `} >
                 <a
                   onClick={() => dispatch(toggleConnect(true))}
