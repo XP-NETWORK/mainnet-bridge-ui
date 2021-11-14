@@ -3019,3 +3019,16 @@ span.backBtn img {
   max-height: auto;
   flex-wrap: wrap;
 }
+
+.maiarModal{
+  background-color: #fff;
+  
+}
+
+.maiarModal card{
+  border: none;
+}
+
+.WalletConnect{
+  
+}

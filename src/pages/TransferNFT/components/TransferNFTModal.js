@@ -302,7 +302,7 @@ const TransferNFTModal = () => {
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              <li onClick={() => setOnMaiarConnect(true)}>
+              <li onClick={() => setOnMaiarConnect(true)} style={isELROND ? {} : OFF}>
                 <Link to="#">
                   {" "}
                   <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
