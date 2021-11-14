@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
+import maiarIcon from "../../../assets/images/maiarIcon.png";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 import RedCircle from "../../../assets/img/redCircle.svg";
 import Close from "../../../assets/img/icons/closeBl.svg";
@@ -29,7 +30,7 @@ import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
 import { getAddEthereumChain } from "../../../wallet/chains";
-
+import * as Dapp from "@elrondnetwork/dapp";
 
 const TransferNFTModal = () => {
   const {
@@ -45,12 +46,14 @@ const TransferNFTModal = () => {
   } = useWeb3React();
 
   const dispatch = useDispatch();
-
+  const [onMaiarConnect, setOnMaiarConnect] = useState('')
   const { isConnectOpen, from, elrondWallet } = useSelector((s) => s.general);
   const [switchNetwork, setSwitchNetwork] = useState(false)
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
+  const maiarAddress = Dapp.useContext().address
+  console.log(maiarAddress, "maiarAddress");
 
   async function connect() {
         try {
@@ -63,6 +66,18 @@ const TransferNFTModal = () => {
         // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
   
     }
+
+  useEffect(() => {
+  console.log(maiarAddress, "maiarAddress");
+    console.log(from, "from");
+    // debugger
+    if(maiarAddress && from === 'Elrond'){
+
+      setOnMaiarConnect(false)
+      dispatch(setElrondWallet(maiarAddress))
+      handleClose()
+    }
+  }, [maiarAddress])
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
@@ -204,6 +219,17 @@ const TransferNFTModal = () => {
         onHide={handleClose}
         className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
+        { onMaiarConnect ?
+        <div className="maiarModal">
+          <Dapp.Pages.WalletConnect
+          callbackRoute="/"
+          logoutRoute="/"
+          title="Maiar Login"
+          lead="Scan the QR code using Maiar"
+          />
+          <div onClick={() => setOnMaiarConnect(false)}>Back</div>
+        </div>
+        :
         <Modal.Body>
           { switchNetwork ? 
                     <div className="crossChainTab sendNFTBox">
@@ -276,15 +302,16 @@ const TransferNFTModal = () => {
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              {/* <li style={{ opacity: 0.6, pointerEvents: "none" }}>
+              <li onClick={() => setOnMaiarConnect(true)}>
                 <Link to="#">
                   {" "}
-                  <Image src={WalletConnect2} /> WalletConnect{" "}
+                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>}
         </Modal.Body>
+        }
       </Modal>
     </>
   );
