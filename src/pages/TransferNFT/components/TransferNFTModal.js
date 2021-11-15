@@ -12,7 +12,7 @@ import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
-
+import QRCode from 'qrcode'
 
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
@@ -52,11 +52,8 @@ const TransferNFTModal = () => {
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
   const maiarAddress = Dapp.useContext().address
-
+  const [strQR, setStrQr] = useState('')
   
-
-  
-
   async function connect() {
         try {
           if(!window.ethereum && window.innerWidth <= 600)  {
@@ -122,15 +119,42 @@ const TransferNFTModal = () => {
       console.log(err)
     }
   }
-// "https://gateway.elrond.com"
+
+  const generateQR = async text => {
+    try {
+      const QR = await QRCode.toDataURL(text)
+      return QR
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const onClientConnect = (maiarProvider) => {
+    return {
+      onClientLogin:async (data, data2, data3, data4) => {
+        const add = await maiarProvider.getAddress()
+        dispatch(setElrondWallet(add))
+        setOnMaiarConnect(false)
+        handleClose()
+      },
+      onClientLogout: async () => {
+        console.log('LOGGED OUT U')
+      }
+    }
+  }
+
   const onMaiar = async () => {
+    setOnMaiarConnect(true)
     const provider = new ProxyProvider( "https://gateway.elrond.com");
     console.log(provider, 'provider')
-    const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/');
+    const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/', onClientConnect);
     console.log(maiarProvider, "sdfdsfdsfsfs");
       try {
-        const p = await maiarProvider.init()
-        console.log(p)
+        await maiarProvider.init()
+        maiarProvider.onClientConnect = onClientConnect(maiarProvider)
+        const qrCodeString = await maiarProvider.login()
+        const qr = await generateQR(qrCodeString)
+        setStrQr(qr)
       } catch (error) {
         console.log(error);
       }
@@ -229,13 +253,14 @@ const TransferNFTModal = () => {
       >
         { onMaiarConnect ?
         <div className="maiarModal">
-          <Dapp.Pages.WalletConnect
+          <img src={strQR} alt="" />
+          {/* <Dapp.Pages.WalletConnect
           callbackRoute="/"
           logoutRoute="/"
           title="Maiar Login"
           lead="Scan the QR code using Maiar"
           />
-          <div onClick={() => setOnMaiarConnect(false)}>Back</div>
+          <div onClick={() => setOnMaiarConnect(false)}>Back</div> */}
         </div>
         :
         <Modal.Body>
