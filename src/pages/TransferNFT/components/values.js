@@ -75,7 +75,7 @@ export const chains = [
         key: 'Tron',
         text: 'Tron',
         value: 'Tron',
-        coming: true, 
+        // coming: true, 
         image: { avatar: true, src: tron },
     },
     {
@@ -121,6 +121,7 @@ export const chainsConfig = {
         token: 'TRX', 
         rpc: 'https://api.trongrid.io/',
         img: tron,
+        tx: 'https://tronscan.org/#/transaction/',
         chainData: ChainData.Tron,
         Chain: Chain.TRON
     },

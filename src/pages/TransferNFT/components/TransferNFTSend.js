@@ -19,7 +19,7 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-import { getFromParams, getRPCFactory, isEVM, setupURI, toEVM } from "../../../wallet/helpers";
+import { getFromParams, getRPCFactory, isAddress, isEVM, setupURI, toEVM } from "../../../wallet/helpers";
 import { getFactory } from "../../../wallet/connectors";
 import Loader from './Loader'
 import { BigNumber } from "bignumber.js";
@@ -63,14 +63,19 @@ const TransferNFTSend = () => {
       if(!loading && receiver) {
         setError('')
         // if(isEVM()) {
-          const isAddress = await new web3.utils.isAddress(receiver)
-          if(isAddress) {
+          const isValidAddress = await isAddress(receiver)
+          if(isValidAddress) {
             if(fromChainConfig && toChainConfig) {
               setLoading(true)
               const factory = await getFactory()
+              console.log(factory, 'hello factory')
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
-              const signer = elrondWallet ? ExtensionProvider.getInstance() : provider.getSigner(account)
+              console.log(JSON.stringify(fromChain), JSON.stringify(toChain))
+              const signer = elrondWallet 
+              ? ExtensionProvider.getInstance() 
+              : tronWallet ? undefined
+              : provider.getSigner(account)
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
@@ -111,6 +116,7 @@ const TransferNFTSend = () => {
     const fromChain = await factory.inner(fromChainConfig.Chain)
     const toChain = await factory.inner(toChainConfig.Chain)
     const wallet = 
+    toEVM() && tronWallet ? '0xadFF46B0064a490c1258506d91e4325A277B22aE' :
     toEVM() && elrondWallet ? '0xadFF46B0064a490c1258506d91e4325A277B22aE'
       : to === 'Tron' && elrondWallet ? 'TCCKoPRcYoCGkxVThCaY9vRPaKiTjE4x1C' 
     : account ? account 
@@ -190,7 +196,6 @@ const TransferNFTSend = () => {
   }
 
   const blockchain = chains.filter(n => n.text === to)[0]
-  console.log(nft)
   const cont = contract ? `${contract.substring(0, 10)}...${contract.substring(contract.length - 8)}` :  tokenIdentifier
   return (
   

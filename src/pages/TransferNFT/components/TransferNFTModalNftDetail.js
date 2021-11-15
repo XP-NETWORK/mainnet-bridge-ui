@@ -47,7 +47,7 @@ const TransferNFTModalNftDetails = () => {
   }, [nftDetails])
   const blockchain = internalNonce[chainId]
   const hasAttributes = show ? show.attributes && show.attributes : false
-  console.log(nftDetails)
+  console.log(nftDetails?.native?.tokenId, '123213')
   const cantSend = nftDetails?.cantSend
   return (
     <>
@@ -81,7 +81,12 @@ const TransferNFTModalNftDetails = () => {
                 </div>
                 <div className="nftDetContList ">
                   <div className="label">Token ID</div>
-                  <div className="details">{nftDetails?.native?.tokenId ? nftDetails?.native?.tokenId : nftDetails?.native?.tokenIdentifier}</div>
+                  <div className="details">{
+                  nftDetails?.native?.tokenId 
+                  ? nftDetails?.native?.tokenId?._hex ? parseInt(nftDetails?.native?.tokenId?._hex ) : nftDetails?.native?.tokenId
+                  : nftDetails?.native?.tokenIdentifier
+                  ? nftDetails?.native?.tokenIdentifier 
+                  : nftDetails?.wrapped.tokenId}</div>
                 </div>
                 <div className="nftDetContList ">
                   <div className="label">Description</div>

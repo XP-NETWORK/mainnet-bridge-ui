@@ -59,9 +59,11 @@ export function NFT(props) {
       setImg(res)
     },[props.uri])
     const select = e => {
+      console.log(nft)
         dispatch(toggleNFTInfo(nft))
         dispatch(setNFT(nft))
     } 
+    console.log(nft, 'hi i am nft')
     const className = `sinStoreNtf clickable`
     return killed ? '' : img ? <li onClick={select} className={className}>
     <div className="storeTop">
