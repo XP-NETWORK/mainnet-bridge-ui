@@ -13,7 +13,7 @@ import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 import QRCode from 'qrcode'
-
+import { useHistory } from "react-router";
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
@@ -30,7 +30,7 @@ import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import { Address, ExtensionProvider, WalletConnectProvider, ProxyProvider } from "@elrondnetwork/erdjs"
 import { getAddEthereumChain } from "../../../wallet/chains";
-import * as Dapp from "@elrondnetwork/dapp";
+
 const TransferNFTModal = () => {
   const {
     connector,
@@ -43,7 +43,8 @@ const TransferNFTModal = () => {
     active,
     error,
   } = useWeb3React();
-
+  
+  const history = useHistory()
   const dispatch = useDispatch();
   const [onMaiarConnect, setOnMaiarConnect] = useState('')
   const { isConnectOpen, from, elrondWallet } = useSelector((s) => s.general);
@@ -51,9 +52,8 @@ const TransferNFTModal = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
-  const maiarAddress = Dapp.useContext().address
   const [strQR, setStrQr] = useState('')
-  
+
   async function connect() {
         try {
           if(!window.ethereum && window.innerWidth <= 600)  {
@@ -65,13 +65,13 @@ const TransferNFTModal = () => {
         // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
     }
   
-  useEffect(() => {
-    if(maiarAddress && from === 'Elrond'){
-      setOnMaiarConnect(false)
-      dispatch(setElrondWallet(maiarAddress))
-      handleClose()
-    }
-  }, [maiarAddress])
+  // useEffect(() => {
+  //   if(maiarAddress && from === 'Elrond'){
+  //     setOnMaiarConnect(false)
+  //     dispatch(setElrondWallet(maiarAddress))
+  //     handleClose()
+  //   }
+  // }, [maiarAddress])
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
@@ -115,7 +115,6 @@ const TransferNFTModal = () => {
     } catch(err) {
       // cancelled
       window.open('https://getmaiar.com/defi', '_blank');
-
       console.log(err)
     }
   }
@@ -138,7 +137,8 @@ const TransferNFTModal = () => {
         handleClose()
       },
       onClientLogout: async () => {
-        console.log('LOGGED OUT U')
+        console.log("Loged Out");
+        history.push("/")
       }
     }
   }
@@ -253,14 +253,10 @@ const TransferNFTModal = () => {
       >
         { onMaiarConnect ?
         <div className="maiarModal">
+          <h2 className="title">Maiar Login</h2>
           <img src={strQR} alt="" />
-          {/* <Dapp.Pages.WalletConnect
-          callbackRoute="/"
-          logoutRoute="/"
-          title="Maiar Login"
-          lead="Scan the QR code using Maiar"
-          />
-          <div onClick={() => setOnMaiarConnect(false)}>Back</div> */}
+          <div className="subtitle">Scan the QR code using Maiar</div>
+          <div onClick={() => setOnMaiarConnect(false)} className="maiar__button">Back</div>
         </div>
         :
         <Modal.Body>

@@ -68,9 +68,8 @@ const TransferNFTSend = () => {
   } = nft.native;
   const fromChainConfig = chainsConfig[from];
   const toChainConfig = chainsConfig[to];
-  const context = Dapp.useContext()
-  const sendTransaction = Dapp.useSendTransaction()
-  console.log(context);
+
+
   useEffect(async () => {
     isApprovedForMinter();
     estimate();
@@ -181,14 +180,8 @@ const TransferNFTSend = () => {
         const toChain = await factory.inner(toChainConfig.Chain);
         const signer = ExtensionProvider.getInstance();
 
-        const addr = new Account(context.address)
-        const s = new UserSigner(context.address)
-
-        console.log(addr, context,'28139388393893218932893289282932318932892139823189328931', sendTransaction);
-        console.log(signer, "signererrreafdadsads");
-        
         const bign = bnFee.decimalPlaces(0).toString();
-        await fromChain.doEgldSwap(context.dapp.provider, bign);
+
         setIsApproved(true);
         setLoadingApproval(false);
         console.log("hellos");

@@ -38,8 +38,7 @@ const TransferNFTModalWarning = () => {
   const handleShow = () => setShow(true);
   const {disconnectOpen} = useSelector(s => s.general)
   
-  const { UserSigner } = Dapp.useContext()
-  console.log("UserSigner", Dapp.useContext());
+
   const disconnect = async () => {
     // dappDispatch({ type: "logout" });
     deactivate()
