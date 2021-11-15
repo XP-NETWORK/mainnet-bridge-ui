@@ -1949,6 +1949,7 @@ span.succTagStat.statComp {
 }
 .nftDetImg img,
 .nftDetImg video {
+  width: 100%;
   display: block;
   height: 100%;
   object-fit: fill;
@@ -3022,13 +3023,13 @@ span.backBtn img {
 
 .maiarModal{
   background-color: #fff;
-  
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
 }
 
-.maiarModal card{
+.maiarModal  .card{
   border: none;
-}
-
-.WalletConnect{
-  
 }

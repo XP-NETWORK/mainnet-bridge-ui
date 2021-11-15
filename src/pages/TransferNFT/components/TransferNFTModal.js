@@ -28,10 +28,9 @@ import { getFactory, injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
-import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
+import { Address, ExtensionProvider, WalletConnectProvider, ProxyProvider } from "@elrondnetwork/erdjs"
 import { getAddEthereumChain } from "../../../wallet/chains";
 import * as Dapp from "@elrondnetwork/dapp";
-
 const TransferNFTModal = () => {
   const {
     connector,
@@ -53,7 +52,10 @@ const TransferNFTModal = () => {
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
   const maiarAddress = Dapp.useContext().address
-  console.log(maiarAddress, "maiarAddress");
+
+  
+
+  
 
   async function connect() {
         try {
@@ -64,15 +66,10 @@ const TransferNFTModal = () => {
         } catch (ex) {
         }
         // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
-  
     }
-
+  
   useEffect(() => {
-  console.log(maiarAddress, "maiarAddress");
-    console.log(from, "from");
-    // debugger
     if(maiarAddress && from === 'Elrond'){
-
       setOnMaiarConnect(false)
       dispatch(setElrondWallet(maiarAddress))
       handleClose()
@@ -125,11 +122,23 @@ const TransferNFTModal = () => {
       console.log(err)
     }
   }
+// "https://gateway.elrond.com"
+  const onMaiar = async () => {
+    const provider = new ProxyProvider( "https://gateway.elrond.com");
+    console.log(provider, 'provider')
+    const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/');
+    console.log(maiarProvider, "sdfdsfdsfsfs");
+      try {
+        const p = await maiarProvider.init()
+        console.log(p)
+      } catch (error) {
+        console.log(error);
+      }
+  }
+  
 
   const onWalletConnect = async () => {
     const { rpc, chainId } = chainsConfig[from]
-    console.log(rpc);
-    console.log(chainId);
     try {
         const walletconnect = new WalletConnectConnector({ 
           rpc: {
@@ -140,7 +149,6 @@ const TransferNFTModal = () => {
         })
         walletconnect.networkId = chainId
         await activate(walletconnect, undefined, true)
-        console.log("walletconnect", walletconnect);
     } catch (error) {
         console.log(error);
     }
@@ -160,7 +168,7 @@ const TransferNFTModal = () => {
       }
   }
   useEffect(() => {
-      console.log(chainId, isConnectOpen)
+
     if(chainId && isConnectOpen) {
         const chainsMatch = chainId === fromConfig.chainId
         if(chainsMatch) {
@@ -293,16 +301,14 @@ const TransferNFTModal = () => {
                   <Image src={Trezor} /> Trezor{" "}
                 </Link>
               </li>
-              <li 
-              style={{ opacity: 0.6, pointerEvents: "none" }}
-              // onClick={() => onWalletConnect()}
-              >
+              <li onClick={() => onWalletConnect()} style={isEVM() ? {} : OFF}>
                 <Link to="#">
                   {" "}
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              <li onClick={() => setOnMaiarConnect(true)} style={isELROND ? {} : OFF}>
+              {/* onClick={() => setOnMaiarConnect(true)} */}
+              <li onClick={() => onMaiar()}  style={isELROND ? {} : OFF}>
                 <Link to="#">
                   {" "}
                   <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
