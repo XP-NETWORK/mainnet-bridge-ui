@@ -58,6 +58,7 @@ const TransferNFTSend = () => {
   const [isApproved, setIsApproved] = useState();
   const [preCheckApproved, setLoadingPreCheckApproved] = useState(true);
   const dispatch = useDispatch();
+  const [estimateInterval, setEstimateInterval] = useState()
   const [show, setShow] = useState();
   const [fees, setFees] = useState();
   const [bnFee, setBNFee] = useState();
@@ -78,6 +79,7 @@ const TransferNFTSend = () => {
     isApprovedForMinter();
     estimate();
     const s = setInterval(() => estimate(), 1000 * 30);
+    setEstimateInterval(s)
     setShow(nft);
     return () => clearInterval(s);
   }, [nft]);
@@ -85,7 +87,7 @@ const TransferNFTSend = () => {
   const send = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     try {
-      if (!loading && receiver) {
+      if (!loading && receiver && bnFee) {
         setError("");
         // if(isEVM()) {
           const isValidAddress = await isAddress(receiver)
@@ -93,12 +95,11 @@ const TransferNFTSend = () => {
             if(fromChainConfig && toChainConfig) {
               setLoading(true)
               const factory = await getFactory()
-              console.log(factory, 'hello factory')
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
               console.log(JSON.stringify(fromChain), JSON.stringify(toChain))
               const signer = elrondWallet 
-              ?  maiar ? maiar ExtensionProvider.getInstance() 
+              ?  maiar ? maiar : ExtensionProvider.getInstance() 
               : tronWallet ? undefined
               : provider.getSigner(account)
               const txid = await factory.transferNft(
@@ -154,9 +155,9 @@ const TransferNFTSend = () => {
           ? elrondWallet
           : "0xadFF46B0064a490c1258506d91e4325A277B22aE";
       const fee = await factory.estimateFees(fromChain, toChain, nft, wallet);
-      setBNFee(fee.multipliedBy(1.1));
+      setBNFee(fee.multipliedBy(1.8));
       const bign = fee
-        .multipliedBy(1.1)
+        .multipliedBy(1.8)
         .decimalPlaces(0)
         .toString();
       setFees(await Web3Utils.fromWei(bign, "ether"));
@@ -192,12 +193,15 @@ const TransferNFTSend = () => {
         const toChain = await factory.inner(toChainConfig.Chain);
         const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
+        console.log(signer, 'this is signer')
+        clearInterval(estimateInterval)
         const swap = await fromChain.doEgldSwap(signer, bign)
+        console.log(swap)
         setIsApproved(true);
         setLoadingApproval(false);
       } catch (err) {
         setLoadingApproval(false);
-        console.log("error", error);
+        console.log("error", err);
       }
     }
   };

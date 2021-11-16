@@ -12440,24 +12440,6 @@ moralis@^0.0.132:
   optionalDependencies:
     crypto-js "4.0.0"
 
-moralis@^0.0.132:
-  version "0.0.132"
-  resolved "https://registry.yarnpkg.com/moralis/-/moralis-0.0.132.tgz#3b651274b6e0172f5aa390f0cab4639a8c10d1aa"
-  integrity sha512-ftkBDkFmoNmFEjxWITY1q9hVrd94w8dviwsWsajIH2OW4xOm33nV6Ay3aSsaWC6tTJHRV5/NYv8Hz4XARVw3mQ==
-  dependencies:
-    "@babel/runtime" "7.12.5"
-    "@babel/runtime-corejs3" "7.12.5"
-    "@metamask/detect-provider" "^1.2.0"
-    axios "^0.23.0"
-    lint-staged "^11.1.2"
-    react-native-crypto-js "1.0.0"
-    uuid "3.4.0"
-    web3 "^1.6.0"
-    ws "^7.4.6"
-    xmlhttprequest "1.8.0"
-  optionalDependencies:
-    crypto-js "4.0.0"
-
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -18275,7 +18257,6 @@ web3@1.2.11:
     web3-shh "1.2.11"
     web3-utils "1.2.11"
 
-
 web3@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.6.0.tgz#d8fa0cd9e7bf252f9fe43bb77dc42bc6671affde"
@@ -18868,8 +18849,7 @@ xmlhttprequest@*, xmlhttprequest@1.8.0:
 
 "xp.network@git+https://github.com/xp-network/xpjs#bleeding-edge":
   version "0.1.0"
-  resolved "git+https://github.com/xp-network/xpjs#01d6e05702752d0f5f2d47af4043b3db87938e6f"
-
+  resolved "git+https://github.com/xp-network/xpjs#7d9f4f5bb879a97548fe03eaa0ef4c4cfe3cf9ba"
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
     axios "^0.21.1"
@@ -18881,33 +18861,13 @@ xmlhttprequest@*, xmlhttprequest@1.8.0:
     tronstation "^1.0.1"
     tronweb "^4.0.0"
     validator "git+https://github.com/xp-network/Migration-validator#web3-new"
-    xpnet-nft-list "^0.2.2"
+    xpnet-nft-list "0.2.5"
     xpnet-web3-contracts "git+https://github.com/xp-network/XP.network-HECO-Migration#dist"
 
-xpnet-nft-list@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/xpnet-nft-list/-/xpnet-nft-list-0.1.5.tgz#43fc2763e5dc89948f3c1f9652202f227418c83e"
-  integrity sha512-f8sNQ/tsixm/OuboMQeRDr7pm4rvPEotWSkvcr65XkLwNQYLP8XquLg14UBWty+LOXyZzFPJWHER6TPKxofX3w==
-  dependencies:
-    "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
-    "@supercharge/promise-pool" "^1.9.0"
-    axios "^0.23.0"
-    cors "^2.8.5"
-    dotenv "^10.0.0"
-    ethers "^5.5.1"
-    express "^4.17.1"
-    js-base64 "^3.7.2"
-    moralis "^0.0.116"
-    tronweb "^4.0.0"
-
-xpnet-nft-list@^0.2.2:
-    xpnet-nft-list "0.2.3"
-    xpnet-web3-contracts "git+https://github.com/xp-network/XP.network-HECO-Migration#dist"
-
-xpnet-nft-list@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/xpnet-nft-list/-/xpnet-nft-list-0.2.3.tgz#01b252ab4a00e65b3b6c35ca4a8f747fa9d0529d"
-  integrity sha512-7rXdq9mx6ht4d9XXfcWfy0b48tC4y0blhVqFN1dxVXzcWncp5fvZwcaCvD4o1CspaRFFCO/7rkZYrQT1UbAWxg==
+xpnet-nft-list@0.2.5, xpnet-nft-list@^0.2.2:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/xpnet-nft-list/-/xpnet-nft-list-0.2.5.tgz#edb59705d468702ff9c2835cf31af39f886090fa"
+  integrity sha512-w8d+Q8u9yHMKgZbuXu1FkMtveDAIs15rGFGY6QW6S/xucKfyXYf+k5O4g3RvextGGr1lDYwJVr+cblCY709Rwg==
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
     "@supercharge/promise-pool" "^1.9.0"

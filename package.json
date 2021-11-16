@@ -35,7 +35,7 @@
     "web-vitals": "^1.1.2",
     "web3-react": "^5.0.5",
     "web3-utils": "^1.6.0",
-    "xp.network": "git+https://github.com/xp-network/xpjs#master-dist"
+    "xp.network": "git+https://github.com/xp-network/xpjs#bleeding-edge"
   },
   "scripts": {
     "start": "react-scripts start",

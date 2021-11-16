@@ -217,7 +217,7 @@ const TransferNFTSwitcher = () => {
 
             {
             // window.innerWidth <=600  ? '' : 
-            !account && !elrondWallet ?
+            !account && !elrondWallet && !tronWallet ?
               <div className={`steepBtn `} >
                 <a
                   onClick={() => dispatch(toggleConnect(true))}
