@@ -52,6 +52,7 @@ export const getFactory = async () => {
   const {from, to} = store.getState().general
     const fromParams = await getFromParams()
     const toParams = await getFactoryParams(to)
+    console.log(fromParams, toParams,'apramsa')
     return ChainFactory(moralisParams,{
       ...toParams,
       ...fromParams

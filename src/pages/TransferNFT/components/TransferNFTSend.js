@@ -25,13 +25,17 @@ import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
+
 import {
   getFromParams,
   getRPCFactory,
   isEVM,
+  isAddress,
   setupURI,
   toEVM,
 } from "../../../wallet/helpers";
+
+
 import { getFactory } from "../../../wallet/connectors";
 import Loader from "./Loader";
 import { BigNumber } from "bignumber.js";
@@ -84,34 +88,33 @@ const TransferNFTSend = () => {
       if (!loading && receiver) {
         setError("");
         // if(isEVM()) {
-        const isAddress = await new web3.utils.isAddress(receiver);
-        if (isAddress) {
-          if (fromChainConfig && toChainConfig) {
-            setLoading(true);
-            const factory = await getFactory();
-            const fromChain = await factory.inner(fromChainConfig.Chain);
-            const toChain = await factory.inner(toChainConfig.Chain);
-            // const signer = elrondWallet
-            //   ? ExtensionProvider.getInstance()
-            //   : provider.getSigner(account);
-
-            const signer =  elrondWallet ? maiar ? maiar : ExtensionProvider.getInstance() : provider.getSigner(account)
-            // debugger
-            console.log(signer, "signer");
-            const txid = await factory.transferNft(
-              fromChain,
-              toChain,
-              nft,
-              signer,
-              receiver,
-              bnFee.decimalPlaces(0).toString()
-            );
-            if (txid) {
-              dispatch(setSuccess({ receiver, txid }));
-              dispatch(setStep(3));
-            }
-          }
-        } else setError("Not a valid address");
+          const isValidAddress = await isAddress(receiver)
+          if(isValidAddress) {
+            if(fromChainConfig && toChainConfig) {
+              setLoading(true)
+              const factory = await getFactory()
+              console.log(factory, 'hello factory')
+              const fromChain = await factory.inner(fromChainConfig.Chain)
+              const toChain = await factory.inner(toChainConfig.Chain)
+              console.log(JSON.stringify(fromChain), JSON.stringify(toChain))
+              const signer = elrondWallet 
+              ?  maiar ? maiar ExtensionProvider.getInstance() 
+              : tronWallet ? undefined
+              : provider.getSigner(account)
+              const txid = await factory.transferNft(
+                fromChain,
+                toChain,
+                nft,
+                signer,
+                receiver,
+                bnFee.decimalPlaces(0).toString()
+              )
+              if(txid) {
+                dispatch(setSuccess({ receiver, txid }))
+                dispatch(setStep(3))
+              }
+            } 
+          } else setError('Not a valid address')
 
         // }
       }
@@ -133,13 +136,15 @@ const TransferNFTSend = () => {
 
   const estimate = async () => {
     try {
+
       const factory = await getRPCFactory();
       const fromChain = await factory.inner(fromChainConfig.Chain);
       const toChain = await factory.inner(toChainConfig.Chain);
       const wallet =
         toEVM() && elrondWallet
           ? "0xadFF46B0064a490c1258506d91e4325A277B22aE"
-          : to === "Tron" && elrondWallet
+          :  toEVM() && tronWallet ? '0xadFF46B0064a490c1258506d91e4325A277B22aE'
+          :  to === "Tron" && elrondWallet
           ? "TCCKoPRcYoCGkxVThCaY9vRPaKiTjE4x1C"
           : account
           ? account
@@ -157,10 +162,11 @@ const TransferNFTSend = () => {
       setFees(await Web3Utils.fromWei(bign, "ether"));
     } catch (err) {
       console.log(err);
+
     }
   };
   const approve = async () => {
-    if (isEVM()) {
+    if (isEVM() || from === 'Tron') {
       setLoadingApproval(true);
       const factory = await getFactory();
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -227,6 +233,7 @@ const TransferNFTSend = () => {
         contract.length - 8
       )}`
     : tokenIdentifier;
+
   return (
     <div className="crossChainTab sendNFTBox">
       <div className="tabTitle arrowTitle">

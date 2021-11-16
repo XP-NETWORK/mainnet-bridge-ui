@@ -8,8 +8,9 @@ import TronWeb from 'tronweb'
 import { ExtensionProvider } from '@elrondnetwork/erdjs/out';
 export const moralisParams = {
     exchangeRateUri: "https://testing-bridge.xp.network/exchange/",
-    moralisServer: "https://bwyunctd0c2y.usemoralis.com:2053/server",
-    moralisAppId: "WvKR3tpq5MxUW5i747fgokkiDW0iJ58tsoVua0pZ",
+
+    moralisServer: "https://azz9akudh6cf.usemoralis.com:2053/server",
+    moralisAppId: "vt2JeuihhzyV9vgYbeAYO5BVSaCOdkAKr608XJOv",
     tronScanUri: 'https://apilist.tronscan.org/api/',
     heartbeatUri: 'https://xpheartbeat.herokuapp.com'
 }
@@ -17,6 +18,8 @@ const axios = require('axios')
 export const getFromParams = async () => {
     const {from} = store.getState().general
     const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+    console.log(from ,'123983298312892')
     if(from === 'Ethereum') {
         return {
             ropstenParams: {
@@ -72,8 +75,7 @@ export const getFromParams = async () => {
         return {
             tronParams: {
                 ...ChainData.Tron,
-                provider: new TronWeb(window.tronWeb)
-                
+                provider: window.tronWeb
             }
         }
     }
@@ -162,11 +164,10 @@ export const getFactoryParams = (chain) => {
         return {
             tronParams: {
                 ...ChainData.Tron,
-                provider: new TronWeb({
-                    fullNode: 'https://api.trongrid.io',
-                    solidityNode: 'https://api.trongrid.io'
-                  }
-                )
+                    provider: new TronWeb({
+                        fullHost: 'https://api.trongrid.io',
+                        headers: { "TRON-PRO-API-KEY": '86feb70b-776c-40f5-8c19-2c1155549703' },
+                })
                 
             }
         }
@@ -235,6 +236,8 @@ export const parseNFTS = async (nfts) => {
     return await new Promise(async resolve => {
         try {
             // const p = await factory.nftUri(inner, n)
+            console.log(n.uri, 'helloasa')
+            if(!n.uri) resolve({ ...n })
             const res = await axios.get(setupURI(n.uri))
             if(res && res.data) {
                 if(res.data.animation_url) preloadItem(res.data.animation_url, 'video', () => {})
@@ -245,7 +248,9 @@ export const parseNFTS = async (nfts) => {
                 if(err) {
                     console.log(n)
                     try {
-                        const res = await axios.post('https://wnfts.xp.network/get-uri', { blockchain: from, uri: n.uri, contract: n.native.contract ? n.native.contract: 'alsa' })
+                        const res = await axios.post('https://wnfts.xp.network/get-uri', 
+                        { blockchain: from, uri: n.uri, contract: n.native.contract ? n.native.contract: 'alsa' }
+                        )
                         if(res.data) {
                             try {
                                 const {uri} = res.data
@@ -271,4 +276,15 @@ export const parseNFTS = async (nfts) => {
 
     }))
     return result.filter(n => n)
+}
+const Web3Utils = require('web3-utils')
+export const isAddress = async address => {
+    const { to } = store.getState().general
+    if(to === 'Tron') {
+        return address && address.length === 34
+    } else if(to === 'Elrond') {
+        return address && address.length === 62
+    } else {
+        return await Web3Utils.isAddress(address)
+    }
 }
