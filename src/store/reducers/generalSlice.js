@@ -57,6 +57,9 @@ const generalSlice = createSlice({
         state.txid = action.payload.txid
         state.receiver = action.payload.receiver
     },
+    setMaiar(state, action) {
+      state.maiar = action.payload
+    },
     toggleExpandNFTs(state,action) {
       state.expandNFTs = action.payload
     }
@@ -66,6 +69,7 @@ const generalSlice = createSlice({
 export const { toggleNFTInfo, 
     setTo, 
     setFrom, 
+    setMaiar,
     toggleExpandNFTs,
     toggleNFTInfoOnlyDetails, 
     toggleConnect, 

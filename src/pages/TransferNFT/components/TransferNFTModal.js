@@ -21,7 +21,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setElrondWallet, setFrom, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setFrom, setMaiar, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { getFactory, injected } from "../../../wallet/connectors";
@@ -133,6 +133,7 @@ const TransferNFTModal = () => {
       onClientLogin:async (data, data2, data3, data4) => {
         const add = await maiarProvider.getAddress()
         dispatch(setElrondWallet(add))
+        dispatch(setMaiar(maiarProvider))
         setOnMaiarConnect(false)
         handleClose()
       },
@@ -146,9 +147,7 @@ const TransferNFTModal = () => {
   const onMaiar = async () => {
     setOnMaiarConnect(true)
     const provider = new ProxyProvider( "https://gateway.elrond.com");
-    console.log(provider, 'provider')
     const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/', onClientConnect);
-    console.log(maiarProvider, "sdfdsfdsfsfs");
       try {
         await maiarProvider.init()
         maiarProvider.onClientConnect = onClientConnect(maiarProvider)
@@ -176,7 +175,7 @@ const TransferNFTModal = () => {
     } catch (error) {
         console.log(error);
     }
-}
+  }
 
   async function connectTronlink() {
       try {
@@ -192,7 +191,6 @@ const TransferNFTModal = () => {
       }
   }
   useEffect(() => {
-
     if(chainId && isConnectOpen) {
         const chainsMatch = chainId === fromConfig.chainId
         if(chainsMatch) {
@@ -238,7 +236,6 @@ const TransferNFTModal = () => {
                 }
 
             }
-            console.log(library)
   }
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";

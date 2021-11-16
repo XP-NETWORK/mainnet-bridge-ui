@@ -44,7 +44,7 @@ import { Account, ExtensionProvider, UserSigner } from "@elrondnetwork/erdjs/out
 const Web3Utils = require("web3-utils");
 
 const TransferNFTSend = () => {
-  const { nft, to, from, elrondWallet, tronWallet } = useSelector(
+  const { nft, to, from, elrondWallet, tronWallet, maiar } = useSelector(
     (s) => s.general
   );
   const { account, library } = useWeb3React();
@@ -126,6 +126,7 @@ const TransferNFTSend = () => {
   };
 
   useEffect(async () => {}, []);
+
   const estimate = async () => {
     try {
       const factory = await getRPCFactory();
@@ -175,16 +176,18 @@ const TransferNFTSend = () => {
     } else {
       setLoadingApproval(true);
       try {
+        
         const factory = await getFactory();
         const fromChain = await factory.inner(fromChainConfig.Chain);
         const toChain = await factory.inner(toChainConfig.Chain);
-        const signer = ExtensionProvider.getInstance();
-
+        const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
+        console.log("signer", signer);
+        console.log("bign", bign);
+        const swap = await fromChain.doEgldSwap(signer, bign)
 
         setIsApproved(true);
         setLoadingApproval(false);
-        console.log("hellos");
       } catch (err) {
         setLoadingApproval(false);
       }
@@ -216,8 +219,7 @@ const TransferNFTSend = () => {
   };
 
   const blockchain = chains.filter((n) => n.text === to)[0];
-  console.log(nft);
-  console.log("isApproved", isApproved);
+
   const cont = contract
     ? `${contract.substring(0, 10)}...${contract.substring(
         contract.length - 8
