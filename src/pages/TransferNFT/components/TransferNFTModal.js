@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image, Modal, Button, Header, Title, Body } from "react-bootstrap";
+import maiarIcon from "../../../assets/images/maiarIcon.png";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 import RedCircle from "../../../assets/img/redCircle.svg";
 import Close from "../../../assets/img/icons/closeBl.svg";
@@ -11,8 +12,8 @@ import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
-
-
+import QRCode from 'qrcode'
+import { useHistory } from "react-router";
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
 import WhiteContBrid from "../../../assets/img/icon/WhiteContBrid.svg";
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
@@ -20,16 +21,15 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setElrondWallet, setFrom, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setFrom, setMaiar, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { getFactory, injected } from "../../../wallet/connectors";
 import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
-import {Address, ExtensionProvider} from "@elrondnetwork/erdjs"
+import { Address, ExtensionProvider, WalletConnectProvider, ProxyProvider } from "@elrondnetwork/erdjs"
 import { getAddEthereumChain } from "../../../wallet/chains";
-
 
 const TransferNFTModal = () => {
   const {
@@ -43,14 +43,16 @@ const TransferNFTModal = () => {
     active,
     error,
   } = useWeb3React();
-
+  
+  const history = useHistory()
   const dispatch = useDispatch();
-
+  const [onMaiarConnect, setOnMaiarConnect] = useState('')
   const { isConnectOpen, from, elrondWallet } = useSelector((s) => s.general);
   const [switchNetwork, setSwitchNetwork] = useState(false)
   const [show, setShow] = useState(false);
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
+  const [strQR, setStrQr] = useState('')
 
   async function connect() {
         try {
@@ -61,8 +63,15 @@ const TransferNFTModal = () => {
         } catch (ex) {
         }
         // if(!error || error.code !== -32002) window.open('https://metamask.io/download.html', '_blank');
-  
     }
+  
+  // useEffect(() => {
+  //   if(maiarAddress && from === 'Elrond'){
+  //     setOnMaiarConnect(false)
+  //     dispatch(setElrondWallet(maiarAddress))
+  //     handleClose()
+  //   }
+  // }, [maiarAddress])
 
   const connectToElrond = async () => {
     const instance = ExtensionProvider.getInstance()
@@ -106,15 +115,53 @@ const TransferNFTModal = () => {
     } catch(err) {
       // cancelled
       window.open('https://getmaiar.com/defi', '_blank');
-
       console.log(err)
     }
   }
 
+  const generateQR = async text => {
+    try {
+      const QR = await QRCode.toDataURL(text)
+      return QR
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const onClientConnect = (maiarProvider) => {
+    return {
+      onClientLogin:async (data, data2, data3, data4) => {
+        const add = await maiarProvider.getAddress()
+        dispatch(setElrondWallet(add))
+        dispatch(setMaiar(maiarProvider))
+        setOnMaiarConnect(false)
+        handleClose()
+      },
+      onClientLogout: async () => {
+        console.log("Loged Out");
+        history.push("/")
+      }
+    }
+  }
+
+  const onMaiar = async () => {
+    setOnMaiarConnect(true)
+    const provider = new ProxyProvider( "https://gateway.elrond.com");
+    const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/', onClientConnect);
+      try {
+        await maiarProvider.init()
+        maiarProvider.onClientConnect = onClientConnect(maiarProvider)
+        const qrCodeString = await maiarProvider.login()
+        const qr = await generateQR(qrCodeString)
+        setStrQr(qr)
+      } catch (error) {
+        console.log(error);
+      }
+  }
+  
+
   const onWalletConnect = async () => {
     const { rpc, chainId } = chainsConfig[from]
-    console.log(rpc);
-    console.log(chainId);
     try {
         const walletconnect = new WalletConnectConnector({ 
           rpc: {
@@ -125,11 +172,10 @@ const TransferNFTModal = () => {
         })
         walletconnect.networkId = chainId
         await activate(walletconnect, undefined, true)
-        console.log("walletconnect", walletconnect);
     } catch (error) {
         console.log(error);
     }
-}
+  }
 
   async function connectTronlink() {
       try {
@@ -145,7 +191,6 @@ const TransferNFTModal = () => {
       }
   }
   useEffect(() => {
-      console.log(chainId, isConnectOpen)
     if(chainId && isConnectOpen) {
         const chainsMatch = chainId === fromConfig.chainId
         if(chainsMatch) {
@@ -191,7 +236,6 @@ const TransferNFTModal = () => {
                 }
 
             }
-            console.log(library)
   }
 
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
@@ -204,6 +248,14 @@ const TransferNFTModal = () => {
         onHide={handleClose}
         className={`connectBridge ${switchNetwork ? 'warningModal': ''}`}
       >
+        { onMaiarConnect ?
+        <div className="maiarModal">
+          <h2 className="title">Maiar Login</h2>
+          <img src={strQR} alt="" />
+          <div className="subtitle">Scan the QR code using Maiar</div>
+          <div onClick={() => setOnMaiarConnect(false)} className="maiar__button">Back</div>
+        </div>
+        :
         <Modal.Body>
           { switchNetwork ? 
                     <div className="crossChainTab sendNFTBox">
@@ -267,24 +319,23 @@ const TransferNFTModal = () => {
                   <Image src={Trezor} /> Trezor{" "}
                 </Link>
               </li>
-              <li 
-              style={{ opacity: 0.6, pointerEvents: "none" }}
-              // onClick={() => onWalletConnect()}
-              >
+              <li onClick={() => onWalletConnect()} style={isEVM() ? {} : OFF}>
                 <Link to="#">
                   {" "}
                   <Image src={WalletConnect} /> WalletConnect{" "}
                 </Link>
               </li>
-              {/* <li style={{ opacity: 0.6, pointerEvents: "none" }}>
+              {/* onClick={() => setOnMaiarConnect(true)} */}
+              <li onClick={() => onMaiar()}  style={isELROND ? {} : OFF}>
                 <Link to="#">
                   {" "}
-                  <Image src={WalletConnect2} /> WalletConnect{" "}
+                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>}
         </Modal.Body>
+        }
       </Modal>
     </>
   );

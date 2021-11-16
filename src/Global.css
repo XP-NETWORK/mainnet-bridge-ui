@@ -1949,6 +1949,7 @@ span.succTagStat.statComp {
 }
 .nftDetImg img,
 .nftDetImg video {
+  width: 100%;
   display: block;
   height: 100%;
   object-fit: fill;
@@ -3018,4 +3019,25 @@ span.backBtn img {
   display: flex;
   max-height: auto;
   flex-wrap: wrap;
+}
+
+.maiarModal{
+  background-color: #fff;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.maiarModal  .card{
+  border: none;
+}
+
+.maiar__button{
+  margin-top: 10px;
+}
+
+.maiar__button:hover{
+  cursor: pointer;
 }

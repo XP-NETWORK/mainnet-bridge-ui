@@ -8,6 +8,7 @@ import TronWeb from 'tronweb'
 import { ExtensionProvider } from '@elrondnetwork/erdjs/out';
 export const moralisParams = {
     exchangeRateUri: "https://testing-bridge.xp.network/exchange/",
+
     moralisServer: "https://azz9akudh6cf.usemoralis.com:2053/server",
     moralisAppId: "vt2JeuihhzyV9vgYbeAYO5BVSaCOdkAKr608XJOv",
     tronScanUri: 'https://apilist.tronscan.org/api/',

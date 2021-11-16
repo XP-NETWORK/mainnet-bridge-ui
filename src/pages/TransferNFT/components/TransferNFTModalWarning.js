@@ -12,13 +12,14 @@ import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
 
 import Warn from "../../../assets/img/3dwallet.png";
-
+import * as Dapp from "@elrondnetwork/dapp";
 import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setElrondWallet, setNFTs, toggleDisconnect } from "../../../store/reducers/generalSlice";
 import { useWeb3React } from "@web3-react/core";
+
 
 const TransferNFTModalWarning = () => {
   const {
@@ -36,7 +37,10 @@ const TransferNFTModalWarning = () => {
   const handleClose = () => dispatch(toggleDisconnect(false));
   const handleShow = () => setShow(true);
   const {disconnectOpen} = useSelector(s => s.general)
+  
+
   const disconnect = async () => {
+    // dappDispatch({ type: "logout" });
     deactivate()
     dispatch(setNFTs(undefined))
     dispatch(setElrondWallet(undefined))

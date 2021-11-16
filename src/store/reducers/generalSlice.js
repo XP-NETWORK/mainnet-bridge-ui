@@ -18,6 +18,9 @@ const generalSlice = createSlice({
     setElrondWallet(state, action) {
       state.elrondWallet = action.payload
     },
+    setIsMaiar(state, action){
+      state.maiarWallet = action.payload
+    },
     setTronWallet(state, action) {
       state.tronWallet = action.payload
     },
@@ -54,6 +57,9 @@ const generalSlice = createSlice({
         state.txid = action.payload.txid
         state.receiver = action.payload.receiver
     },
+    setMaiar(state, action) {
+      state.maiar = action.payload
+    },
     toggleExpandNFTs(state,action) {
       state.expandNFTs = action.payload
     }
@@ -63,6 +69,7 @@ const generalSlice = createSlice({
 export const { toggleNFTInfo, 
     setTo, 
     setFrom, 
+    setMaiar,
     toggleExpandNFTs,
     toggleNFTInfoOnlyDetails, 
     toggleConnect, 
@@ -74,7 +81,8 @@ export const { toggleNFTInfo,
     setNFT, 
     setStep,
     toggleError,
-    toggleDisconnect
+    toggleDisconnect,
+    setIsMaiar
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

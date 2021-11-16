@@ -8,6 +8,7 @@ import store from "./store/store";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import Web3 from "web3";
+import { network, walletConnectBridge, walletConnectDeepLink } from "../src/pages/TransferNFT/components/values"
 
 function getLibrary(provider) {
   return new Web3(provider);
