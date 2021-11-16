@@ -182,8 +182,6 @@ const TransferNFTSend = () => {
         const toChain = await factory.inner(toChainConfig.Chain);
         const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
-        console.log("signer", signer);
-        console.log("bign", bign);
         const swap = await fromChain.doEgldSwap(signer, bign)
 
         setIsApproved(true);
