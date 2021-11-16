@@ -10,7 +10,8 @@ export const moralisParams = {
     exchangeRateUri: "https://testing-bridge.xp.network/exchange/",
     moralisServer: "https://bwyunctd0c2y.usemoralis.com:2053/server",
     moralisAppId: "WvKR3tpq5MxUW5i747fgokkiDW0iJ58tsoVua0pZ",
-    tronScanUri: 'https://apilist.tronscan.org/api/'
+    tronScanUri: 'https://apilist.tronscan.org/api/',
+    heartbeatUri: 'https://xpheartbeat.herokuapp.com'
 }
 const axios = require('axios')
 export const getFromParams = async () => {

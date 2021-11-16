@@ -18865,9 +18865,9 @@ xmlhttprequest@*, xmlhttprequest@1.8.0:
   resolved "https://registry.yarnpkg.com/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz#67fe075c5c24fef39f9d65f5f7b7fe75171968fc"
   integrity sha1-Z/4HXFwk/vOfnWX197f+dRcZaPw=
 
-"xp.network@https://github.com/xp-network/xpjs#bleeding-edge":
+"xp.network@git+https://github.com/xp-network/xpjs#bleeding-edge":
   version "0.1.0"
-  resolved "https://github.com/xp-network/xpjs#a0f83959698d8f2e80c45131418809fe89aa65bd"
+  resolved "git+https://github.com/xp-network/xpjs#01d6e05702752d0f5f2d47af4043b3db87938e6f"
   dependencies:
     "@elrondnetwork/erdjs" "^8.0.1-alpha.8"
     axios "^0.21.1"

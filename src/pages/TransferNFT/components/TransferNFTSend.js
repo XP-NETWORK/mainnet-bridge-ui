@@ -91,9 +91,13 @@ const TransferNFTSend = () => {
             const factory = await getFactory();
             const fromChain = await factory.inner(fromChainConfig.Chain);
             const toChain = await factory.inner(toChainConfig.Chain);
-            const signer = elrondWallet
-              ? ExtensionProvider.getInstance()
-              : provider.getSigner(account);
+            // const signer = elrondWallet
+            //   ? ExtensionProvider.getInstance()
+            //   : provider.getSigner(account);
+
+            const signer =  elrondWallet ? maiar ? maiar : ExtensionProvider.getInstance() : provider.getSigner(account)
+            // debugger
+            console.log(signer, "signer");
             const txid = await factory.transferNft(
               fromChain,
               toChain,
@@ -183,11 +187,11 @@ const TransferNFTSend = () => {
         const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
         const swap = await fromChain.doEgldSwap(signer, bign)
-
         setIsApproved(true);
         setLoadingApproval(false);
       } catch (err) {
         setLoadingApproval(false);
+        console.log("error", error);
       }
     }
   };
