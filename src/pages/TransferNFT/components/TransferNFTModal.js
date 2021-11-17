@@ -44,6 +44,7 @@ const TransferNFTModal = () => {
     error,
   } = useWeb3React();
   
+  const walletConnectDeepLink = "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet.dev&link=";
   const history = useHistory()
   const dispatch = useDispatch();
   const [onMaiarConnect, setOnMaiarConnect] = useState('')
@@ -53,6 +54,8 @@ const TransferNFTModal = () => {
   const handleClose = () => dispatch(toggleConnect(false));
   const fromConfig = chainsConfig[from]
   const [strQR, setStrQr] = useState('')
+  const [qrCodeString, setQqrCodeString] = useState('')
+
   const isMobile = window.innerWidth <= 600
 
   async function connect() {
@@ -153,6 +156,7 @@ const TransferNFTModal = () => {
         await maiarProvider.init()
         maiarProvider.onClientConnect = onClientConnect(maiarProvider)
         const qrCodeString = await maiarProvider.login()
+        setQqrCodeString(qrCodeString)
         const qr = await generateQR(qrCodeString)
         setStrQr(qr)
       } catch (error) {
@@ -244,7 +248,11 @@ const TransferNFTModal = () => {
 
             }
   }
-
+  console.log(
+    `${walletConnectDeepLink}https://maiar.com/?wallet-connect=${encodeURIComponent(
+      qrCodeString
+    )}`
+  , 'ladsldsa')
   const isELROND = chainsConfig[from] ? chainsConfig[from].type === ELROND : "";
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   return (
@@ -260,6 +268,22 @@ const TransferNFTModal = () => {
           <h2 className="title">Maiar Login</h2>
           <img src={strQR} alt="" />
           <div className="subtitle">Scan the QR code using Maiar</div>
+          
+          { window.innerWidth <= 600 ?
+          <div className="maiar__deeplink">
+          <a
+            id="accessWalletBtn"
+            data-testid="accessWalletBtn"
+            className="btn btn-primary px-4 mt-4"
+            href= {`${walletConnectDeepLink}https://maiar.com/?wallet-connect=${encodeURIComponent(
+              qrCodeString
+            )}`}
+
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >Maiar Login</a></div>
+          : null
+          }
           <div onClick={() => setOnMaiarConnect(false)} className="maiar__button">Back</div>
         </div>
         :

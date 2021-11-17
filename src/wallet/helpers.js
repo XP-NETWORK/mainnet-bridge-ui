@@ -21,6 +21,7 @@ export const getFromParams = async () => {
     try{
         provider = new ethers.providers.Web3Provider(window.ethereum)
     }catch(err) {}
+
     console.log(from ,'123983298312892')
     if(from === 'Ethereum') {
         return {

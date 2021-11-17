@@ -88,9 +88,9 @@ const TransferNFTSend = () => {
     let provider
     try {
       provider = new ethers.providers.Web3Provider(window.ethereum);
-    } catch(err) {
 
-    }
+    }catch(err) {}
+
     try {
       if (!loading && receiver && bnFee) {
         setError("");
@@ -192,10 +192,11 @@ const TransferNFTSend = () => {
     } else {
       setLoadingApproval(true);
       try {
-        
         const factory = await getFactory();
         const fromChain = await factory.inner(fromChainConfig.Chain);
-        const toChain = await factory.inner(toChainConfig.Chain);
+        console.log("factory", factory);
+        console.log("fromChain", fromChain);
+        // const toChain = await factory.inner(toChainConfig.Chain);
         const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
         console.log(signer, 'this is signer')
@@ -210,6 +211,7 @@ const TransferNFTSend = () => {
       }
     }
   };
+
   const isApprovedForMinter = async () => {
     setLoadingPreCheckApproved(true);
     if (isEVM()) {

@@ -24,6 +24,7 @@ function App() {
         // )
     }
     useEffect(() => {
+        localStorage.clear()
         // mint()
     },[])
 return (
