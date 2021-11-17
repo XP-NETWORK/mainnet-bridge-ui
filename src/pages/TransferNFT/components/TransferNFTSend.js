@@ -187,10 +187,9 @@ const TransferNFTSend = () => {
     } else {
       setLoadingApproval(true);
       try {
-        
         const factory = await getFactory();
         const fromChain = await factory.inner(fromChainConfig.Chain);
-        const toChain = await factory.inner(toChainConfig.Chain);
+        // const toChain = await factory.inner(toChainConfig.Chain);
         const signer = maiar ? maiar : ExtensionProvider.getInstance();
         const bign = bnFee.decimalPlaces(0).toString();
         console.log(signer, 'this is signer')
@@ -205,6 +204,7 @@ const TransferNFTSend = () => {
       }
     }
   };
+  
   const isApprovedForMinter = async () => {
     setLoadingPreCheckApproved(true);
     if (isEVM()) {
