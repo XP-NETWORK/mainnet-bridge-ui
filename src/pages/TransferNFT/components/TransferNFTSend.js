@@ -172,44 +172,53 @@ const TransferNFTSend = () => {
     }
   };
   const approve = async () => {
-    if (isEVM() || from === 'Tron') {
-      setLoadingApproval(true);
-      const factory = await getFactory();
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const fromChain = await factory.inner(fromChainConfig.Chain);
-      const signer = provider.getSigner(account);
-      try {
-        await fromChain.approveForMinter(nft, signer);
-        setIsApproved(true);
-      } catch (err) {
-        if (err.data && err.data.code === -32000) {
+    if(estimateInterval && bnFee) {
+      if (isEVM() || from === 'Tron') {
+        setLoadingApproval(true);
+        const factory = await getFactory();
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const fromChain = await factory.inner(fromChainConfig.Chain);
+        const signer = provider.getSigner(account);
+        try {
+          await fromChain.approveForMinter(nft, signer);
           setIsApproved(true);
-        } else {
-          dispatch(toggleError(err));
+        } catch (err) {
+          if (err.data && err.data.code === -32000) {
+            setIsApproved(true);
+          } else {
+            dispatch(toggleError(err));
+          }
+        }
+        setLoadingApproval(false);
+      } else {
+        setLoadingApproval(true);
+        try {
+          const factory = await getFactory();
+          const fromChain = await factory.inner(fromChainConfig.Chain);
+          console.log("factory", factory);
+          console.log("fromChain", fromChain);
+          const toChain = await factory.inner(toChainConfig.Chain);
+          const signer = maiar ? maiar : ExtensionProvider.getInstance();
+          const bign = bnFee.decimalPlaces(0).toString();
+          console.log(signer, 'this is signer')
+          try {
+            clearInterval(estimateInterval)
+  
+          } catch(err) {
+            console.log(err)
+          }
+          console.log(signer, bign)
+          const swap = await fromChain.doEgldSwap(signer, bign)
+          console.log(swap, '2132130123010')
+          setIsApproved(true);
+          setLoadingApproval(false);
+        } catch (err) {
+          setLoadingApproval(false);
+          console.log("error", err);
         }
       }
-      setLoadingApproval(false);
-    } else {
-      setLoadingApproval(true);
-      try {
-        const factory = await getFactory();
-        const fromChain = await factory.inner(fromChainConfig.Chain);
-        console.log("factory", factory);
-        console.log("fromChain", fromChain);
-        // const toChain = await factory.inner(toChainConfig.Chain);
-        const signer = maiar ? maiar : ExtensionProvider.getInstance();
-        const bign = bnFee.decimalPlaces(0).toString();
-        console.log(signer, 'this is signer')
-        clearInterval(estimateInterval)
-        const swap = await fromChain.doEgldSwap(signer, bign)
-        console.log(swap)
-        setIsApproved(true);
-        setLoadingApproval(false);
-      } catch (err) {
-        setLoadingApproval(false);
-        console.log("error", err);
-      }
     }
+
   };
 
   const isApprovedForMinter = async () => {
