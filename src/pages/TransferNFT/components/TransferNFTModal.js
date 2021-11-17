@@ -9,9 +9,11 @@ import {ethers} from 'ethers'
 import Ledger from "../../../assets/img/icons/lefger.svg";
 import MetaMask from "../../../assets/img/icons/MetaMask.svg";
 import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
+import tronPopUpIcon from  "../../../assets/images/tronPopUp.png"
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
+import fileCopy from "../../../assets/images/file_copy.svg"
 import QRCode from 'qrcode'
 import { useHistory } from "react-router";
 import whiteClose from "../../../assets/img/icon/whiteClose.svg";
@@ -21,7 +23,7 @@ import SelectItem from "../../../UIElemnts/SelectItem";
 import { Dropdown } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setElrondWallet, setFrom, setMaiar, setTronWallet, toggleConnect } from "../../../store/reducers/generalSlice";
+import { setElrondWallet, setFrom, setMaiar, setTronWallet, toggleConnect, setTronPopUp } from "../../../store/reducers/generalSlice";
 import { chainsConfig, EVM, ELROND, CHAIN_INFO } from "./values";
 import { useWeb3React } from "@web3-react/core";
 import { getFactory, injected } from "../../../wallet/connectors";
@@ -29,6 +31,7 @@ import { getChainId, isEVM, isTronLink } from "../../../wallet/helpers";
 import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import { Address, ExtensionProvider, WalletConnectProvider, ProxyProvider } from "@elrondnetwork/erdjs"
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getAddEthereumChain } from "../../../wallet/chains";
 const TronWeb = require('tronweb')
 const TransferNFTModal = () => {
@@ -55,8 +58,7 @@ const TransferNFTModal = () => {
   const fromConfig = chainsConfig[from]
   const [strQR, setStrQr] = useState('')
   const [qrCodeString, setQqrCodeString] = useState('')
-
-  const isMobile = window.innerWidth <= 600
+  const tronPopUp = useSelector(state => state.general.tronPopUp)
 
   async function connect() {
         try {
@@ -183,24 +185,26 @@ const TransferNFTModal = () => {
   }
 
   async function connectTronlink() {
-      // if(!isMobile) {
+    if(window.innerWidth <= 600 && !window.tronWeb){
+      dispatch(setTronPopUp(true))
+    }else{
+      try {
         try {
-          try {
-            const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
-
+          const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
           } catch(err) {
-
-          }
-          if(window.tronLink && window.tronWeb.defaultAddress.base58) {
-            const publicAddress = window.tronWeb.defaultAddress.base58
-            dispatch(setTronWallet(publicAddress))
-            handleClose()
-          }
-        } catch(err) {
-            console.log(err)
+            console.log(err);
+            }
+        if(window.tronLink && window.tronWeb.defaultAddress.base58) {
+          const publicAddress = window.tronWeb.defaultAddress.base58
+          dispatch(setTronWallet(publicAddress))
+          handleClose()
         }
-      // }
+      } catch(err) {
+          console.log(err)
+      }
+    }
   }
+
   useEffect(() => {
     if(chainId && isConnectOpen) {
         const chainsMatch = chainId === fromConfig.chainId
@@ -245,7 +249,6 @@ const TransferNFTModal = () => {
                 } catch(err) {
                     console.log(err)
                 }
-
             }
   }
   console.log(
@@ -257,6 +260,29 @@ const TransferNFTModal = () => {
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   return (
     <>
+      <Modal show={tronPopUp} onHide={() => dispatch(setTronPopUp(false))} className="tron--modal">
+        <Modal.Body>
+          <button onClick={() => dispatch(setTronPopUp(false))} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
+          <div className="tron--modal__body">
+          <div className="tron--modal__header"><img src={tronPopUpIcon} alt="Tron Popup Icon" /></div>
+          <div className="tron--modal__title">To continue bridging:</div>
+          <ol className="tron--modal__text">
+            <li>Copy link below</li>
+            <li>Open Tronlink App</li>
+            <li>Paste link to Tronlink browser</li>
+            <li>Enjoy 😉</li>
+          </ol>
+          <div className="tron--modal__link">
+              <div className="link__items">
+                  <div className="link__address">https://bridge.xp.network</div>
+                <CopyToClipboard onCopy={() => console.log("dsfgdgdf")} text={"https://bridge.xp.network"}>
+                  <div className="copyIcon"><img src={fileCopy} /></div>
+                </CopyToClipboard>
+              </div>
+          </div>
+          </div>
+        </Modal.Body>
+      </Modal>
       <Modal
         animation={false}
         show={isConnectOpen}
