@@ -17,8 +17,10 @@ export const moralisParams = {
 const axios = require('axios')
 export const getFromParams = async () => {
     const {from} = store.getState().general
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-
+    let provider
+    try{
+        provider = new ethers.providers.Web3Provider(window.ethereum)
+    }catch(err) {}
     console.log(from ,'123983298312892')
     if(from === 'Ethereum') {
         return {

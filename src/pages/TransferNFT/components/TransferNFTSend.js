@@ -85,7 +85,12 @@ const TransferNFTSend = () => {
   }, [nft]);
 
   const send = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    let provider
+    try {
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+    } catch(err) {
+
+    }
     try {
       if (!loading && receiver && bnFee) {
         setError("");
@@ -97,11 +102,11 @@ const TransferNFTSend = () => {
               const factory = await getFactory()
               const fromChain = await factory.inner(fromChainConfig.Chain)
               const toChain = await factory.inner(toChainConfig.Chain)
-              console.log(JSON.stringify(fromChain), JSON.stringify(toChain))
               const signer = elrondWallet 
               ?  maiar ? maiar : ExtensionProvider.getInstance() 
               : tronWallet ? undefined
               : provider.getSigner(account)
+              console.log(signer, receiver)
               const txid = await factory.transferNft(
                 fromChain,
                 toChain,
