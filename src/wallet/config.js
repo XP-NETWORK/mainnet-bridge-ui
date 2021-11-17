@@ -29,7 +29,7 @@ export const ChainData = {
   },
   Tron: {
     provider: "TronWeb",
-    middleware_uri: "http://159.89.24.202:6644",
+    middleware_uri: "https://identifiytx.herokuapp.com",
     erc1155_addr: "TSg3nSjuSuVf5vEk6f2WwM9Ph8bEaNNz9B",
     minter_addr: "TMx1nCzbK7tbBinLh29CewahpbR1k64c8E",
     erc721_addr: "TGGePFKn3P8vcGwmupJM4VgwMBdh5KCi1K",

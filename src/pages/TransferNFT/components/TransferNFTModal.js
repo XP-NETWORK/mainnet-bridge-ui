@@ -30,7 +30,7 @@ import Warn from "../../../assets/img/3dwallet.png";
 import { TronLink } from "../../../wallet/tronlink";
 import { Address, ExtensionProvider, WalletConnectProvider, ProxyProvider } from "@elrondnetwork/erdjs"
 import { getAddEthereumChain } from "../../../wallet/chains";
-
+const TronWeb = require('tronweb')
 const TransferNFTModal = () => {
   const {
     connector,
@@ -56,6 +56,7 @@ const TransferNFTModal = () => {
   const [strQR, setStrQr] = useState('')
   const [qrCodeString, setQqrCodeString] = useState('')
 
+  const isMobile = window.innerWidth <= 600
 
   async function connect() {
         try {
@@ -149,7 +150,7 @@ const TransferNFTModal = () => {
 
   const onMaiar = async () => {
     setOnMaiarConnect(true)
-    const provider = new ProxyProvider( "https://gateway.elrond.com");
+    const provider = new ProxyProvider( "https://gateway.elrond.com")
     const maiarProvider = new WalletConnectProvider(provider, 'https://bridge.walletconnect.org/', onClientConnect);
       try {
         await maiarProvider.init()
@@ -182,17 +183,23 @@ const TransferNFTModal = () => {
   }
 
   async function connectTronlink() {
-      try {
-        const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
-        console.log(accounts)
-        if(accounts && accounts.code === 200) {
-          const publicAddress = window.tronWeb.defaultAddress.base58
-          dispatch(setTronWallet(publicAddress))
-          handleClose()
+      // if(!isMobile) {
+        try {
+          try {
+            const accounts = await window.tronWeb.request({ method: "tron_requestAccounts" });
+
+          } catch(err) {
+
+          }
+          if(window.tronLink && window.tronWeb.defaultAddress.base58) {
+            const publicAddress = window.tronWeb.defaultAddress.base58
+            dispatch(setTronWallet(publicAddress))
+            handleClose()
+          }
+        } catch(err) {
+            console.log(err)
         }
-      } catch(err) {
-          console.log(err)
-      }
+      // }
   }
   useEffect(() => {
     if(chainId && isConnectOpen) {
@@ -350,7 +357,9 @@ const TransferNFTModal = () => {
                 </Link>
               </li>
               {/* onClick={() => setOnMaiarConnect(true)} */}
-              <li onClick={() => onMaiar()}  style={isELROND ? {} : OFF}>
+              <li 
+              onClick={() => onMaiar()} 
+               style={isELROND  ? {} : OFF}>
                 <Link to="#">
                   {" "}
                   <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}

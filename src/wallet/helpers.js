@@ -18,12 +18,9 @@ const axios = require('axios')
 export const getFromParams = async () => {
     const {from} = store.getState().general
     let provider
-    try {
-        new ethers.providers.Web3Provider(window.ethereum)
-
-    }catch(err) {
-
-    }
+    try{
+        provider = new ethers.providers.Web3Provider(window.ethereum)
+    }catch(err) {}
 
     console.log(from ,'123983298312892')
     if(from === 'Ethereum') {
