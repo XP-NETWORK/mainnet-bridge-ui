@@ -278,7 +278,7 @@ const TransferNFTSend = () => {
             <button onClick={() => dispatch(setMaiarApprovePopUp(false))} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
             <div className="maiar--modal__header"><img src={maiarIcon} alt="Maiar Wallet Icon" /></div>
             <div className="maiar--modal__title">Confirm on Maiar Wallet</div>
-            <div className="maiar--modal__text">To continue transaction Xp.Network requires confirmation on Maiar wallet.</div>
+            <div className="maiar--modal__text">To continue transaction Xp.network requires confirmation on Maiar wallet.</div>
           </div>
         </Modal.Body>
       </Modal>

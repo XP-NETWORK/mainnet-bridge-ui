@@ -275,7 +275,7 @@ const TransferNFTModal = () => {
           <div className="tron--modal__link">
               <div className="link__items">
                   <div className="link__address">https://bridge.xp.network</div>
-                <CopyToClipboard onCopy={() => console.log("dsfgdgdf")} text={"Ruby egzh ezgh"}>
+                <CopyToClipboard onCopy={() => console.log("dsfgdgdf")} text={"https://bridge.xp.network"}>
                   <div className="copyIcon"><img src={fileCopy} /></div>
                 </CopyToClipboard>
               </div>

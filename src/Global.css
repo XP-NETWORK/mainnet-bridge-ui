@@ -3066,6 +3066,15 @@ span.backBtn img {
   text-align: center;
 }
 
+.maiar--modal__header{
+  width: 130px;
+  margin-bottom: 20px;
+}
+
+.maiar--modal__header img{
+  width: 100%;
+}
+
 .maiar--popup div{
   display: flex;
   align-items: center;
@@ -3075,7 +3084,7 @@ span.backBtn img {
 .maiar--popup .modal-content{
   top: 50px;
   width: 365px !important;
-  height: 328px !important;
+  height: 290px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
