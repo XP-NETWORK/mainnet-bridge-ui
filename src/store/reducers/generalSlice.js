@@ -15,6 +15,9 @@ const generalSlice = createSlice({
     setMaiarApprovePopUp(state, action){
     state.maiarPopUp = action.payload
     },
+    setTronPopUp(state, action){
+      state.tronPopUp = action.payload
+    },
     setFrom(state, action) {
       state.from = action.payload;
     },
@@ -86,7 +89,8 @@ export const { toggleNFTInfo,
     toggleError,
     toggleDisconnect,
     setIsMaiar,
-    setMaiarApprovePopUp
+    setMaiarApprovePopUp,
+    setTronPopUp
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

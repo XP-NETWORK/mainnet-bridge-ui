@@ -18864,7 +18864,7 @@ xmlhttprequest@*, xmlhttprequest@1.8.0:
     xpnet-nft-list "0.2.5"
     xpnet-web3-contracts "git+https://github.com/xp-network/XP.network-HECO-Migration#dist"
 
-xpnet-nft-list@0.2.5, xpnet-nft-list@^0.2.2:
+xpnet-nft-list@0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/xpnet-nft-list/-/xpnet-nft-list-0.2.5.tgz#edb59705d468702ff9c2835cf31af39f886090fa"
   integrity sha512-w8d+Q8u9yHMKgZbuXu1FkMtveDAIs15rGFGY6QW6S/xucKfyXYf+k5O4g3RvextGGr1lDYwJVr+cblCY709Rwg==
