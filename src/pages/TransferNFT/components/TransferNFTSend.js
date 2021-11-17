@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Image } from "react-bootstrap";
+import { Image, Modal } from "react-bootstrap";
 import selectnft_5 from "../../../assets/img/selectnft/selectnft_5.png";
 import { ethers } from "ethers";
 import InfG from "../../../assets/img/icons/InfG.svg";
@@ -19,13 +19,14 @@ import {
   setSuccess,
   toggleError,
   toggleNFTInfoOnlyDetails,
+  setMaiarApprovePopUp
 } from "../../../store/reducers/generalSlice";
 import { chains, chainsConfig } from "./values";
 import { ChainFactory, web3HelperFactory } from "xp.network";
 import { ChainData } from "../../../wallet/config";
 import { Chain } from "xp.network/dist/consts";
 import { useWeb3React } from "@web3-react/core";
-
+import maiarIcon from "../../../assets/images/maiarIcon.png";
 import {
   getFromParams,
   getRPCFactory,
@@ -51,6 +52,7 @@ const TransferNFTSend = () => {
   const { nft, to, from, elrondWallet, tronWallet, maiar } = useSelector(
     (s) => s.general
   );
+  const maiarPopUp = useSelector(state => state.general.maiarPopUp)
   const { account, library } = useWeb3React();
   const [error, setError] = useState();
   const [loadingApproval, setLoadingApproval] = useState();
@@ -140,6 +142,14 @@ const TransferNFTSend = () => {
 
   useEffect(async () => {}, []);
 
+  const checkMaiarPopUp = () => {
+    // debugger
+    if(window.innerWidth <= 600 && from === "Elrond"){
+      dispatch(setMaiarApprovePopUp(true))
+      console.log("maiarApprovePopUp", maiarPopUp);
+    }
+  }
+
   const estimate = async () => {
     try {
 
@@ -193,24 +203,22 @@ const TransferNFTSend = () => {
       } else {
         setLoadingApproval(true);
         try {
+          dispatch(setMaiarApprovePopUp(true))
           const factory = await getFactory();
           const fromChain = await factory.inner(fromChainConfig.Chain);
-          console.log("factory", factory);
-          console.log("fromChain", fromChain);
           const toChain = await factory.inner(toChainConfig.Chain);
           const signer = maiar ? maiar : ExtensionProvider.getInstance();
+          checkMaiarPopUp()
           const bign = bnFee.decimalPlaces(0).toString();
-          console.log(signer, 'this is signer')
           try {
             clearInterval(estimateInterval)
-  
+          
           } catch(err) {
             console.log(err)
           }
-          console.log(signer, bign)
           const swap = await fromChain.doEgldSwap(signer, bign)
-          console.log(swap, '2132130123010')
           setIsApproved(true);
+          dispatch(setMaiarApprovePopUp(false))
           setLoadingApproval(false);
         } catch (err) {
           setLoadingApproval(false);
@@ -218,7 +226,6 @@ const TransferNFTSend = () => {
         }
       }
     }
-
   };
 
   const isApprovedForMinter = async () => {
@@ -247,7 +254,6 @@ const TransferNFTSend = () => {
   };
 
   const blockchain = chains.filter((n) => n.text === to)[0];
-
   const cont = contract
     ? `${contract.substring(0, 10)}...${contract.substring(
         contract.length - 8
@@ -256,6 +262,26 @@ const TransferNFTSend = () => {
 
   return (
     <div className="crossChainTab sendNFTBox">
+      {/* { maiarPopUp ? 
+        <div className="maiar__approve__popUp">
+          <div>Go tosdfcsdfsdfsdfsdf maiar</div>
+        </div>
+        :
+        null
+      } */}
+      <Modal
+      className="maiar--popup"
+      show={maiarPopUp}>
+        <Modal.Body>
+          <div className="maiar--modal__body">
+            {/* <div className="maiar--modal__close">&#x2715;</div> */}
+            <button onClick={() => dispatch(setMaiarApprovePopUp(false))} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
+            <div className="maiar--modal__header"><img src={maiarIcon} alt="Maiar Wallet Icon" /></div>
+            <div className="maiar--modal__title">Confirm on Maiar Wallet</div>
+            <div className="maiar--modal__text">To continue transaction Xp.Network requires confirmation on Maiar wallet.</div>
+          </div>
+        </Modal.Body>
+      </Modal>
       <div className="tabTitle arrowTitle">
         <span
           className=""

@@ -3041,3 +3041,46 @@ span.backBtn img {
 .maiar__button:hover{
   cursor: pointer;
 }
+
+.maiar--modal__body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.maiar--modal__body .close{
+  align-self: flex-end;
+}
+
+.maiar--modal__header{
+
+}
+
+.maiar--modal__title{
+  font-size: 18px;
+  font-weight: 600;
+  color: #040D28;
+  line-height: 22.68px;
+}
+
+.maiar--modal__text{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25.6px;
+  text-align: center;
+}
+
+.maiar--popup div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maiar--popup .modal-content{
+  top: 50px;
+  width: 365px !important;
+  height: 328px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
