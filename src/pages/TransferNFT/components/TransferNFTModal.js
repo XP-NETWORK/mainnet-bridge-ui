@@ -260,7 +260,7 @@ const TransferNFTModal = () => {
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   return (
     <>
-      <Modal show={tronPopUp} className="tron--modal">
+      <Modal show={tronPopUp} onHide={() => dispatch(setTronPopUp(false))} className="tron--modal">
         <Modal.Body>
           <button onClick={() => dispatch(setTronPopUp(false))} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
           <div className="tron--modal__body">
