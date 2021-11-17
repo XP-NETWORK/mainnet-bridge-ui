@@ -220,7 +220,7 @@ const TransferNFTSend = () => {
     }
 
   };
-
+//
   const isApprovedForMinter = async () => {
     setLoadingPreCheckApproved(true);
     if (isEVM()) {
