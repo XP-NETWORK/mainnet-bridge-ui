@@ -360,13 +360,37 @@ const TransferNFTModal = () => {
               </h3>
             </div>
             <ul className="selsectBridge">
+              {/* MetaMask */}
               <li onClick={connect} style={isEVM() ? {} : OFF}>
                 <Link to="">
                   {" "}
                   <Image src={MetaMask} /> MetaMask{" "}
                 </Link>
               </li>
-
+              {/* WalletConnect */}
+              <li onClick={() => onWalletConnect()} style={isEVM() ? {} : OFF}>
+                <Link to="#">
+                  {" "}
+                  <Image src={WalletConnect} /> WalletConnect{" "}
+                </Link>
+              </li>
+              {/* Maiar*/}
+              <li 
+              onClick={() => onMaiar()} 
+               style={isELROND  ? {} : OFF}>
+                <Link to="#">
+                  {" "}
+                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
+                </Link>
+              </li>
+              {/* Tron */}
+              <li onClick={connectTronlink} style={isTronLink() ? {} : OFF}>
+                <Link to="">
+                  {" "}
+                  <Image className="tronlink-icon-wallet" src={TronLinkIcon} /> TronLink
+                </Link>
+              </li>
+              {/* ELROND */}
               <li className="" style={isELROND ? {} : OFF} onClick={connectToElrond}>
                 <Link to="#">
                   {" "}
@@ -376,33 +400,15 @@ const TransferNFTModal = () => {
                   Elrond Wallet{" "}
                 </Link>
               </li>
-              <li onClick={connectTronlink} style={isTronLink() ? {} : OFF}>
-                <Link to="">
-                  {" "}
-                  <Image className="tronlink-icon-wallet" src={TronLinkIcon} /> TronLink
-                </Link>
-              </li>
+              {/* Trezor */}
               <li style={{ opacity: 0.6, pointerEvents: "none" }}>
                 <Link to="#">
                   {" "}
                   <Image src={Trezor} /> Trezor{" "}
                 </Link>
               </li>
-              <li onClick={() => onWalletConnect()} style={isEVM() ? {} : OFF}>
-                <Link to="#">
-                  {" "}
-                  <Image src={WalletConnect} /> WalletConnect{" "}
-                </Link>
-              </li>
-              {/* onClick={() => setOnMaiarConnect(true)} */}
-              <li 
-              onClick={() => onMaiar()} 
-               style={isELROND  ? {} : OFF}>
-                <Link to="#">
-                  {" "}
-                  <Image className="tronlink-icon-wallet" src={maiarIcon} /> Maiar{" "}
-                </Link>
-              </li>
+              
+              
             </ul>
           </div>}
         </Modal.Body>
