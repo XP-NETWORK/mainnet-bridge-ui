@@ -207,6 +207,11 @@ const TransferNFTModal = () => {
     }
   }
 
+  const handleTronClose = () => {
+    dispatch(setTronPopUp(false))
+    setCopyClicked(false)
+  }
+
   useEffect(() => {
     if(chainId && isConnectOpen) {
         const chainsMatch = chainId === fromConfig.chainId
@@ -262,9 +267,9 @@ const TransferNFTModal = () => {
   const OFF = { opacity: 0.6, pointerEvents: "none" };
   return (
     <>
-      <Modal show={tronPopUp} onHide={() => dispatch(setTronPopUp(false))} className="tron--modal">
+      <Modal show={tronPopUp} onHide={() => handleTronClose()} className="tron--modal">
         <Modal.Body>
-          <button onClick={() => dispatch(setTronPopUp(false))} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
+          <button onClick={() => handleTronClose()} type="button" className="close" data-dismiss="modal" aria-label="Close">&#x2715;</button>
           <div className="tron--modal__body">
           <div className="tron--modal__header"><img src={tronPopUpIcon} alt="Tron Popup Icon" /></div>
           <div className="tron--modal__title">To continue bridging:</div>
