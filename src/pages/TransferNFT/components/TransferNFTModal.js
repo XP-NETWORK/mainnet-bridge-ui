@@ -10,6 +10,7 @@ import Ledger from "../../../assets/img/icons/lefger.svg";
 import MetaMask from "../../../assets/img/icons/MetaMask.svg";
 import TronLinkIcon from "../../../assets/images/tronlinkpro.png";
 import tronPopUpIcon from  "../../../assets/images/tronPopUp.png"
+import copied from "../../../assets/images/Copied.svg"
 import Trezor from "../../../assets/img/icons/trezor.svg";
 import WalletConnect from "../../../assets/img/icons/WalletConnect.svg";
 import WalletConnect2 from "../../../assets/img/icons/WalletConnect2.svg";
@@ -59,6 +60,7 @@ const TransferNFTModal = () => {
   const [strQR, setStrQr] = useState('')
   const [qrCodeString, setQqrCodeString] = useState('')
   const tronPopUp = useSelector(state => state.general.tronPopUp)
+  const [copyClicked, setCopyClicked] = useState(false)
 
   async function connect() {
         try {
@@ -275,8 +277,13 @@ const TransferNFTModal = () => {
           <div className="tron--modal__link">
               <div className="link__items">
                   <div className="link__address">https://bridge.xp.network</div>
-                <CopyToClipboard onCopy={() => console.log("dsfgdgdf")} text={"https://bridge.xp.network"}>
-                  <div className="copyIcon"><img src={fileCopy} /></div>
+                  { copyClicked ?
+                    <img className="tron__copied" src={copied} />
+                    :
+                    null
+                  }
+                <CopyToClipboard text={"https://bridge.xp.network"}>
+                  <div onClick={()=> setCopyClicked(true)}  className="copyIcon"><img src={fileCopy} /></div>
                 </CopyToClipboard>
               </div>
           </div>

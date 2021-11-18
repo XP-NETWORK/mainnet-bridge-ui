@@ -3157,6 +3157,11 @@ span.backBtn img {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  position: relative;
 }
 
-
+.tron__copied{
+  position: absolute;
+  right: -5px;
+  top: -40px;
+}
